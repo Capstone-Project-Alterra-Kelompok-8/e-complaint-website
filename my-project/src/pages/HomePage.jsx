@@ -1,7 +1,7 @@
 const HomePage = () => {
   return (
     <div>
-      Ini HomePage
+      Ini HomePage, mau ditambah footer
     </div>
   )
 }
