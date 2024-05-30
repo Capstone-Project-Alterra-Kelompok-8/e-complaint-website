@@ -2,13 +2,15 @@
 
 import HeaderNavigation from './components/HeaderNavigation/HeaderNavigation.jsx'
 import Hero from './components/hero/Hero.jsx'
+import Footer from './components/Footer/Footer.jsx'
 
 function App() {
 
   return (
     <main>
       <HeaderNavigation />
-      <Hero></Hero>
+      <Hero/>
+      <Footer/>
     </main>
   )
 }
