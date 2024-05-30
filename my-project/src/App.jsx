@@ -8,7 +8,7 @@ function App() {
   return (
     <main>
       <HeaderNavigation />
-      <Hero></Hero>
+      <Hero />
     </main>
   )
 }
