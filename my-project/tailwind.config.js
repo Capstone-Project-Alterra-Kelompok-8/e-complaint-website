@@ -12,10 +12,12 @@ export default {
         poppins: ["Poppins", "sans-serif"],
       },
       colors: {
-        "main-color": "#FACC15",
-        darker: "#EAB308",
-        lighter: "#FEF08A",
-        subtle: "#FDE047",
+        'main': {
+          color: "#FACC15",
+          darker: "#EAB308",
+          lighter: "#FEF08A",
+          subtle: "#FDE047",
+        },
         error: {
           1: "#F87171",
           2: "#EF4444",
@@ -59,7 +61,7 @@ export default {
     require("daisyui"),
   ],
   daisyui: {
-    themes: false,
+    themes: ["light"],
     utils: true,
     prefix: "",
   },
