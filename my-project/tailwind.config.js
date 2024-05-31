@@ -10,7 +10,6 @@ export default {
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],
-        roboto: ["Roboto", "sans-serif"]
       },
       colors: {
         "main-color": "#FACC15",
