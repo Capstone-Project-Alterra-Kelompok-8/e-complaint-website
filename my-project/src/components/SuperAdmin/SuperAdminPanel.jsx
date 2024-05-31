@@ -11,7 +11,7 @@ function SuperAdminPanel() {
                 className="bg-main-color text-white p-3 rounded-lg hover:bg-main-darker">User</Link>
                 <Link
                 to="/super-admin/admin"
-                className="border border-main-color text-main-color p-3 rounded-lg hover:border-none hover:bg-main-color hover:text-white">Admin</Link>
+                className="border border-main-color text-main-color p-3 rounded-lg hover:bg-main-color hover:text-white">Admin</Link>
             </section>
         </main>
     )
