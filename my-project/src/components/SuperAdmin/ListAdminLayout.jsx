@@ -6,7 +6,7 @@ function ListAdminLayout() {
             <section>
                 <button type="button" className="flex bg-main-color py-2 pl-4 pr-6 rounded-md mb-4 hover:bg-main-darker">
                     <PlusIcon className="size-6 text-blue-500" />
-                    <p>Add/Create</p>
+                    <p className="font-medium">Add/Create</p>
                 </button>
             </section>
             <div className='w-full overflow-x-auto'>
