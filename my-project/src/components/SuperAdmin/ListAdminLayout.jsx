@@ -1,6 +1,30 @@
 import { PlusIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
 
 function ListAdminLayout() {
+    const [dataAllAdmin, setDataAllAdmin] = useState([])
+
+    async function FecthDataAllAdmin() {
+        const response = await axios.get('https://capstone-dev.mdrizki.my.id/api/v1/admins', {
+            method: 'GET',
+            headers: {
+                Accept: '*/*',
+                'Accept-Encoding': 'gzip, deflate, br',
+                Connection: 'keep-alive',
+                Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InN1cGVyX2FkbWluIiwicm9sZSI6InN1cGVyX2FkbWluIiwiZXhwIjoxNzE3MzIwMTA5fQ.s-1ILIoFHH365vv7o5-PDSLxlPEaMfbZ0NbnLVUI-5k'
+            },
+        })
+        setDataAllAdmin(response.data)
+    }
+
+    useEffect(() => {
+        FecthDataAllAdmin()
+    }, [])
+
+
+    console.log(dataAllAdmin);
+
     return (
         <main className="w-full bg-[#E2E2E2]">
             <section>
@@ -21,34 +45,22 @@ function ListAdminLayout() {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr className='text-black bg-transparent text-center'>
-                            <td className='py-2 font-bold'>1</td>
-                            <td className='py-2'>Ahmad Saputro</td>
-                            <td className='py-2'>Ahmad453@gmail.com</td>
-                            <td className='py-2'>Abcd342</td>
-                            <td className='flex gap-2 justify-center py-2'>
-                                <button>
-                                    <PencilSquareIcon className="size-6 text-blue-500" />
-                                </button>
-                                <button>
-                                    <TrashIcon className="size-6 text-red-500" />
-                                </button>
-                            </td>
-                        </tr>
-                        <tr className='text-black bg-transparent text-center'>
-                            <td className='py-2 font-bold'>2</td>
-                            <td className='py-2'>Ahmad Saputro</td>
-                            <td className='py-2'>Ahmad453@gmail.com</td>
-                            <td className='py-2'>Abcd342</td>
-                            <td className='flex gap-2 justify-center py-2'>
-                                <button>
-                                    <PencilSquareIcon className="size-6 text-blue-500" />
-                                </button>
-                                <button>
-                                    <TrashIcon className="size-6 text-red-500" />
-                                </button>
-                            </td>
-                        </tr>
+                        {dataAllAdmin.map((admins, index) => {
+                            <tr className='text-black bg-transparent text-center' key={index}>
+                                <td className='py-2 font-bold'>{index}</td>
+                                <td className='py-2'>{admins.name}</td>
+                                <td className='py-2'>{admins.email}</td>
+                                <td className='py-2'>{admins.password}</td>
+                                <td className='flex gap-2 justify-center py-2'>
+                                    <button>
+                                        <PencilSquareIcon className="size-6 text-blue-500" />
+                                    </button>
+                                    <button>
+                                        <TrashIcon className="size-6 text-red-500" />
+                                    </button>
+                                </td>
+                            </tr>
+                        })}
                     </tbody>
                 </table>
             </div>
