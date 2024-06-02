@@ -1,29 +1,33 @@
-import { PlusIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline'
-import { useEffect, useState } from 'react'
-import axios from 'axios'
+import React, { useState, useEffect } from 'react';
+import { PlusIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 function ListAdminLayout() {
-    const [dataAllAdmin, setDataAllAdmin] = useState([])
-
-    async function FecthDataAllAdmin() {
-        const response = await axios.get('https://capstone-dev.mdrizki.my.id/api/v1/admins', {
-            method: 'GET',
-            headers: {
-                Accept: '*/*',
-                'Accept-Encoding': 'gzip, deflate, br',
-                Connection: 'keep-alive',
-                Authorization: 'Bearer ' + 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6InN1cGVyX2FkbWluIiwicm9sZSI6InN1cGVyX2FkbWluIiwiZXhwIjoxNzE3MzIwMTA5fQ.s-1ILIoFHH365vv7o5-PDSLxlPEaMfbZ0NbnLVUI-5k'
-            },
-        })
-        setDataAllAdmin(response.data)
-    }
+    const [admin, setAdmin] = useState([]);
 
     useEffect(() => {
-        FecthDataAllAdmin()
-    }, [])
+        fetchAdmin();
+    }, []);
 
+    const fetchAdmin = async () => {
+        try {
+            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/admins', { // Ganti dengan URL API yang benar
+                method: 'GET',
+                headers: {
+                    'Authorization': `Bearer ${import.meta.env.jwt}`,
+                    'Content-Type': 'application/json'
+                }
+            });
 
-    console.log(dataAllAdmin);
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            const data = await response.json();
+            setAdmin(data);
+        } catch (error) {
+            console.error('Error fetching admins:', error);
+        }
+    };
 
     return (
         <main className="w-full bg-[#E2E2E2]">
@@ -45,12 +49,12 @@ function ListAdminLayout() {
                         </tr>
                     </thead>
                     <tbody>
-                        {dataAllAdmin.map((admins, index) => {
-                            <tr className='text-black bg-transparent text-center' key={index}>
-                                <td className='py-2 font-bold'>{index}</td>
+                        {admin.map((admins, index) => (
+                            <tr key={admins.id} className='text-black bg-transparent text-center'>
+                                <td className='py-2 font-bold'>{index + 1}</td>
                                 <td className='py-2'>{admins.name}</td>
                                 <td className='py-2'>{admins.email}</td>
-                                <td className='py-2'>{admins.password}</td>
+                                <td className='py-2'>••••••••</td>
                                 <td className='flex gap-2 justify-center py-2'>
                                     <button>
                                         <PencilSquareIcon className="size-6 text-blue-500" />
@@ -60,12 +64,12 @@ function ListAdminLayout() {
                                     </button>
                                 </td>
                             </tr>
-                        })}
+                        ))}
                     </tbody>
                 </table>
             </div>
         </main>
-    )
+    );
 }
 
-export default ListAdminLayout
+export default ListAdminLayout;
