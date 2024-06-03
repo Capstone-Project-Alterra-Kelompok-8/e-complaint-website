@@ -7,11 +7,11 @@ function SuperAdminPanel() {
             <section 
             className="flex row gap-4">
                 <Link
-                to="/super-admin/user"
-                className="bg-main-color text-white p-3 rounded-lg hover:bg-main-darker font-montserrat">User</Link>
-                <Link
                 to="/super-admin/admin"
-                className="border border-main-color text-main-color p-3 rounded-lg hover:bg-main-color hover:text-white font-montserrat">Admin</Link>
+                className="bg-main-color text-white p-3 rounded-lg hover:bg-main-darker font-montserrat">Admin</Link>
+                <Link
+                to="/super-admin/user"
+                className="border border-main-color text-main-color p-3 rounded-lg hover:bg-main-color hover:text-white font-montserrat">User</Link>
             </section>
         </main>
     )
