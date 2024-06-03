@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { PlusIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 
 function ListAdminLayout() {
@@ -13,8 +13,8 @@ function ListAdminLayout() {
             const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/admins', { // Ganti dengan URL API yang benar
                 method: 'GET',
                 headers: {
-                    'Authorization': `Bearer ${import.meta.env.jwt}`,
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${import.meta.env.jwt}`
                 }
             });
 
@@ -33,8 +33,8 @@ function ListAdminLayout() {
         <main className="w-full bg-[#E2E2E2]">
             <section>
                 <button type="button" className="flex bg-main-color py-2 pl-4 pr-6 rounded-md mb-4 hover:bg-main-darker">
-                    <PlusIcon className="size-6 text-blue-500" />
-                    <p className="font-medium">Add/Create</p>
+                    <PlusIcon className="size-6 text-black" />
+                    <p className="font-medium text-black">Add/Create</p>
                 </button>
             </section>
             <div className='w-full overflow-x-auto'>
