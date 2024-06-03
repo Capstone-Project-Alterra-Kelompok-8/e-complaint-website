@@ -15,7 +15,6 @@ function ListAdminLayout() {
                 headers: {
                     'Content-Type': 'application/json',
                     'Authorization': `Bearer ${import.meta.env.VITE_JWT}`
-                    // 'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmFtZSI6IlN1cGVyIEFkbWluIiwicm9sZSI6InN1cGVyX2FkbWluIiwiZXhwIjoxNzE3NDkyMjI0fQ.-G85ctuYkb7UNIM03ou8VNkYMaSdsgJKA3ZefDRUxus`
                 }
             });
 
