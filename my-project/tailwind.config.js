@@ -3,7 +3,8 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/flowbite/**/*.js",
+    'node_modules/flowbite-react/lib/esm/**/*.js'
+,
   ],
   theme: {
     extend: {
@@ -56,7 +57,7 @@ export default {
   // eslint-disable-next-line no-undef
   plugins: [
     // eslint-disable-next-line no-undef
-    require("flowbite/plugin"),
+    require('flowbite/plugin'),
     // eslint-disable-next-line no-undef
     require("daisyui"),
   ],
