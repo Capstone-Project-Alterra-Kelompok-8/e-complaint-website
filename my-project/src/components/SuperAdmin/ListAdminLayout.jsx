@@ -10,7 +10,7 @@ function ListAdminLayout() {
 
     const fetchAdmin = async () => {
         try {
-            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/admins', { // Ganti dengan URL API yang benar
+            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/admins', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
