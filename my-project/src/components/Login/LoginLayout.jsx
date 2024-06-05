@@ -1,45 +1,19 @@
 import menara from '../../assets/menara.png';
 import logo from '../../assets/logo.png';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
 
 export default function Login() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [errorLogin, setErrorLogin] = useState(false);
-    const [adminData, setAdminData] = useState([]);
     const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
 
-    const fetchAdmin = async () => {
-        try {
-            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/admins', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${import.meta.env.VITE_JWT}`
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setAdminData(data.data);
-        } catch (error) {
-            console.error('Error fetching user data:', error);
-        }
-    };
-
-    useEffect(() => {
-        fetchAdmin();
-    }, []);
-
     const handleLogin = async (event) => {
         event.preventDefault();
-    
+
         try {
             const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/admins/login', {
                 method: 'POST',
@@ -48,30 +22,30 @@ export default function Login() {
                 },
                 body: JSON.stringify({ email, password })
             });
-    
+
             if (!response.ok) {
                 throw new Error('Login failed');
             }
-    
+
             const data = await response.json();
-    
+            const datastatusloginAdmin = data.data;
+            console.log(datastatusloginAdmin);
+            console.log(datastatusloginAdmin.is_super_admin)
             // Simpan status login dan token ke Session Storage
             sessionStorage.setItem('isLoggedIn', true);
-            sessionStorage.setItem('token', data.data.token);
-    
-            // Temukan admin dengan email yang cocok
-            const admin = adminData.find(admin => admin.email === email && admin.password === password);
-    
-            // Redirect atau lakukan operasi lain setelah berhasil login
-            if (admin && adminData.is_super_admin === true) {
+            sessionStorage.setItem('token', datastatusloginAdmin.token);
+
+            // Redirect atau lakukan operasi lain setelah berhasil login sesuai role
+            if (datastatusloginAdmin.is_super_admin === true) {
+                console.log("super admin ", datastatusloginAdmin.is_super_admin);
                 sessionStorage.setItem('isSuperAdmin', true);
                 navigate("/super-admin/admin");
-            } else if (admin && adminData.is_super_admin === false) {
+            } else if (datastatusloginAdmin.is_super_admin === false) {
+                console.log("admin biasa ", datastatusloginAdmin.is_super_admin);
                 sessionStorage.setItem('isSuperAdmin', false);
-                navigate("/Dashboard");
+                navigate("/dashboard");
             }
         } catch (error) {
-            console.error('Error:', error.message);
             setErrorLogin(true); // Mengatur errorLogin menjadi true saat login gagal
         }
     };
