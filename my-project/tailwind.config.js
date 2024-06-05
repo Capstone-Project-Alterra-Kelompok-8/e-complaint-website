@@ -44,6 +44,7 @@ export default {
           2: "#1F2937",
           3: "#6B7280",
           4: "#C7C9D9",
+          5: "#A2C3E7;" // dari daffa
         },
         light: {
           1: "#DDE5E9",
