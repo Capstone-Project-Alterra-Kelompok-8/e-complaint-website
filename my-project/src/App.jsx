@@ -2,6 +2,7 @@
 
 import HeaderNavigation from './components/HeaderNavigation/HeaderNavigation.jsx'
 import Hero from './components/hero/Hero.jsx'
+import Benefit from './components/Benefit/Benefit.jsx'
 
 function App() {
 
@@ -9,6 +10,7 @@ function App() {
     <main>
       <HeaderNavigation />
       <Hero />
+      <Benefit/>
     </main>
   )
 }
