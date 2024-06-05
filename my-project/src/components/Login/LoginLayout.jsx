@@ -67,7 +67,7 @@ export default function Login() {
                 navigate("/super-admin/admin");
             } else if (admin.is_super_admin === false) {
                 sessionStorage.setItem('isSuperAdmin', false);
-                navigate("/Dashboard");
+                navigate("/dashboard");
             }
         } catch (error) {
             setErrorLogin(true); // Mengatur errorLogin menjadi true saat login gagal
