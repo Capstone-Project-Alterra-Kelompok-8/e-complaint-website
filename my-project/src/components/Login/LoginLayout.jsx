@@ -60,18 +60,16 @@ export default function Login() {
             sessionStorage.setItem('token', data.data.token);
     
             // Temukan admin dengan email yang cocok
-            const admin = adminData.find(admin => admin.email === email && admin.password === password);
-    
+            const admin = adminData.find(admin => admin.email === email);
             // Redirect atau lakukan operasi lain setelah berhasil login
-            if (admin && adminData.is_super_admin === true) {
+            if (admin.is_super_admin === true) {
                 sessionStorage.setItem('isSuperAdmin', true);
                 navigate("/super-admin/admin");
-            } else if (admin && adminData.is_super_admin === false) {
+            } else if (admin.is_super_admin === false) {
                 sessionStorage.setItem('isSuperAdmin', false);
                 navigate("/Dashboard");
             }
         } catch (error) {
-            console.error('Error:', error.message);
             setErrorLogin(true); // Mengatur errorLogin menjadi true saat login gagal
         }
     };
