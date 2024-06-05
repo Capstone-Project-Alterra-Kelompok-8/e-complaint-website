@@ -51,6 +51,7 @@ export default {
           2: "#EBEBF0",
           3: "#F2F2F5",
           4: "#FAFAFC",
+          5: "#E2E2E2", // dari daffa
         },
       },
     },
