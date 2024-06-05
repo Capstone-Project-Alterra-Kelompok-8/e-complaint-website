@@ -11,6 +11,9 @@ import {
   TablePagination,
   TextField,
   Paper,
+  Modal,
+  Backdrop,
+  Fade,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -22,6 +25,8 @@ const ListComplaint = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredComplaints, setFilteredComplaints] = useState([]);
+  const [open, setOpen] = useState(false);
+  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
     fetchComplaints();
@@ -53,7 +58,9 @@ const ListComplaint = () => {
       (complaint) =>
         complaint.user.name.toLowerCase().includes(value) ||
         complaint.category.name.toLowerCase().includes(value) ||
-        complaint.status.toLowerCase().includes(value)
+        complaint.status.toLowerCase().includes(value) || 
+        complaint.regency.name.toLowerCase().includes(value) ||
+        complaint.type.toLowerCase().includes(value)
     );
     setFilteredComplaints(filtered);
   };
@@ -65,6 +72,18 @@ const ListComplaint = () => {
   const handleChangeRowsPerPage = (event) => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+    setSelectedImage("");
+  };
+
+  const handleOpen = (imagePath) => {
+    setSelectedImage(
+      `https://storage.googleapis.com/e-complaint-assets/${imagePath}`
+    );
+    setOpen(true);
   };
 
   return (
@@ -117,7 +136,9 @@ const ListComplaint = () => {
                           width: "50px",
                           height: "50px",
                           objectFit: "cover",
+                          cursor: "pointer",
                         }}
+                        onClick={() => handleOpen(complaint.files[0].path)}
                       />
                     ) : (
                       "No Image"
@@ -153,6 +174,40 @@ const ListComplaint = () => {
           onRowsPerPageChange={handleChangeRowsPerPage}
           className="font-poppins"
         />
+
+        <Modal
+          open={open}
+          onClose={handleClose}
+          closeAfterTransition
+          BackdropComponent={Backdrop}
+          BackdropProps={{
+            timeout: 500,
+          }}
+        >
+          <Fade in={open}>
+            <Box
+              sx={{
+                position: "absolute",
+                top: "50%",
+                left: "50%",
+                transform: "translate(-50%, -50%)",
+                width: "80%",
+                bgcolor: "background.paper",
+                boxShadow: 24,
+                p: 4,
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <img
+                src={selectedImage}
+                alt="Complaint Detail"
+                style={{ maxWidth: "100%", maxHeight: "80vh" }}
+              />
+            </Box>
+          </Fade>
+        </Modal>
       </TableContainer>
     </Box>
   );
