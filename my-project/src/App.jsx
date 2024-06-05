@@ -1,4 +1,4 @@
-import Sidebar from './components/Layouts/sidebar.jsx';
+import Sidebar from './Layouts/sidebar.jsx';
 // import Progress from './pages/Progress.jsx';
 
 function App() {
