@@ -6,18 +6,18 @@ import redDots from '../../assets/red-dots.png';
 
 function Footer() {
     return (
-        <div className="bg-main-color w-full flex gap-44">
+        <div className="bg-main-color w-full flex flex-col md:flex-row gap-12 md:gap-44 relative">
             <div className="flex flex-col items-start">
-                <div className=" w-60 h-40 bg-neutral-50 rounded-r-[50px] flex items-center">
+                <div className="w-52 h-40 bg-neutral-50 rounded-r-[70px] flex justify-start ps-2 items-center">
                     <img src={logo2} alt="logo" className="absolute" />
                 </div>
-                <div className="justify-start mt-6 ml-5 mb-12">
+                <div className="justify-start mt-6 ml-0 md:ml-5 mb-12">
                     <h1 className="text-neutral-900 text-3xl font-bold font-['Poppins'] mb-6">Keluh Prov</h1>
-                    <p className="w-96 text-neutral-900 text-xl font-['Poppins'] leading-loose">Keluh Provinsi adalah aplikasi/website aduan masyarakat kepada pemerintah terkait masalah yang ada dimasyarakat, seperti layanan publik, fasilitas publik, dan lainnya</p>
+                    <p className="w-full md:w-96 text-neutral-900 text-xl font-['Poppins'] leading-loose">Keluh Provinsi adalah aplikasi/website aduan masyarakat kepada pemerintah terkait masalah yang ada dimasyarakat, seperti layanan publik, fasilitas publik, dan lainnya</p>
                 </div>
             </div>
 
-            <div className="mt-28">
+            <div className="mt-0 md:mt-28">
                 <h1 className="text-neutral-900 text-3xl font-bold font-['Poppins'] mb-5">Kanal Aduan</h1>
                 <div className="flex items-center mb-5 font-medium gap-2">
                     <FaInstagram className="text-neutral-900 font-bold text-2xl text-[41px]" />
@@ -37,7 +37,7 @@ function Footer() {
                 </div>
             </div>
 
-            <div className="mt-28">
+            <div className="mt-0 md:mt-28">
                 <h1 className="text-neutral-900 text-3xl font-bold font-['Poppins'] mb-5">Kontak Kami</h1>
                 <div className="flex items-center mb-5 gap-2">
                     <img src={logo3} alt="logo" />
@@ -49,11 +49,12 @@ function Footer() {
                 </div>
                 <div className="flex items-center mb-5 font-medium gap-5">
                     <FaMapMarkerAlt className="text-neutral-900 font-bold text-3xl text-[41px]" />
-                    <a href="#" className="text-neutral-900 text-xl font-medium font-['Poppins'] leading-tight tracking-tight">Jl. Garuda No.7, Ademsari, Semarang<br />Gula Jawa 12345 </a>
+                    <a href="#" className="text-neutral-900 text-xl font-medium font-['Poppins'] leading-tight tracking-tight">Jl. Garuda No.7, Ademsari, Semarang<br />Gula Jawa 12345</a>
+                    <img src={redDots} alt="pattern" className='absolute right-0 bottom-0' />
                 </div>
             </div>
-            <img src={redDots} alt="pattern" className='absolute right-0 bottom-[-450px]' />
         </div>
+
     )
 }
 
