@@ -6,11 +6,14 @@ import { LuNewspaper } from "react-icons/lu";
 import { TbFolderCog } from "react-icons/tb";
 import { IoLogOutOutline } from "react-icons/io5"
 import menara from '../assets/menara.png'
-import { Link } from 'react-router-dom'
+import { IoMdClose } from "react-icons/io";
+import { Link, useLocation} from 'react-router-dom'
+
 
 export default function Sidebar() {
     // Untuk logic 
     const [isOpen, setIsOpen] = useState(false);
+    const location = useLocation();
 
     const toggleSidebar = () => {
         setIsOpen(!isOpen);
@@ -19,6 +22,8 @@ export default function Sidebar() {
     const closeSidebar = () => {
         setIsOpen(false);
     }
+
+    const isActive = (path)=> location.pathname === path
     
     return (
         <div className='flex'>
@@ -45,53 +50,53 @@ export default function Sidebar() {
 
             {/* Backdrop */}
             {isOpen && (
-                <div
-                    className="fixed inset-0 bg-transparent opacity-50 z-10"
-                    onClick={closeSidebar}
-                ></div>
+                <div className='absolute top left-0 z-40'>
+                <IoMdClose  className='font-medium size-6' onClick={closeSidebar}/>
+                </div>
             )}
 
             {/* Sidebar */}
             <div className={`fixed h-svh w-72 bg-main-color flex flex-col justify-between overflow-y-hidden transition-transform transform 
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
                 <img src={logo} alt="logo" className='py-4 px-7' />
+                
                 <div className="button-groups px-4 flex flex-col gap-6 items-start justify-start">
-                    <Link to='/dashboard' className='rounded-md bg-white py-4 px-2.5 w-full'>
+                <Link to='/dashboard' className={`rounded-md py-4 px-2.5 w-full border-b border-black ${isActive('/dashboard') ? 'bg-white' : ''}`} onClick={closeSidebar}>
                         <div className="flex gap-2.5">
                             <LiaHomeSolid className="size-6 font-medium" />
                             <p className="text-black text-xl font-medium font-['Poppins'] leading-snug">Dashboard</p>
                         </div>
                     </Link>
 
-                    <Link to='/complaint' className='rounded-md py-4 px-2.5 w-full border-b border-black'>
+                    <Link to='/complaint' className={`rounded-md py-4 px-2.5 w-full border-b border-black ${isActive('/complaint') ? 'bg-white' : ''}`} onClick={closeSidebar}>
                         <div className="flex gap-2.5">
                             <img src={chatAdmin} alt="icons" className='w-6 h-6' />
                             <p className="text-black text-xl font-medium font-['Poppins'] leading-snug">Complaint</p>
                         </div>
                     </Link>
 
-                    <Link to='/chatpage' className='rounded-md py-4 px-2.5 w-full border-b border-black'>
+                    <Link to='/chat-user' className={`rounded-md py-4 px-2.5 w-full border-b border-black ${isActive('/chat-user') ? 'bg-white' : ''}`} onClick={closeSidebar}>
                         <div className="flex gap-2.5">
                             <img src={chatAdmin} alt="icons" className='w-6 h-6' />
                             <p className="text-black text-xl font-medium font-['Poppins'] leading-snug">ChatPage</p>
                         </div>
                     </Link>
 
-                    <Link to='/kategori' className='rounded-md py-4 px-2.5 w-full border-b border-black'>
+                    <Link to='/category' className={`rounded-md py-4 px-2.5 w-full border-b border-black ${isActive('/category') ? 'bg-white' : ''}`} onClick={closeSidebar}>
                         <div className="flex gap-2.5">
                             <TbFolderCog className="size-6 font-medium" />
                             <p className="text-black text-xl font-medium font-['Poppins'] leading-snug">Kategori</p>
                         </div>
                     </Link>
 
-                    <Link to='/berita' className='rounded-md py-4 px-2.5 w-full border-b border-black'>
+                    <Link to='/news' className={`rounded-md py-4 px-2.5 w-full border-b border-black ${isActive('/news') ? 'bg-white' : ''}`} onClick={closeSidebar}>
                         <div className="flex gap-2.5">
                             <LuNewspaper className="size-6 font-medium" />
                             <p className="text-black text-xl font-medium font-['Poppins'] leading-snug">Berita</p>
                         </div>
                     </Link>
 
-                    <Link to='/homepage' className='rounded-md py-4 px-2.5 w-full border-b border-black'>
+                    <Link to='/' className="rounded-md py-4 px-2.5 w-full border-b border-black" >
                         <div className="flex gap-2.5">
                             <IoLogOutOutline className='size-6' />
                             <p className="text-black text-xl font-medium font-['Poppins'] leading-snug">Keluar</p>
