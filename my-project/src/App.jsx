@@ -1,12 +1,10 @@
-import HomePage from './pages/HomePage.jsx';
-
+import Features from './components/features/features.jsx';
 function App() {
-
   return (
     <main>
-      <HomePage />
+      <Features />
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
