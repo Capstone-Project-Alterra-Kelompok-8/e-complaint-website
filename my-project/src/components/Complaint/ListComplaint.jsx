@@ -18,6 +18,8 @@ import {
 import { Search } from "@mui/icons-material";
 import { Link } from "react-router-dom";
 import axios from "axios";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 const ListComplaint = () => {
   const [complaints, setComplaints] = useState([]);
@@ -159,7 +161,9 @@ const ListComplaint = () => {
                     <TableCell>{complaint.category.name}</TableCell>
                     <TableCell>{complaint.status}</TableCell>
                     <TableCell>
-                      {new Date(complaint.date).toLocaleDateString()}
+                      {format(new Date(complaint.updated_at), "d MMMM yyyy", {
+                        locale: id,
+                      })}
                     </TableCell>
                     <TableCell>
                       <Link
