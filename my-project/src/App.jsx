@@ -4,7 +4,9 @@ import Login from "./pages/Login"
 import ListAdmin from "./pages/SuperAmin/ListAdmin"
 import ListUser from "./pages/SuperAmin/ListUser"
 import HomePage from "./pages/HomePage"
-import SuperAdminRoute from './route/Super_AdminRoute'
+import SuperAdminRoute from './route/PrivatSuperAdmin'
+import Adminroute from './route/PrivatAdmin'
+import Dashboard from "./pages/Dashboard"
 
 function App() {
 
@@ -15,7 +17,9 @@ function App() {
         <Route path="/login" element={<Login />} />
 
         {/* Privat route Admin */}
-        
+        <Route element={<Adminroute />}>
+          <Route path="/dashboard" element={<Dashboard />} />
+        </Route>
 
         {/* Privat route Super Admin */}
         <Route element={<SuperAdminRoute />}>
