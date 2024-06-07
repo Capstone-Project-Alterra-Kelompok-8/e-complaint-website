@@ -3,17 +3,15 @@ import logo2 from '../../assets/logo3.png';
 import logo3 from '../../assets/logo4.png';
 import logo4 from '../../assets/logo5.png';
 import iphoneImage from '../../assets/iphone-image2.png';
-import iphoneImage2 from '../../assets/iphone-image3.png';
+import titik from '../../assets/titik.png';
 
 export default function Benefit() {
-    
   return (
     <div className="h-[670px] bg-white flex flex-row justify-between ps-36 pe-20 relative" id="benefit">
       {/* Phone Mockups */}
-      <div className="relative mb-0 mt-auto ps-20" >
+      <div className="relative mb-0 mt-auto ps-20">
         <div className="relative">
-          <img src={iphoneImage2} alt="image"  />
-          <img src={iphoneImage} alt="image"  />
+          <img src={iphoneImage} alt="image" className=" h-auto pb-36 w-" />
         </div>
       </div>
 
