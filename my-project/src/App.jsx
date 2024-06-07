@@ -4,7 +4,7 @@ import Login from "./pages/Login"
 import ListAdmin from "./pages/SuperAmin/ListAdmin"
 import ListUser from "./pages/SuperAmin/ListUser"
 import HomePage from "./pages/HomePage"
-import SuperAdminRoute from "./Route/Super-AdminRoute"
+import SuperAdminRoute from './route/Super_AdminRoute'
 
 function App() {
 
