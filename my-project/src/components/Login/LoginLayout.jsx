@@ -56,13 +56,13 @@ export default function Login() {
 
 
     return (
-        <div className="h-svh grid place-items-center lg:flex lg:flex-row bg-main-lighter py-6 px-6 lg:px-0 lg:py-0">
-            <div className="hidden w-6/12 h-full bg-main-color justify-between lg:flex flex-col">
+        <div className="h-svh grid place-items-center md:flex md:flex-row py-6 px-6 md:px-0 md:py-0">
+            <div className="hidden w-6/12 h-full bg-main-color justify-between md:flex flex-col">
                 <img src={logo} alt="logo" className='mt-16 mx-auto' />
                 <img src={menara} alt="menara image" className='mb-0 w-60 h-72 xl:h-96 xl:w-72' />
             </div>
             <div className="flex flex-col h-auto py-5 px-3 lg:h-full bg-white rounded-md lg:rounded-none w-full lg:w-6/12 lg:justify-center lg:gap-14 lg:px-28">
-                <h2 className="text-wrap mx-auto text-main-color text-lg mb-3 lg:mb-0 lg:text-4xl font-bold font-poppins leading-10">Selamat datang Admin !</h2>
+                <h2 className="text-wrap mx-auto text-main-color text-2xl text-center mb-3 lg:mb-0 md:text-4xl font-bold font-poppins leading-10">Selamat datang Admin !</h2>
                 <h3 className="text-center text-gray-500 text-base lg:text-xl mb-4 lg:mb-0 font-bold font-poppins leading-relaxed">Silahkan login terlebih dahulu.</h3>
                 <form onSubmit={handleLogin}>
 
