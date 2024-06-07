@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import { PlusIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import Swal from 'sweetalert2';
 
 function ListUserLayout() {
-    const [user, setUser] = useState([]);
+    const [users, setUsers] = useState([]);
 
     useEffect(() => {
-        fetchUser();
+        fetchUsers();
     }, []);
 
-    const fetchUser = async () => {
+    const fetchUsers = async () => {
         try {
+            const token = sessionStorage.getItem('token');
             const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/users', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${import.meta.env.VITE_JWT}`
+                    'Authorization': `Bearer ${token}`
                 }
             });
 
@@ -23,11 +25,53 @@ function ListUserLayout() {
             }
 
             const data = await response.json();
-            setUser(data.data);
+            setUsers(data.data);
         } catch (error) {
-            console.error('Error fetching admins:', error);
+            console.error('Error fetching users:', error);
         }
     };
+
+    const deleteUser = async (userId) => {
+        try {
+            const token = sessionStorage.getItem('token');
+            const confirmed = await confirmDelete();
+            
+            if (!confirmed) return;
+
+            const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/users/${userId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            setUsers(prevUsers => prevUsers.filter(user => user.id !== userId));
+        } catch (error) {
+            console.error('Error deleting user:', error);
+        }
+    };
+
+    const confirmDelete = async () => {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: '#DC2626', // Ubah warna latar belakang untuk tombol "Yes, delete it!"
+            cancelButtonText: 'No, cancel!',
+            cancelButtonColor: '#2563EB', // Ubah warna latar belakang untuk tombol "No, cancel!"
+            reverseButtons: true
+        });
+    
+        return result.isConfirmed;
+    };
+    
 
     return (
         <main className="w-full bg-[#E2E2E2] min-h-[100dvh] py-3 px-2">
@@ -49,17 +93,17 @@ function ListUserLayout() {
                         </tr>
                     </thead>
                     <tbody className='py-4 border-dashed border-2 border-[#9747FF] w-full'>
-                        {user.map((users, index) => (
-                            <tr key={users.id} className='text-black bg-transparent text-center border-b border-black first:pt-4 last:pb-4'>
+                        {users.map((user, index) => (
+                            <tr key={user.id} className='text-black bg-transparent text-center border-b border-black first:pt-4 last:pb-4'>
                                 <td className='py-2 font-bold'>{index + 1}</td>
-                                <td className='py-2'>{users.name}</td>
-                                <td className='py-2'>{users.email}</td>
+                                <td className='py-2'>{user.name}</td>
+                                <td className='py-2'>{user.email}</td>
                                 <td className='py-2'>••••••••</td>
                                 <td className='flex gap-2 justify-center py-2'>
                                     <button>
                                         <PencilSquareIcon className="size-6 text-blue-500" />
                                     </button>
-                                    <button>
+                                    <button onClick={() => deleteUser(user.id)}>
                                         <TrashIcon className="size-6 text-red-500" />
                                     </button>
                                 </td>

@@ -1,20 +1,22 @@
 import { useState, useEffect } from 'react';
 import { PlusIcon, PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
+import Swal from 'sweetalert2';
 
 function ListAdminLayout() {
-    const [admin, setAdmin] = useState([]);
+    const [admins, setAdmins] = useState([]);
 
     useEffect(() => {
-        fetchAdmin();
+        fetchAdmins();
     }, []);
 
-    const fetchAdmin = async () => {
+    const fetchAdmins = async () => {
         try {
+            const token = sessionStorage.getItem('token');
             const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/admins', {
                 method: 'GET',
                 headers: {
                     'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${import.meta.env.VITE_JWT}`
+                    'Authorization': `Bearer ${token}`
                 }
             });
 
@@ -23,10 +25,51 @@ function ListAdminLayout() {
             }
 
             const data = await response.json();
-            setAdmin(data.data);
+            setAdmins(data.data);
         } catch (error) {
             console.error('Error fetching admins:', error);
         }
+    };
+
+    const deleteAdmin = async (adminId) => {
+        try {
+            const token = sessionStorage.getItem('token');
+            const confirmed = await confirmDelete();
+            
+            if (!confirmed) return;
+
+            const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/admins/${adminId}`, {
+                method: 'DELETE',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+
+            setAdmins(prevAdmins => prevAdmins.filter(admin => admin.id !== adminId));
+        } catch (error) {
+            console.error('Error deleting admin:', error);
+        }
+    };
+
+    const confirmDelete = async () => {
+        const result = await Swal.fire({
+            title: 'Are you sure?',
+            text: "You won't be able to revert this!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            confirmButtonColor: '#DC2626',
+            cancelButtonText: 'No, cancel!',
+            cancelButtonColor: '#2563EB',
+            reverseButtons: true
+        });
+
+        return result.isConfirmed;
     };
 
     return (
@@ -37,7 +80,7 @@ function ListAdminLayout() {
                     <p className="font-medium text-black font-montserrat">Add/Create</p>
                 </button>
             </section>
-            <div className='w-full overflow-x-auto'>
+            <div className='w-full overflow-x-auto overflow-y-auto h-96'>
                 <table className='table-auto w-full font-poppins'>
                     <thead className='w-full'>
                         <tr className='bg-main-lighter text-black'>
@@ -49,19 +92,23 @@ function ListAdminLayout() {
                         </tr>
                     </thead>
                     <tbody className='py-4 border-dashed border-2 border-[#9747FF] w-full'>
-                        {admin.map((admins, index) => (
-                            <tr key={admins.id} className='text-black bg-transparent text-center border-b border-black first:pt-4 last:pb-4'>
+                        {admins.map((admin, index) => (
+                            <tr key={admin.id} className='text-black bg-transparent text-center border-b border-black first:pt-4 last:pb-4'>
                                 <td className='py-2 font-bold'>{index + 1}</td>
-                                <td className='py-2'>{admins.name}</td>
-                                <td className='py-2'>{admins.email}</td>
+                                <td className='py-2'>{admin.name}</td>
+                                <td className='py-2'>{admin.email}</td>
                                 <td className='py-2'>••••••••</td>
                                 <td className='flex gap-2 justify-center py-2'>
-                                    <button>
-                                        <PencilSquareIcon className="size-6 text-blue-500" />
-                                    </button>
-                                    <button>
-                                        <TrashIcon className="size-6 text-red-500" />
-                                    </button>
+                                    {!admin.is_super_admin && (
+                                        <>
+                                            <button>
+                                                <PencilSquareIcon className="size-6 text-blue-500" />
+                                            </button>
+                                            <button onClick={() => deleteAdmin(admin.id)}>
+                                                <TrashIcon className="size-6 text-red-500" />
+                                            </button>
+                                        </>
+                                    )}
                                 </td>
                             </tr>
                         ))}
