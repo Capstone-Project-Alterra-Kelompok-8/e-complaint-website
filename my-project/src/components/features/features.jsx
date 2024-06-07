@@ -64,7 +64,7 @@ export default function features() {
       </div>
 
       {/* Phone Mockups */}
-      <div className="relative pl-20   ">
+      <div className="relative pl-20 ml-auto   ">
         <img src={iphone} alt="image" className=" pb-20 " />
       </div>
     </div>
