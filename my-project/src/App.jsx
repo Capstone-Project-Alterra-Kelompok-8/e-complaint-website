@@ -13,7 +13,10 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
+
+        {/* Privat route Admin */}
         
+
         {/* Privat route Super Admin */}
         <Route element={<SuperAdminRoute />}>
           <Route path="/super-admin/admin" element={<ListAdmin />} />
