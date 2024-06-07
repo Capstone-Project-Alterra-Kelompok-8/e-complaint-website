@@ -3,7 +3,7 @@ import { FaBars, FaTimes } from 'react-icons/fa';
 import logo from '../../assets/logo.png';
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+  const [ isOpen, setIsOpen ] = useState(false);
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -12,9 +12,9 @@ const Navbar = () => {
   return (
     <div className="w-full h-20 bg-white flex justify-between items-center px-6 md:px-12">
       <div>
-        <a href=""><img className="w-32 h-14" src={logo} alt="Logo" /></a>
+        <a href=""><img className="h-7 w-36 md:w-64 md:h-14" src={logo} alt="Logo" /></a>
       </div>
-      <div className="hidden md:flex justify-center items-center gap-8">
+      <div className="hidden md:flex justify-center items-center gap-16">
         <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#'>Home</a>
         <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#benefit'>Benefit</a>
         <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#features'>Features</a>

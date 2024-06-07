@@ -1,11 +1,11 @@
 import logo from '../../assets/logo.png';
-import iphoneImage from '../../assets/iphone-image.png'
-import appleLogo from '../../assets/appleLogo.svg'
-import googlePlay from '../../assets/googlePlay.svg'
+import iphoneImage from '../../assets/hero/iphone-image.png'
+import appleLogo from '../../assets/hero/appleLogo.svg'
+import googlePlay from '../../assets/hero/googlePlay.svg'
 
 export default function Hero() {
     return (
-        <div className="h-[670px] bg-yellow-500 flex flex-row justify-between ps-36 pe-20 relative">
+        <div className="h-[670px] bg-yellow-500 flex flex-col md:flex-row justify-between lg:ps-20 relative">
             {/* Background SVG */}
             <div className="absolute inset-0">
                 <svg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" viewBox="0 0 1475 752" fill="none">
@@ -23,18 +23,18 @@ export default function Hero() {
             </div>
 
             {/* Content */}
-            <div className="relative flex flex-row justify-start items-center w-[578px] gap-44">
+            <div className="relative flex flex-col px-8 py-6 md:flex-row justify-start items-center md:w-[578px] gap-44">
                 <div className="flex flex-col">
-                    <img className="w-96 h-20 mb-7" src={logo} alt="KeluhProv Logo" />
-                    <div className="text-justify text-zinc-900 text-xl font-semibold font-['Montserrat'] leading-normal">
+                    <img className="h-7 w-36  md:w-96 md:h-20 mb-7" src={logo} alt="KeluhProv Logo" />
+                    <div className="text-justify text-zinc-900 text-sm md:text-xl font-semibold font-['Montserrat'] leading-normal">
                         KeluhProv adalah aplikasi untuk melaporkan keluhan masyarakat di Provinsi Banten. Dengan antarmuka yang mudah digunakan, penduduk bisa dengan cepat mengirimkan keluhan mereka tentang infrastruktur, layanan publik, atau masalah lingkungan. Aplikasi ini memudahkan pelacakan status keluhan dan membantu pemerintah memperbaiki layanan publik.
                     </div>
                     <div className="flex gap-4 mt-7">
-                        <button className='flex gap-2 bg-lighter px-6 justify-center items-center rounded-full border border-darker hover:bg-darker'>
+                        <button className='flex gap-2.5 bg-lighter py-1 px-6 justify-center items-center rounded-3xl border border-darker hover:bg-darker'>
                             <img src={appleLogo} alt="appstore" />
                             App Store
                         </button>
-                        <button className='flex gap-2 bg-lighter px-6 justify-center items-center rounded-full border border-darker hover:bg-darker'>
+                        <button className='flex gap-2.5 bg-lighter py-1 px-6 justify-center items-center rounded-3xl border border-darker hover:bg-darker'>
                             <img src={googlePlay} alt="googleplay" />
                             Goole Play
                         </button>
@@ -43,8 +43,8 @@ export default function Hero() {
             </div>
 
             {/* Phone Mockups */}
-            <div className="relative mb-0 mt-auto ps-20">
-                <img src={iphoneImage} alt="image" />
+            <div className="relative mb-0 mt-auto flex justify-center">
+                <img src={iphoneImage} alt="image" className='w-auto h-[300px] lg:w-[568px] lg:h-[615px]'/>
             </div>
         </div>
     );
