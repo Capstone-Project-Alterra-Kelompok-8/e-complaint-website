@@ -2,7 +2,6 @@ import logo from '../../assets/logo2.png';
 import logo2 from '../../assets/logo3.png';
 import logo3 from '../../assets/logo4.png';
 import logo4 from '../../assets/logo5.png';
-import iphoneImage from '../../assets/iphone-image2.png';
 import titik from '../../assets/gambar-titik.png';
 
 export default function Benefit() {
@@ -11,7 +10,7 @@ export default function Benefit() {
       {/* Phone Mockups */}
       <div className="relative mb-0 mt-auto ps-20">
         <div className="relative">
-          <img src={titik} alt="image" className=" pb-20" />
+          <img src={titik} alt="image" className=" w-1/12 pb-20" />
         </div>
       </div>
 

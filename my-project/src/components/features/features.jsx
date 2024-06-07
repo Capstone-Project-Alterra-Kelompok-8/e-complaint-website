@@ -2,6 +2,7 @@ import logo from '../../assets/bel.png';
 import logo2 from '../../assets/chat.png';
 import logo3 from '../../assets/map.png';
 import logo4 from '../../assets/share.png';
+import iphone from '../../assets/gambar feature.png';
 
 export default function features() {
   return (
@@ -27,7 +28,7 @@ export default function features() {
       </div>
 
       {/* Content */}
-      <div className="relative flex flex-row justify-start  w-[578px] gap-24 pl-20 ">
+      <div className="relative flex flex-row justify-start  w-[578px] gap-24 pl-12 ">
         <div className="flex flex-col">
           <div className="text-justify text-zinc-900 text-2xl font-bold font-['Montserrat'] leading-normal  pt-24">Efisiensi dan Transparansi</div>
           <div className="text-justify text-zinc-900 text-lg font-semibold font-['Montserrat'] leading-normal  pt-2 ">Solusi Digital untuk Masyarakat yang Lebih Responsif</div>
@@ -63,8 +64,8 @@ export default function features() {
       </div>
 
       {/* Phone Mockups */}
-      <div className="relative mb-0 mt-auto ps-20 ">
-        <div className="  "></div>
+      <div className="relative pl-20   ">
+        <img src={iphone} alt="image" className=" pb-20 " />
       </div>
     </div>
   );
