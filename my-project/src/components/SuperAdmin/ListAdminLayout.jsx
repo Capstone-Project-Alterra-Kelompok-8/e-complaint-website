@@ -63,14 +63,29 @@ function ListAdminLayout() {
             icon: 'warning',
             showCancelButton: true,
             confirmButtonText: 'Yes, delete it!',
-            confirmButtonColor: '#DC2626',
             cancelButtonText: 'No, cancel!',
-            cancelButtonColor: '#2563EB',
-            reverseButtons: true
+            confirmButtonColor: '#DC2626', // Warna latar belakang untuk tombol "Yes, delete it!"
+            cancelButtonColor: '#2563EB', // Warna latar belakang untuk tombol "No, cancel!"
+            reverseButtons: true,
         });
-
-        return result.isConfirmed;
+    
+        if (result.isConfirmed) {
+            await Swal.fire({
+                title: 'Deleted!',
+                text: 'Your account has been deleted',
+                icon: 'success',
+                confirmButtonColor: '#DC2626'
+            });
+        } else if (result.dismiss === Swal.DismissReason.cancel) {
+            await Swal.fire({
+                title: 'Cancelled',
+                text: 'Your account is safe :)',
+                icon: 'error',
+                confirmButtonColor: '#2563EB'
+            });
+        }
     };
+    
 
     return (
         <main className="w-full bg-[#E2E2E2] min-h-[100dvh] py-3 px-2">
@@ -87,6 +102,7 @@ function ListAdminLayout() {
                             <th className='py-1.5'>No</th>
                             <th className='py-1.5'>Name</th>
                             <th className='py-1.5'>Email</th>
+                            <th className='py-1.5'>Phone Number</th>
                             <th className='py-1.5'>Password</th>
                             <th className='py-1.5'>Action</th>
                         </tr>
@@ -97,6 +113,7 @@ function ListAdminLayout() {
                                 <td className='py-2 font-bold'>{index + 1}</td>
                                 <td className='py-2'>{admin.name}</td>
                                 <td className='py-2'>{admin.email}</td>
+                                <td className='py-2'>{admin.telephone_number}</td>
                                 <td className='py-2'>••••••••</td>
                                 <td className='flex gap-2 justify-center py-2'>
                                     {!admin.is_super_admin && (
