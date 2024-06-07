@@ -1,13 +1,9 @@
-import HeaderNavigation from './components/HeaderNavigation/HeaderNavigation.jsx'
-import Hero from './components/hero/Hero.jsx'
+import HomePage from "./pages/HomePage"
 
 function App() {
 
   return (
-    <main>
-      <HeaderNavigation />
-      <Hero></Hero>
-    </main>
+    <HomePage/>
   )
 }
 
