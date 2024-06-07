@@ -1,17 +1,10 @@
-//! Setting router itu disini, jangan gunakan file terpisah lagi
-
-import HeaderNavigation from './components/HeaderNavigation/HeaderNavigation.jsx'
-import Hero from './components/hero/Hero.jsx'
-import Footer from './components/Footer/Footer.jsx'
+import HomePage from "./pages/HomePage"
 
 function App() {
 
   return (
-    <main>
-      <HeaderNavigation />
-      <Hero/>
-      <Footer/>
-    </main>
+
+    <HomePage/>
   )
 }
 
