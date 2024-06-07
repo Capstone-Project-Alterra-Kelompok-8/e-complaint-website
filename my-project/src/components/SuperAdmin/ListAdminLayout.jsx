@@ -121,7 +121,7 @@ function ListAdminLayout() {
 
     const handleEditSubmit = async (e) => {
         e.preventDefault();
-
+    
         try {
             const token = sessionStorage.getItem('token');
             const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/admins/${currentAdmin.id}`, {
@@ -132,17 +132,26 @@ function ListAdminLayout() {
                 },
                 body: JSON.stringify(currentAdmin)
             });
-
+    
             if (!response.ok) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
-
+    
             setIsEditing(false);
             fetchAdmins(); // Refresh the admin list
+    
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Your changes are saved",
+                showConfirmButton: false,
+                timer: 1500
+            });
         } catch (error) {
             console.error('Error updating admin:', error);
         }
     };
+    
 
     const handleNewAdminSubmit = async (e) => { // Fungsi untuk submit form tambah akun baru
         e.preventDefault();
@@ -164,6 +173,13 @@ function ListAdminLayout() {
 
             setIsAdding(false);
             fetchAdmins(); // Refresh the admin list
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Successfully added new account",
+                showConfirmButton: false,
+                timer: 1500
+            });
         } catch (error) {
             console.error('Error creating new admin:', error);
         }
