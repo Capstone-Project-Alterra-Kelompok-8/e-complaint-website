@@ -3,9 +3,9 @@ import Header from "../../Layouts/headerDashboard"
 
 export default function DashboardPages(){
     return(
-        <>
-        <Sidebar/>
-        <Header/>
-        </>
+        <div className="flex flex-row justify-between">
+            <Sidebar/>
+            <Header/>
+        </div>
     )
 }
