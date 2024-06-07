@@ -15,10 +15,10 @@ const Navbar = () => {
         <a href=""><img className="w-32 h-auto lg:w-64 lg:h-14" src={logo} alt="Logo" /></a>
       </div>
       <div className="hidden md:flex justify-center items-center gap-16">
-        <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#'>Home</a>
-        <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#benefit'>Benefit</a>
-        <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#features'>Features</a>
-        <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#testimoni'>Testimoni</a>
+        <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-main-darker" href='#'>Home</a>
+        <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-main-darker" href='#benefit'>Benefit</a>
+        <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-main-darker" href='#features'>Features</a>
+        <a className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-main-darker" href='#testimoni'>Testimoni</a>
       </div>
       <div className="hidden md:flex">
         <button className="p-2.5 bg-main-color rounded-full flex justify-center items-center">
@@ -32,10 +32,10 @@ const Navbar = () => {
       </div>
       {isOpen && (
         <div className="absolute top-20 left-0 w-full bg-white flex flex-col items-center py-4 z-50">
-          <a className="py-2 text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#'>Home</a>
-          <a className="py-2 text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#benefit'>Benefit</a>
-          <a className="py-2 text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#features'>Features</a>
-          <a className="py-2 text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-darker" href='#testimoni'>Testimoni</a>
+          <a className="py-2 text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-main-darker" href='#'>Home</a>
+          <a className="py-2 text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-main-darker" href='#benefit'>Benefit</a>
+          <a className="py-2 text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-main-darker" href='#features'>Features</a>
+          <a className="py-2 text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight hover:text-main-darker" href='#testimoni'>Testimoni</a>
           <button className="mt-4 p-2.5 bg-main-color rounded-full flex justify-center items-center">
             <div className="text-zinc-900 text-xl font-normal font-['Montserrat'] leading-tight">Get The Apps</div>
           </button>

@@ -30,11 +30,11 @@ export default function Hero() {
                         KeluhProv adalah aplikasi untuk melaporkan keluhan masyarakat di Provinsi Banten. Dengan antarmuka yang mudah digunakan, penduduk bisa dengan cepat mengirimkan keluhan mereka tentang infrastruktur, layanan publik, atau masalah lingkungan. Aplikasi ini memudahkan pelacakan status keluhan dan membantu pemerintah memperbaiki layanan publik.
                     </div>
                     <div className="flex gap-4 mt-7">
-                        <button className='flex gap-2.5 bg-main-lighter py-1 px-6 justify-center items-center rounded-3xl border border-main-darker hover:bg-darker'>
+                        <button className='flex gap-2.5 bg-main-lighter py-1 px-6 justify-center items-center rounded-3xl border border-main-darker hover:bg-main-darker'>
                             <img src={appleLogo} alt="appstore" />
                             App Store
                         </button>
-                        <button className='flex gap-2.5 bg-main-lighter py-1 px-6 justify-center items-center rounded-3xl border border-main-darker hover:bg-darker'>
+                        <button className='flex gap-2.5 bg-main-lighter py-1 px-6 justify-center items-center rounded-3xl border border-main-darker hover:bg-main-darker'>
                             <img src={googlePlay} alt="googleplay" />
                             Goole Play
                         </button>
