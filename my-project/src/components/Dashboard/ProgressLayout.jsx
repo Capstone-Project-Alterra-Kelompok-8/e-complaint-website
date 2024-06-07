@@ -1,5 +1,4 @@
-import React from "react";
-import CardProgress from "../components/CardProgress";
+// import CardProgress from "../components/CardProgress";
 // import ChartTotalUsers from "../components/ChartTotalUsers";
 
 const Progress = () => {

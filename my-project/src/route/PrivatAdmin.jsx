@@ -1,8 +1,7 @@
 import { Navigate, Outlet } from 'react-router-dom';
 import { useEffect } from 'react';
 
-const SuperAdminRoute = () => {
-    const isSuperAdmin = sessionStorage.getItem('isSuperAdmin') === 'true';
+const PrivatAdmin = () => {
     const isLoggedIn = sessionStorage.getItem('isLoggedIn') === 'true';
     const tokenExpiration = sessionStorage.getItem('token');
 
@@ -29,11 +28,11 @@ const SuperAdminRoute = () => {
         window.location.href = '/login'; // Redirect to login
     };
 
-    if (!isLoggedIn || !isSuperAdmin) {
+    if (!isLoggedIn) {
         return <Navigate to="/login" />;
     }
 
     return <Outlet />;
 };
 
-export default SuperAdminRoute;
+export default PrivatAdmin;
