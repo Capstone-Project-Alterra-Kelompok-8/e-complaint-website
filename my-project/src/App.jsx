@@ -1,8 +1,8 @@
-import Features from './components/features/features.jsx';
+import Testimoni from './components/Testimoni/Testimoni';
 function App() {
   return (
     <main>
-      <Features />
+      <Testimoni />
     </main>
   );
 }
