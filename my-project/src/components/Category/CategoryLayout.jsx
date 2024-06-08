@@ -11,6 +11,7 @@ function CategoryLayout() {
         Name: '',
         Description: ''
     });
+    const [searchKeyword, setSearchKeyword] = useState(''); // State untuk menyimpan kata kunci pencarian
 
     useEffect(() => {
         fetchCategory();
@@ -42,7 +43,7 @@ function CategoryLayout() {
         try {
             const token = sessionStorage.getItem('token');
             const confirmed = await confirmDelete();
-            
+
             if (!confirmed) return;
 
             const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/complaint-categories/${categoryId}`, {
@@ -82,7 +83,7 @@ function CategoryLayout() {
             cancelButtonColor: '#2563EB',
             reverseButtons: true,
         });
-    
+
         if (result.isConfirmed) {
             await Swal.fire({
                 title: 'Deleted!',
@@ -107,7 +108,6 @@ function CategoryLayout() {
         setNewCategory({ ...newCategory, [name]: value });
     };
 
-    console.log(newCategory)
     const handleNewCategorySubmit = async (e) => {
         e.preventDefault();
 
@@ -126,7 +126,6 @@ function CategoryLayout() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            console.log("tambah ", newCategory);
             setNewCategory({
                 Name: '',
                 Description: ''
@@ -188,9 +187,18 @@ function CategoryLayout() {
         }
     };
 
+    const handleSearchInputChange = (e) => {
+        setSearchKeyword(e.target.value);
+    };
+
+    const filteredCategories = category.filter(cat => 
+        cat.Name.toLowerCase().includes(searchKeyword.toLowerCase()) || 
+        cat.Description.toLowerCase().includes(searchKeyword.toLowerCase())
+    );
+
     return (
-        <main>
-            <section>
+        <main className='py-4 px-2'>
+            <section className="flex justify-between">
                 <button
                     type="button"
                     className="flex bg-main-color py-2 pl-4 pr-6 rounded-md mb-4 hover:bg-main-darker"
@@ -199,9 +207,42 @@ function CategoryLayout() {
                     <PlusIcon className="size-6 text-black" />
                     <p className="font-medium text-black font-montserrat">Tambah Kategori</p>
                 </button>
+                <div className="relative">
+                    <label htmlFor="Search" className="sr-only"> Search </label>
+
+                    <input
+                        type="text"
+                        id="Search"
+                        placeholder="Search for..."
+                        value={searchKeyword}
+                        onChange={handleSearchInputChange}
+                        className="ps-9 w-full rounded-md border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm"
+                    />
+
+                    <span className="absolute left-0 inset-y-0 end-0 grid w-12 -mt-3 place-content-center">
+                        <button type="button" className="text-gray-600 hover:text-gray-700">
+                            <span className="sr-only">Search</span>
+
+                            <svg
+                                xmlns="http://www.w3.org/2000/svg"
+                                fill="none"
+                                viewBox="0 0 24 24"
+                                strokeWidth="1.5"
+                                stroke="currentColor"
+                                className="h-4 w-4"
+                            >
+                                <path
+                                    strokeLinecap="round"
+                                    strokeLinejoin="round"
+                                    d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+                                />
+                            </svg>
+                        </button>
+                    </span>
+                </div>
             </section>
             <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-8 gap-2 md:gap-3 lg:gap-4">
-                {category.map((category, index) => (
+                {filteredCategories.map((category, index) => (
                     <div className="bg-white shadow-lg col-auto md:col-span-2 lg:col-span-2 rounded-lg" key={index}>
                         <p className="text-main-color">{category.Name}</p>
                         <p>{category.Description}</p>
