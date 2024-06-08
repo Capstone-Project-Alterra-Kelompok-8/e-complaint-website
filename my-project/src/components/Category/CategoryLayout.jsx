@@ -198,6 +198,7 @@ function CategoryLayout() {
 
     return (
         <main className='py-4 px-2'>
+            <h1 className='text-2xl lg:text-4xl mb-5'>Kategori</h1>
             <section className="flex justify-between">
                 <button
                     type="button"
