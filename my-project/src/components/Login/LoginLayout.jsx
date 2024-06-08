@@ -29,19 +29,15 @@ export default function Login() {
 
             const data = await response.json();
             const datastatusloginAdmin = data.data;
-            console.log(datastatusloginAdmin);
-            console.log(datastatusloginAdmin.is_super_admin)
             // Simpan status login dan token ke Session Storage
             sessionStorage.setItem('isLoggedIn', true);
             sessionStorage.setItem('token', datastatusloginAdmin.token);
 
             // Redirect atau lakukan operasi lain setelah berhasil login sesuai role
             if (datastatusloginAdmin.is_super_admin === true) {
-                console.log("super admin ", datastatusloginAdmin.is_super_admin);
                 sessionStorage.setItem('isSuperAdmin', true);
                 navigate("/super-admin/admin");
             } else if (datastatusloginAdmin.is_super_admin === false) {
-                console.log("admin biasa ", datastatusloginAdmin.is_super_admin);
                 sessionStorage.setItem('isSuperAdmin', false);
                 navigate("/dashboard");
             }

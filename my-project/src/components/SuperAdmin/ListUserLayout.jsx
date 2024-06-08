@@ -50,7 +50,7 @@ function ListUserLayout() {
         try {
             const token = sessionStorage.getItem('token');
             const confirmed = await confirmDelete();
-            
+
             if (!confirmed) return;
 
             const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/users/${userId}`, {
@@ -83,7 +83,7 @@ function ListUserLayout() {
             cancelButtonColor: '#2563EB',
             reverseButtons: true,
         });
-    
+
         if (result.isConfirmed) {
             await Swal.fire({
                 title: 'Deleted!',
@@ -126,13 +126,13 @@ function ListUserLayout() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            setIsAdding(false);
             setNewUser({
                 name: '',
                 email: '',
                 telephone_number: '',
                 password: ''
             });
+            setIsAdding(false);
             fetchUsers();
             Swal.fire({
                 position: "top-end",
@@ -166,6 +166,7 @@ function ListUserLayout() {
         setCurrentPassword({ ...currentPassword, [name]: value });
     };
 
+    console.log("edit current user ", currentUser)
     const handleEditUserSubmit = async (e) => {
         e.preventDefault();
 
@@ -188,8 +189,9 @@ function ListUserLayout() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            setIsEditing(false);
+            console.log("edit user ", currentUser)
             setCurrentUser(null);
+            setIsEditing(false);
             fetchUsers();
             Swal.fire({
                 position: "top-end",
@@ -203,6 +205,7 @@ function ListUserLayout() {
         }
     };
 
+    console.log("edit current password ", currentPassword)
     const handleEditPasswordSubmit = async (e) => {
         e.preventDefault();
 
@@ -221,11 +224,12 @@ function ListUserLayout() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            setIsEditingPassword(false);
+            console.log("edit password ", currentPassword)
             setCurrentPassword({
                 old_password: '',
                 new_password: ''
             });
+            setIsEditingPassword(false);
             Swal.fire({
                 position: "top-end",
                 icon: "success",
