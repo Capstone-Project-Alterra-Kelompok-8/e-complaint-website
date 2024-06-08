@@ -27,12 +27,38 @@ const ListComplaint = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredComplaints, setFilteredComplaints] = useState([]);
-  const [open, setOpen] = useState(false);
-  const [selectedImage, setSelectedImage] = useState("");
 
   useEffect(() => {
     fetchComplaints();
   }, []);
+
+  useEffect(() => {
+    setFilteredComplaints(
+      complaints.filter((complaint) => {
+        const formattedDate = format(
+          new Date(complaint.updated_at),
+          "d MMMM yyyy",
+          { locale: id }
+        ).toLowerCase();
+        return (
+          complaint.user.name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          complaint.category.name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          complaint.status.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          formattedDate.includes(searchTerm.toLowerCase()) ||
+          complaint.regency.name
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
+          complaint.type
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase())
+        );
+      })
+    );
+  }, [searchTerm, complaints]);
 
   const fetchComplaints = async () => {
     try {
@@ -54,17 +80,7 @@ const ListComplaint = () => {
   };
 
   const handleSearch = (event) => {
-    const value = event.target.value.toLowerCase();
-    setSearchTerm(value);
-    const filtered = complaints.filter(
-      (complaint) =>
-        complaint.user.name.toLowerCase().includes(value) ||
-        complaint.category.name.toLowerCase().includes(value) ||
-        complaint.status.toLowerCase().includes(value) ||
-        complaint.regency.name.toLowerCase().includes(value) ||
-        complaint.type.toLowerCase().includes(value)
-    );
-    setFilteredComplaints(filtered);
+    setSearchTerm(event.target.value);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -79,13 +95,6 @@ const ListComplaint = () => {
   const handleClose = () => {
     setOpen(false);
     setSelectedImage("");
-  };
-
-  const handleOpen = (imagePath) => {
-    setSelectedImage(
-      `https://storage.googleapis.com/e-complaint-assets/${imagePath}`
-    );
-    setOpen(true);
   };
 
   return (
@@ -107,28 +116,28 @@ const ListComplaint = () => {
               </IconButton>
             ),
             sx: {
-              width: "40%", // Menetapkan lebar input search menjadi 50%
-              marginLeft: "auto", // Menempatkan input search di sebelah kanan
+              width: "40%",
+              height: "40px",
+              marginLeft: "auto",
+              backgroundColor: "white"  
             },
           }}
           fullWidth
           margin="normal"
           className="font-poppins"
         />
-        <TableContainer component={Paper} className="font-poppins">
+        <TableContainer component={Paper} className="font-poppins" sx={{ backgroundColor: "#E5E7EB" }}>
           <Table>
             <TableHead>
-              <TableRow className="bg-dark-5">
+              <TableRow className="bg-main-color">
                 <TableCell>No</TableCell>
-                <TableCell>No. Aduan</TableCell>
-                <TableCell>Image</TableCell>
+                <TableCell>No. Complaint </TableCell>
+                <TableCell>Tanggal</TableCell>
                 <TableCell>Lokasi</TableCell>
+                <TableCell>Kategori</TableCell>
                 <TableCell>Tipe</TableCell>
-                <TableCell>User</TableCell>
-                <TableCell>Category</TableCell>
                 <TableCell>Status</TableCell>
-                <TableCell>Date</TableCell>
-                <TableCell>Action</TableCell>
+                <TableCell>Detail</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -139,36 +148,30 @@ const ListComplaint = () => {
                     <TableCell>{page * rowsPerPage + index + 1}</TableCell>
                     <TableCell>{complaint.id}</TableCell>
                     <TableCell>
-                      {complaint.files && complaint.files.length > 0 ? (
-                        <img
-                          src={`https://storage.googleapis.com/e-complaint-assets/${complaint.files[0].path}`}
-                          alt="Complaint"
-                          style={{
-                            width: "50px",
-                            height: "50px",
-                            objectFit: "cover",
-                            cursor: "pointer",
-                          }}
-                          onClick={() => handleOpen(complaint.files[0].path)}
-                        />
-                      ) : (
-                        "No Image"
-                      )}
-                    </TableCell>
-                    <TableCell>{complaint.regency.name}</TableCell>
-                    <TableCell>{complaint.type}</TableCell>
-                    <TableCell>{complaint.user.name}</TableCell>
-                    <TableCell>{complaint.category.name}</TableCell>
-                    <TableCell>{complaint.status}</TableCell>
-                    <TableCell>
                       {format(new Date(complaint.updated_at), "d MMMM yyyy", {
                         locale: id,
                       })}
                     </TableCell>
+                    <TableCell>{complaint.regency.name}</TableCell>
+                    <TableCell>
+                      <span className="bg-light-5 px-3 py-2 rounded">
+                        {complaint.category.name}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="bg-light-5 px-3 py-2 rounded">
+                        {complaint.type}
+                      </span>
+                    </TableCell>
+                    <TableCell>
+                      <span className="bg-light-5 px-3 py-2 rounded">
+                        {complaint.status}
+                      </span>
+                    </TableCell>
                     <TableCell>
                       <Link
                         to={`/complaints/${complaint.id}`}
-                        className="bg-blue-500 text-white px-2 py-1 rounded"
+                        className="bg-info-3 text-white px-3 py-2 rounded"
                       >
                         Detail
                       </Link>
@@ -187,40 +190,6 @@ const ListComplaint = () => {
             onRowsPerPageChange={handleChangeRowsPerPage}
             className="font-poppins"
           />
-
-          <Modal
-            open={open}
-            onClose={handleClose}
-            closeAfterTransition
-            BackdropComponent={Backdrop}
-            BackdropProps={{
-              timeout: 500,
-            }}
-          >
-            <Fade in={open}>
-              <Box
-                sx={{
-                  position: "absolute",
-                  top: "50%",
-                  left: "50%",
-                  transform: "translate(-50%, -50%)",
-                  width: "80%",
-                  bgcolor: "background.paper",
-                  boxShadow: 24,
-                  p: 4,
-                  display: "flex",
-                  justifyContent: "center",
-                  alignItems: "center",
-                }}
-              >
-                <img
-                  src={selectedImage}
-                  alt="Complaint Detail"
-                  style={{ maxWidth: "100%", maxHeight: "80vh" }}
-                />
-              </Box>
-            </Fade>
-          </Modal>
         </TableContainer>
       </Box>
     </div>
