@@ -22,6 +22,7 @@ function App() {
         <Route element={<Adminroute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/category" element={<Category />} />
+          <Route path="/complaints" element={<Complaint />} />
         </Route>
 
         {/* Privat route Super Admin */}
@@ -29,9 +30,6 @@ function App() {
           <Route path="/super-admin/admin" element={<ListAdmin />} />
           <Route path="/super-admin/user" element={<ListUser />} />
         </Route>
-        <Route path="/super-admin/admin" element={<ListAdmin />} />
-        <Route path="/super-admin/user" element={<ListUser />} />
-        <Route path="/complaints" element={<Complaint />} />
       </Routes>
     </main>
   )
