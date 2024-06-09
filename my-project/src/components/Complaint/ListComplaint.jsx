@@ -11,9 +11,6 @@ import {
   TablePagination,
   TextField,
   Paper,
-  Modal,
-  Backdrop,
-  Fade,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -92,16 +89,11 @@ const ListComplaint = () => {
     setPage(0);
   };
 
-  const handleClose = () => {
-    setOpen(false);
-    setSelectedImage("");
-  };
-
   return (
-    <div className="container mx-auto px-4 py-4">
-      <div className="flex flex-col items-center mb-4 text-right">
+    <main className="container mx-auto px-4 py-4">
+      <section className="flex flex-col items-start mb-4 text-left">
         <h1 className="text-3xl font-bold">Kelola Complaint</h1>
-      </div>
+      </section>
 
       <Box p={2} sx={{ backgroundColor: "#E5E7EB" }}>
         <TextField
@@ -130,14 +122,14 @@ const ListComplaint = () => {
           <Table>
             <TableHead>
               <TableRow className="bg-main-color">
-                <TableCell>No</TableCell>
+                <TableCell align="center">No</TableCell>
                 <TableCell>No. Complaint </TableCell>
-                <TableCell>Tanggal</TableCell>
-                <TableCell>Lokasi</TableCell>
-                <TableCell>Kategori</TableCell>
-                <TableCell>Tipe</TableCell>
-                <TableCell>Status</TableCell>
-                <TableCell>Detail</TableCell>
+                <TableCell align="center">Tanggal</TableCell>
+                <TableCell align="center">Lokasi</TableCell>
+                <TableCell align="center">Kategori</TableCell>
+                <TableCell align="center">Tipe</TableCell>
+                <TableCell align="center">Status</TableCell>
+                <TableCell align="center">Detail</TableCell>
               </TableRow>
             </TableHead>
             <TableBody>
@@ -145,30 +137,30 @@ const ListComplaint = () => {
                 .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                 .map((complaint, index) => (
                   <TableRow key={complaint.id}>
-                    <TableCell>{page * rowsPerPage + index + 1}</TableCell>
+                    <TableCell align="center">{page * rowsPerPage + index + 1}</TableCell>
                     <TableCell>{complaint.id}</TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       {format(new Date(complaint.updated_at), "d MMMM yyyy", {
                         locale: id,
                       })}
                     </TableCell>
                     <TableCell>{complaint.regency.name}</TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <span className="bg-light-5 px-3 py-2 rounded">
                         {complaint.category.name}
                       </span>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <span className="bg-light-5 px-3 py-2 rounded">
                         {complaint.type}
                       </span>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <span className="bg-light-5 px-3 py-2 rounded">
                         {complaint.status}
                       </span>
                     </TableCell>
-                    <TableCell>
+                    <TableCell align="center">
                       <Link
                         to={`/complaints/${complaint.id}`}
                         className="bg-info-3 text-white px-3 py-2 rounded"
@@ -192,7 +184,7 @@ const ListComplaint = () => {
           />
         </TableContainer>
       </Box>
-    </div>
+    </main>
   );
 };
 
