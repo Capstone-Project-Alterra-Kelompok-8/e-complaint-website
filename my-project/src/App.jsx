@@ -7,6 +7,7 @@ import HomePage from "./pages/HomePage"
 import SuperAdminRoute from './route/PrivatSuperAdmin'
 import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
+import Category from "./pages/Category"
 
 function App() {
 
@@ -19,6 +20,7 @@ function App() {
         {/* Privat route Admin */}
         <Route element={<Adminroute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/category" element={<Category />} />
         </Route>
 
         {/* Privat route Super Admin */}
