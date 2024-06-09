@@ -8,6 +8,7 @@ import SuperAdminRoute from './route/PrivatSuperAdmin'
 import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
 import Category from "./pages/Category"
+import Complaint from "./pages/Complaint";
 
 function App() {
 
@@ -28,6 +29,9 @@ function App() {
           <Route path="/super-admin/admin" element={<ListAdmin />} />
           <Route path="/super-admin/user" element={<ListUser />} />
         </Route>
+        <Route path="/super-admin/admin" element={<ListAdmin />} />
+        <Route path="/super-admin/user" element={<ListUser />} />
+        <Route path="/complaints" element={<Complaint />} />
       </Routes>
     </main>
   )
