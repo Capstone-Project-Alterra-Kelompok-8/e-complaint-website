@@ -1,5 +1,5 @@
-// import CardProgress from "../components/CardProgress";
-// import ChartTotalUsers from "../components/ChartTotalUsers";
+import React from "react";
+import CardProgress from "./CardProgress";
 
 const Progress = () => {
   return (
