@@ -4,7 +4,9 @@ import logo3 from '../../assets/map.png';
 import logo4 from '../../assets/share.png';
 import iphone from '../../assets/gambar feature.png';
 
-export default function features() {
+import React from 'react'
+
+const Features = () => {
   return (
     <div className="h-[670px] bg-yellow-500 flex flex-row justify-between pe-20 relative" id="benefit">
       {/* Background SVG */}
@@ -68,5 +70,8 @@ export default function features() {
         <img src={iphone} alt="image" className=" pb-20 pl-2 " />
       </div>
     </div>
-  );
+  )
 }
+
+export default Features
+
