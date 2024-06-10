@@ -3,9 +3,9 @@ import testi2 from '../../assets/testimoni2.png';
 import testi3 from '../../assets/testimoni3.png';
 import slide from '../../assets/slide.png';
 
-export default function Benefit() {
+export default function Testimoni() {
   return (
-    <div className="h-[670px] bg-white flex flex-col justify-center items-center pe-20 pl-24 pb-20 relative" id="benefit">
+    <div className="h-[670px] bg-white flex flex-col justify-center items-center pe-20 pl-24 pb-20 relative" id="testimoni">
       {/* Phone Mockups */}
       <div className="z-10 flex  items-center ">
         <button className="btn btn-square pr-20">
