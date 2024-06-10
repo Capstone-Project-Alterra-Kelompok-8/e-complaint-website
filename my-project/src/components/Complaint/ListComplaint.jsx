@@ -59,12 +59,13 @@ const ListComplaint = () => {
 
   const fetchComplaints = async () => {
     try {
+      const token = sessionStorage.getItem('token');
       const response = await axios.get(
         "https://capstone-dev.mdrizki.my.id/api/v1/complaints?sort_by=id&sort_type=desc&limit=10&page=1",
         {
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${import.meta.env.VITE_JWT}`,
+            Authorization: `Bearer ${token}`,
           },
         }
       );
