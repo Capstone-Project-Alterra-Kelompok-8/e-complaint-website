@@ -2,16 +2,16 @@ import logo from '../../assets/logo2.png';
 import logo2 from '../../assets/logo3.png';
 import logo3 from '../../assets/logo4.png';
 import logo4 from '../../assets/logo5.png';
-import iphoneImage from '../../assets/iphone-image2.png';
-import iphoneImage2 from '../../assets/iphone-image3.png';
-import React from 'react'
+import titik from '../../assets/gambar-titik.png';
 
-const Benefit = () => {
+export default function Benefit() {
   return (
-    <div className="h-[670px] bg-white flex flex-row justify-between ps-36 pe-20 relative" id="benefit">
+    <div className="h-[670px] bg-white flex flex-row justify-between pe-20 relative" id="benefit">
       {/* Phone Mockups */}
       <div className="relative mb-0 mt-auto ps-20">
-        <img src={iphoneImage} alt="image" />
+        <div className="relative">
+          <img src={titik} alt="image" className=" w-1/12 pb-20" />
+        </div>
       </div>
 
       {/* Content */}
@@ -23,13 +23,13 @@ const Benefit = () => {
             <div class="flex-auto w-80 ...">
               <img src={logo} alt="image" className="w-30 h-16 pl-16 flex flex-row" />
               <div className="text-justify text-zinc-800 text-xl font-semibold font-['Montserrat'] leading-normal "> Kemudahan Akses </div>
-              <p className="font-['Montserrat'] text-left text-sm">Kemudahan akses memungkinkan pengguna mengajukan aduan kapan saja dan dari mana saja</p>
+              <p className="font-['Montserrat']  text-zinc-800 text-left text-sm font-semibold">Kemudahan akses memungkinkan pengguna mengajukan aduan kapan saja dan dari mana saja</p>
             </div>
 
             <div class="flex-auto w-80 ...">
               <img src={logo2} alt="image" className="w-30 h-16 pl-16 flex flex-row" />
               <div className="text-justify text-zinc-800 text-xl font-semibold font-['Montserrat'] leading-normal "> Penanganan yang Cepat </div>
-              <p className="font-['Montserrat'] text-left text-sm">Penanganan cepat meningkatkan respons, efisiensi, dan kepuasan pengguna.</p>
+              <p className="font-['Montserrat']  text-zinc-800 text-left text-sm font-semibold">Penanganan cepat meningkatkan respons, efisiensi, dan kepuasan pengguna.</p>
             </div>
           </div>
 
@@ -37,20 +37,17 @@ const Benefit = () => {
             <div class="flex-auto w-80 ...">
               <img src={logo3} alt="image" className="w-30 h-16 pl-16 flex flex-row" />
               <div className="text-justify text-zinc-800 text-xl font-semibold font-['Montserrat'] leading-normal "> Keamanan Data </div>
-              <p className="font-['Montserrat'] text-left text-sm">Keamanan data melindungi informasi sensitif dari akses, penggunaan, menjaga privasi dan integritas data.</p>
+              <p className="font-['Montserrat']  text-zinc-800 text-left text-sm font-semibold">Keamanan data melindungi informasi sensitif dari akses, penggunaan, menjaga privasi dan integritas data.</p>
             </div>
 
             <div class="flex-auto w-80 ...">
               <img src={logo4} alt="image" className="w-30 h-16 pl-16 flex flex-row" />
               <div className="text-justify text-zinc-800 text-xl font-semibold font-['Montserrat'] leading-normal "> Feedback dan Evaluas </div>
-              <p className="font-['Montserrat'] text-left text-sm">Feedback dan evaluasi membantu meningkatkan kualitas layanan dan produk dengan mengidentifikasi area yang perlu diperbaiki.</p>
+              <p className="font-['Montserrat']  text-zinc-800 text-left text-sm font-semibold">Feedback dan evaluasi membantu meningkatkan kualitas layanan dan produk dengan mengidentifikasi area yang perlu diperbaiki.</p>
             </div>
           </div>
         </div>
       </div>
     </div>
-  )
+  );
 }
-
-export default Benefit
-

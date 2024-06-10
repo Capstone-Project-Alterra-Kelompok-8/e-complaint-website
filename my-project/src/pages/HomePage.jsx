@@ -9,6 +9,7 @@ const HomePage = () => {
     <HeaderNavigation />
     <Hero/>
     <Benefit />
+    <Features />
     <Footer />
     </>
   )
