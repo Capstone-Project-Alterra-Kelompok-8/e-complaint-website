@@ -1,5 +1,3 @@
-import React from "react";
-
 const CardProgress = ({ number, text, icon, backgroundImage }) => {
   return (
     <div className="relative w-[250px] h-[169px] bg-yellow-400 rounded-[10px] overflow-hidden">

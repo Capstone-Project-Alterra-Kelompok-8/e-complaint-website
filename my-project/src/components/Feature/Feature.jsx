@@ -30,34 +30,34 @@ export default function Features() {
       {/* Content */}
       <div className="relative flex flex-row justify-start  w-[578px] gap-24 pl-12 ">
         <div className="flex flex-col">
-          <div className="text-justify text-zinc-900 text-2xl font-bold font-['Montserrat'] leading-normal  pt-24">Efisiensi dan Transparansi</div>
-          <div className="text-justify text-zinc-900 text-lg font-semibold font-['Montserrat'] leading-normal  pt-2 ">Solusi Digital untuk Masyarakat yang Lebih Responsif</div>
+          <div className="text-justify text-zinc-900 text-2xl font-bold font-montserrat leading-normal  pt-24">Efisiensi dan Transparansi</div>
+          <div className="text-justify text-zinc-900 text-lg font-semibold font-montserrat leading-normal  pt-2 ">Solusi Digital untuk Masyarakat yang Lebih Responsif</div>
 
           <div class="flex flext-row justify-between pt-5">
             <div class="flex-auto w-80 ...">
               <img src={logo} alt="image" className="w-30 h-16  flex flex-row" />
-              <div className="text-justify text-zinc-800 text-xl font-bold font-['Montserrat'] leading-normal "> Notifikasi Langsung </div>
-              <p className="font-['Montserrat']  text-zinc-800 text-left text-lg font-normal">Tetap terinformasi secara instan dengan pembaruan real-time tentang keluhan Anda.</p>
+              <div className="text-justify text-zinc-800 text-xl font-bold font-montserrat leading-normal "> Notifikasi Langsung </div>
+              <p className="font-montserrat  text-zinc-800 text-left text-lg font-normal">Tetap terinformasi secara instan dengan pembaruan real-time tentang keluhan Anda.</p>
             </div>
 
             <div class="flex-auto w-80 ...">
               <img src={logo3} alt="image" className="w-30 h-16  flex flex-row" />
-              <div className="text-justify text-zinc-800 text-xl font-bold font-['Montserrat'] leading-normal "> Peta Interaktif </div>
-              <p className="font-['Montserrat']  text-zinc-800 text-left text-lg font-normal">peta interaktif untuk melacak masalah di wilayah Anda atau melihat tren.</p>
+              <div className="text-justify text-zinc-800 text-xl font-bold font-montserrat leading-normal "> Peta Interaktif </div>
+              <p className="font-montserrat  text-zinc-800 text-left text-lg font-normal">peta interaktif untuk melacak masalah di wilayah Anda atau melihat tren.</p>
             </div>
           </div>
 
-          <div class="flex flext-row justify-between pt-24">
+          <div class="flex flex-row justify-between pt-24">
             <div class="flex-auto w-80 ...">
               <img src={logo4} alt="image" className="w-30 h-16  flex flex-row" />
-              <div className="text-justify text-zinc-800 text-xl font-bold font-['Montserrat'] leading-normal "> Sosial Media </div>
-              <p className="font-['Montserrat']  text-zinc-800 text-left text-lg font-normal">Bagikan pengalaman Anda dengan lancar diplatform media sosial.</p>
+              <div className="text-justify text-zinc-800 text-xl font-bold font-montserrat leading-normal "> Sosial Media </div>
+              <p className="font-montserrat  text-zinc-800 text-left text-lg font-normal">Bagikan pengalaman Anda dengan lancar diplatform media sosial.</p>
             </div>
 
             <div class="flex-auto w-80 ...">
               <img src={logo2} alt="image" className="w-30 h-16  flex flex-row" />
-              <div className="text-justify text-zinc-800 text-xl font-bold font-['Montserrat'] leading-normal "> Umpan Balik </div>
-              <p className="font-['Montserrat']  text-zinc-800 text-left text-lg font-normal">saluran komunikasi terbuka untuk memberikan umpan balik atas keluhan Anda.</p>
+              <div className="text-justify text-zinc-800 text-xl font-bold font-montserrat leading-normal "> Umpan Balik </div>
+              <p className="font-montserrat  text-zinc-800 text-left text-lg font-normal">saluran komunikasi terbuka untuk memberikan umpan balik atas keluhan Anda.</p>
             </div>
           </div>
         </div>

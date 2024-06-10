@@ -12,44 +12,44 @@ function Footer() {
                     <img src={logo2} alt="logo" className="absolute" />
                 </div>
                 <div className="justify-start mt-6 ml-0 md:ml-5 mb-12">
-                    <h1 className="text-neutral-900 text-3xl font-bold font-['Poppins'] mb-6">Keluh Prov</h1>
-                    <p className="w-full md:w-96 text-neutral-900 text-xl font-['Poppins'] leading-loose">Keluh Provinsi adalah aplikasi/website aduan masyarakat kepada pemerintah terkait masalah yang ada dimasyarakat, seperti layanan publik, fasilitas publik, dan lainnya</p>
+                    <h1 className="text-neutral-900 text-3xl font-bold font-poppins mb-6">Keluh Prov</h1>
+                    <p className="w-full md:w-96 text-neutral-900 text-xl font-poppins leading-loose">Keluh Provinsi adalah aplikasi/website aduan masyarakat kepada pemerintah terkait masalah yang ada dimasyarakat, seperti layanan publik, fasilitas publik, dan lainnya</p>
                 </div>
             </div>
 
             <div className="mt-0 md:mt-28">
-                <h1 className="text-neutral-900 text-3xl font-bold font-['Poppins'] mb-5">Kanal Aduan</h1>
+                <h1 className="text-neutral-900 text-3xl font-bold font-poppins mb-5">Kanal Aduan</h1>
                 <div className="flex items-center mb-5 font-medium gap-2">
                     <FaInstagram className="text-neutral-900 font-bold text-2xl text-[41px]" />
-                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-['Poppins'] leading-tight tracking-tight">Keluh Provinsi</a>
+                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-poppins leading-tight tracking-tight">Keluh Provinsi</a>
                 </div>
                 <div className="flex items-center mb-5 font-medium gap-2">
                     <FaFacebook className="text-neutral-900 font-bold text-2xl text-[41px]" />
-                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-['Poppins'] leading-tight tracking-tight">@keluhprovinsi</a>
+                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-poppins leading-tight tracking-tight">@keluhprovinsi</a>
                 </div>
                 <div className="flex items-center mb-5 font-medium gap-2">
                     <FaXTwitter className="text-neutral-900 font-bold text-2xl text-[41px]" />
-                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-['Poppins'] leading-tight tracking-tight">@keluh_provinsi</a>
+                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-poppins leading-tight tracking-tight">@keluh_provinsi</a>
                 </div>
                 <div className="flex items-center mb-5 font-medium gap-2">
                     <FaWhatsapp className="text-neutral-900 font-bold text-2xl text-[41px]" />
-                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-['Poppins'] leading-tight tracking-tight">0813-1412-4242</a>
+                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-poppins leading-tight tracking-tight">0813-1412-4242</a>
                 </div>
             </div>
 
             <div className="mt-0 md:mt-28">
-                <h1 className="text-neutral-900 text-3xl font-bold font-['Poppins'] mb-5">Kontak Kami</h1>
+                <h1 className="text-neutral-900 text-3xl font-bold font-poppins mb-5">Kontak Kami</h1>
                 <div className="flex items-center mb-5 gap-2">
                     <img src={logo3} alt="logo" />
-                    <div className="text-center text-neutral-900 text-xl font-medium font-['Poppins'] leading-tight tracking-tight">keluhprovinsi.go.id</div>
+                    <div className="text-center text-neutral-900 text-xl font-medium font-poppins leading-tight tracking-tight">keluhprovinsi.go.id</div>
                 </div>
                 <div className="flex items-center mb-5 font-medium gap-5">
                     <FaHeadset className="text-neutral-900 font-bold text-3xl text-[41px]" />
-                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-['Poppins'] leading-tight tracking-tight">0813-1412-4242</a>
+                    <a href="#" className="text-center text-neutral-900 text-xl font-medium font-poppins leading-tight tracking-tight">0813-1412-4242</a>
                 </div>
                 <div className="flex items-center mb-5 font-medium gap-5">
                     <FaMapMarkerAlt className="text-neutral-900 font-bold text-3xl text-[41px]" />
-                    <a href="#" className="text-neutral-900 text-xl font-medium font-['Poppins'] leading-tight tracking-tight">Jl. Garuda No.7, Ademsari, Semarang<br />Gula Jawa 12345</a>
+                    <a href="#" className="text-neutral-900 text-xl font-medium font-poppins leading-tight tracking-tight">Jl. Garuda No.7, Ademsari, Semarang<br />Gula Jawa 12345</a>
                     <img src={redDots} alt="pattern" className='absolute right-0 bottom-0' />
                 </div>
             </div>

@@ -52,7 +52,7 @@ export default {
           2: "#EBEBF0",
           3: "#F2F2F5",
           4: "#FAFAFC",
-          5: "#FCFAFA",
+          5: "#FCFAFA", //hapus 1
           
         },
       },
