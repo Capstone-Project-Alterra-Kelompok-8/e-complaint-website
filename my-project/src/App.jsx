@@ -11,7 +11,6 @@ import Category from "./pages/Category"
 import Complaint from "./pages/Complaint";
 
 function App() {
-
   return (
     <main>
       <Routes>
@@ -32,7 +31,7 @@ function App() {
         </Route>
       </Routes>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
