@@ -6,7 +6,7 @@ import iphone from '../../assets/gambar feature.png';
 
 export default function Features() {
   return (
-    <div className="h-[670px] bg-yellow-500 flex flex-row justify-between pe-20 relative" id="benefit">
+    <div className="h-[670px] bg-yellow-500 flex flex-row justify-between pe-20 relative" id="features">
       {/* Background SVG */}
       <div className="absolute inset-0 pl-96">
         <svg width="979" height="740" viewBox="0 0 979 740" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,8 +64,8 @@ export default function Features() {
       </div>
 
       {/* Phone Mockups */}
-      <div className="relative pl-20 ml-auto   ">
-        <img src={iphone} alt="image" className=" pb-20 pl-2 " />
+      <div className="relative pl-20 ml-auto ">
+        <img src={iphone} alt="image" className=" pb-20 " />
       </div>
     </div>
   );
