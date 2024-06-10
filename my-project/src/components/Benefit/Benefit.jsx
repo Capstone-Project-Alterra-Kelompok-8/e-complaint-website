@@ -4,8 +4,9 @@ import logo3 from '../../assets/logo4.png';
 import logo4 from '../../assets/logo5.png';
 import iphoneImage from '../../assets/iphone-image2.png';
 import iphoneImage2 from '../../assets/iphone-image3.png';
+import React from 'react'
 
-export default function Benefit() {
+const Benefit = () => {
   return (
     <div className="h-[670px] bg-white flex flex-row justify-between ps-36 pe-20 relative" id="benefit">
       {/* Phone Mockups */}
@@ -48,5 +49,8 @@ export default function Benefit() {
         </div>
       </div>
     </div>
-  );
+  )
 }
+
+export default Benefit
+
