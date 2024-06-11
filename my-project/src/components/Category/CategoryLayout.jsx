@@ -46,7 +46,7 @@ function CategoryLayout() {
 
             if (!confirmed) return;
 
-            const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/complaint-categories/${categoryId}`, {
+            const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/categories/${categoryId}`, {
                 method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json',
@@ -113,7 +113,7 @@ function CategoryLayout() {
 
         try {
             const token = sessionStorage.getItem('token');
-            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/complaint-categories', {
+            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/categories', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -159,7 +159,7 @@ function CategoryLayout() {
 
         try {
             const token = sessionStorage.getItem('token');
-            const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/complaint-categories/${currentCategory.id}`, {
+            const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/categories/${currentCategory.id}`, {
                 method: 'PUT',
                 headers: {
                     'Content-Type': 'application/json',
