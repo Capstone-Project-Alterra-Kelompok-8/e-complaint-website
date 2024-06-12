@@ -9,6 +9,8 @@ import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
 import Category from "./pages/Category"
 import Complaint from "./pages/Complaint";
+import NewsPage from "./pages/dashboard/news"
+
 
 function App() {
   return (
@@ -22,6 +24,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/category" element={<Category />} />
           <Route path="/complaints" element={<Complaint />} />
+          <Route path="/news" element={<NewsPage />} />
         </Route>
 
         {/* Privat route Super Admin */}
