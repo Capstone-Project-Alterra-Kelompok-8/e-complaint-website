@@ -9,6 +9,8 @@ import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
 import Category from "./pages/Category"
 import NewsPage from "./pages/dashboard/news"
+import DetailNews from "./pages/Berita/detailNews"
+
 
 
 function App() {
@@ -19,6 +21,7 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<Login />} />
         <Route path="/news" element={<NewsPage />} />
+        <Route path="/news-detail:id" element={<DetailNews />} />
 
         {/* Privat route Admin */}
         <Route element={<Adminroute />}>

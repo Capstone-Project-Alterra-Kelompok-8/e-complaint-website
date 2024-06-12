@@ -23,7 +23,12 @@ export default function Sidebar() {
         setIsOpen(false);
     }
 
-    const isActive = (path)=> location.pathname === path
+    const isActive = (path)=> {
+        const exactMatch = location.pathname === path;
+        const startsWithNewsDetail = path === '/news' && location.pathname.startsWith('/news-detail');
+        const startsWithComplaintDetail = path === '/complaint' && location.pathname.startsWith('/complaint-detail');
+        return exactMatch || startsWithNewsDetail || startsWithComplaintDetail;
+    }
     
     return (
         <div className='flex'>
