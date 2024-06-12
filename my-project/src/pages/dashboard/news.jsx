@@ -31,7 +31,7 @@ const NewsPage = () => {
             const data = await response.json();
             setNews(data.data);
         } catch (error) {
-            console.error('Error fetching category: ', error);
+            console.error('Error fetching news: ', error);
         }
     };
 
