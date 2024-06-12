@@ -5,11 +5,11 @@ import SideNar from '../../Layouts/sidebar'
 
 export default function ListUser() {
     return (
-        <main>
+        <>
             <Header />
             <SideNar />
             <SuperAdminPanel />
             <ListUserLayout />
-        </main>
+        </>
     )
 }

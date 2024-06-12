@@ -4,11 +4,11 @@ import SideNar from '../Layouts/sidebar'
 
 const Complaint = () => {
   return (
-    <main>
+    <>
       <Header />
       <SideNar />
       <ListComplaint />
-    </main>
+    </>
   )
 }
 

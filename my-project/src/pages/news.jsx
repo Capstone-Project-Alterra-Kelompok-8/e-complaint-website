@@ -65,7 +65,7 @@ const NewsPage = () => {
                     </div>
 
                     <div className=" container w-full flex flex-wrap gap-2">
-                         {filteredNews.map((berita) => (
+                        {filteredNews.map((berita) => (
                             <div key={berita.id} className="p-4">
                                 <CardNews
                                     image={`https://storage.googleapis.com/e-complaint-assets/${berita.files[0].path}`}

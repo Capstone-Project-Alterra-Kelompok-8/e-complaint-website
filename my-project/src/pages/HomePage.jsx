@@ -8,12 +8,12 @@ import Testimoni from '../components/Testimoni/Testimoni'
 const HomePage = () => {
   return (
     <>
-    <HeaderNavigation />
-    <Hero/>
-    <Benefits/>
-    <Features/>
-    <Testimoni/>
-    <Footer />
+      <HeaderNavigation />
+      <Hero />
+      <Benefits />
+      <Features />
+      <Testimoni />
+      <Footer />
     </>
   )
 }

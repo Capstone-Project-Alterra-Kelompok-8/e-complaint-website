@@ -4,11 +4,11 @@ import SideNar from '../Layouts/sidebar'
 
 const Dashboard = () => {
   return (
-    <main>
+    <>
       <Header />
       <SideNar />
       <Progress />
-    </main>
+    </>
   )
 }
 

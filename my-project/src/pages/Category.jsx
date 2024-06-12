@@ -4,11 +4,11 @@ import SideNar from '../Layouts/sidebar'
 
 const Category = () => {
     return (
-        <main>
+        <>
             <Header />
             <SideNar />
             <CategoryLayout />
-        </main>
+        </>
     )
 }
 
