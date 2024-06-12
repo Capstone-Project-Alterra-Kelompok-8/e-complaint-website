@@ -8,7 +8,7 @@ import SuperAdminRoute from './route/PrivatSuperAdmin'
 import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
 import Category from "./pages/Category"
-import NewsPage from "./pages/dashboard/news"
+import NewsPage from "./pages/Berita/news"
 import DetailNews from "./pages/Berita/detailNews"
 
 

@@ -1,6 +1,6 @@
 export default function DetailCardNews() {
     return (
-        <div className="px-6 py-5 bg-neutral-50 rounded-2xl flex-col justify-start items-start gap-5 inline-flex">
+        <div className="px-6 py-5 bg-neutral-50 rounded-2xl flex-col justify-start items-start gap-5 inline-flex lg:w-6/12 mb-5">
             <div className="flex-col justify-start items-start gap-2.5 flex">
                 <img className="rounded-lg shadow" src="https://via.placeholder.com/944x294" />
             </div>

@@ -51,7 +51,9 @@ const NewsPage = () => {
                 <div className="lg:ml-80 pt-9 font-poppins text-black text-4xl font-medium">Kelola Berita</div>
                 <div className="container mt-9 lg:ml-80 w-fit bg-gray-300 justify-between px-5 pt-5 rounded-lg">
                     <div className="container lg:flex justify-between items-center mb-5">
-                        <ButtonNews />
+                        <ButtonNews mode="add" 
+                        // onClick={handleAddNews}
+                        />
                         <div className="flex mt-5 lg:mt-0 px-2 lg:w-80 items-center rounded border border-gray-400 bg-white">
                             <span className="text-2xl"><IoSearch /></span>
                             <input
