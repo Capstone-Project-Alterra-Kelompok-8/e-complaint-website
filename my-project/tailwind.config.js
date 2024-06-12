@@ -3,7 +3,8 @@ export default {
   content: [
     "./index.html",
     "./src/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/flowbite/**/*.js",
+    'node_modules/flowbite-react/lib/esm/**/*.js'
+,
   ],
   theme: {
     extend: {
@@ -12,10 +13,12 @@ export default {
         poppins: ["Poppins", "sans-serif"],
       },
       colors: {
-        "main-color": "#FACC15",
-        darker: "#EAB308",
-        lighter: "#FEF08A",
-        subtle: "#FDE047",
+        'main': {
+          color: "#FACC15",
+          darker: "#EAB308",
+          lighter: "#FEF08A",
+          subtle: "#FDE047",
+        },
         error: {
           1: "#F87171",
           2: "#EF4444",
@@ -54,12 +57,12 @@ export default {
   // eslint-disable-next-line no-undef
   plugins: [
     // eslint-disable-next-line no-undef
-    require("flowbite/plugin"),
+    require('flowbite/plugin'),
     // eslint-disable-next-line no-undef
     require("daisyui"),
   ],
   daisyui: {
-    themes: false,
+    themes: ["light"],
     utils: true,
     prefix: "",
   },
