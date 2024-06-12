@@ -9,7 +9,7 @@ import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
 import Category from "./pages/Category"
 import Complaint from "./pages/Complaint";
-import NewsPage from "./pages/dashboard/news"
+import NewsPage from "./pages/news"
 
 
 function App() {
