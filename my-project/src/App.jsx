@@ -1,11 +1,11 @@
 
-import CreateNews from './components/CreateNews/CreateNews.jsx';
+import EditNews from './components/EditNews/EditNews.jsx';
 
 function App() {
 
   return (
     <main>
-      <CreateNews />
+      <EditNews />
     </main>
   )
 }
