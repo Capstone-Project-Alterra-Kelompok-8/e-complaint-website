@@ -1,10 +1,11 @@
-import HomePage from './pages/HomePage.jsx';
+
+import CreateNews from './components/CreateNews/CreateNews.jsx';
 
 function App() {
 
   return (
     <main>
-      <HomePage />
+      <CreateNews />
     </main>
   )
 }
