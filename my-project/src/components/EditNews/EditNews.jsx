@@ -2,12 +2,15 @@ export default function Testimoni() {
   return (
     <div className="h-[670px] bg-slate-100 flex flex-col pe-20 pl-24 pb-20 relative font-['poppins'] ">
       <div className="flex space-x-4 justify-start">
-        <button type="submit" className="btn relative font-extrabold text-2xl py-4 px-8">
+        <button type="submit" className="btn relative font-extrabold text-2xl py-4 px-8 group">
           Buat Berita
-          <span className="absolute bottom-0 left-0 w-full h-[5px] bg-yellow-500  mx-auto"></span>
+          {/* Pseudo-element untuk garis kuning saat hover */}
+          <span className="absolute bottom-0 left-0 w-full h-[5px] bg-transparent group-hover:bg-yellow-500 transition-all duration-300"></span>
         </button>
-        <button type="submit" className="btn font-extrabold text-2xl py-4 px-8 hover:after:bg-yellow-500 hover:after:h-[5px] hover:after:w-full">
+        <button type="submit" className="btn relative font-extrabold text-2xl py-4 px-8">
           Edit Berita
+          {/* Pseudo-element untuk garis kuning di bagian bawah */}
+          <span className="absolute bottom-0 left-0 w-full h-[5px] bg-yellow-500"></span>
         </button>
       </div>
 
