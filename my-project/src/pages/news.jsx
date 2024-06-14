@@ -70,7 +70,7 @@ const NewsPage = () => {
                                 <CardNews
                                     image={`https://storage.googleapis.com/e-complaint-assets/${berita.files[0].path}`}
                                     title={berita.title}
-                                    description={berita.content}
+                                   description={berita.content.slice(0, 200) + (berita.content.length > 200 ? '...' : '')}
                                 />
                             </div>
                         ))}
