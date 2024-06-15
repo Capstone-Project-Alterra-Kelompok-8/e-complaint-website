@@ -1,9 +1,11 @@
 import { useDispatch } from 'react-redux';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { toggleSidebar } from '../../services/store';
+import { useLocation } from 'react-router-dom';
 
 const HeaderLayout = () => {
     const dispatch = useDispatch();
+    const location = useLocation();
 
     const getHeaderText = (path) => {
         switch (path) {
