@@ -65,16 +65,15 @@ const NewsPage = () => {
                                     />
                                 </div>
                             </div>
-
                             <div className="container w-full flex flex-wrap gap-2">
                                 {filteredNews.map((berita) => (
-                                    <div key={berita.id} className="p-4">
-                                        <CardNews
-                                            image={berita.files && berita.files[0] ? `https://storage.googleapis.com/e-complaint-assets/${berita.files[0].path}` : 'https://via.placeholder.com/150'}
-                                            title={berita.title}
-                                            description={berita.content}
-                                        />
-                                    </div>
+                                  <div key={berita.id} style={{marginRight: '42px', marginBottom: '38px'}}>
+                                   <CardNews
+                                     image={`https://storage.googleapis.com/e-complaint-assets/${berita.files && berita.files.length > 0 ? berita.files[0].path : 'default.jpg'}`}
+                                     title={berita.title}
+                                     description={berita.content.slice(0, 200) + (berita.content.length > 200 ? '...' : '')}
+                                   />
+                                  </div>
                                 ))}
                             </div>
                         </div>
