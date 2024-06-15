@@ -5,6 +5,7 @@ import { ArrowRightStartOnRectangleIcon, XMarkIcon } from '@heroicons/react/24/o
 import { useDispatch, useSelector } from 'react-redux';
 import { setPath, closeSidebar } from '../../services/store';
 import Swal from 'sweetalert2';
+import menara from '../../assets/menara.png';
 import withReactContent from 'sweetalert2-react-content';
 import './assets/css/CustomButtomAlertLogout.css';
 
@@ -79,8 +80,7 @@ const SidebarLayout = () => {
                         <XMarkIcon className="w-8 h-8 text-white" />
                     </button>
                 </div>
-                <br />
-                <div className="px-4">
+                <div className="px-4 lg:mt-4">
                     <ul className="flex flex-col gap-2.5">
                         <li>
                             <Link
@@ -89,7 +89,7 @@ const SidebarLayout = () => {
                                 className={`${location.pathname === '/dashboard'
                                     ? 'bg-white border-transparent hover:bg-gray-300'
                                     : 'border-b hover:bg-white border-black hover:border-transparent'
-                                    } flex font-medium font-poppins text-xl gap-4 rounded-md py-4 px-2.5 `}
+                                    } flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5 `}
                             >
                                 <svg
                                     width={24}
@@ -127,7 +127,7 @@ const SidebarLayout = () => {
                                 className={`${location.pathname === '/complaint'
                                     ? 'bg-white border-transparent hover:bg-gray-300'
                                     : 'border-b hover:bg-white border-black hover:border-transparent'
-                                    } flex font-medium font-poppins text-xl gap-4 rounded-md py-4 px-2.5 `}
+                                    } flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5 `}
                             >
                                 <svg
                                     width={22}
@@ -158,7 +158,7 @@ const SidebarLayout = () => {
                                 className={`${location.pathname === '/chat-user'
                                     ? 'bg-white border-transparent hover:bg-gray-300'
                                     : 'border-b hover:bg-white border-black hover:border-transparent'
-                                    } flex font-medium font-poppins text-xl gap-4 rounded-md py-4 px-2.5 `}
+                                    } flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5 `}
                             >
                                 <svg
                                     width={22}
@@ -202,7 +202,7 @@ const SidebarLayout = () => {
                                 className={`${location.pathname === '/news'
                                     ? 'bg-white border-transparent hover:bg-gray-300'
                                     : 'border-b hover:bg-white border-black hover:border-transparent'
-                                    } flex font-medium font-poppins text-xl gap-4 rounded-md py-4 px-2.5 `}
+                                    } flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5 `}
                             >
                                 <svg
                                     width={24}
@@ -230,7 +230,7 @@ const SidebarLayout = () => {
                                         } ${location.pathname === '/super-admin/user'
                                             ? 'bg-white border-transparent hover:bg-gray-300'
                                             : 'border-b hover:bg-white border-black hover:border-transparent'
-                                        } flex font-medium font-poppins text-xl gap-4 rounded-md py-4 px-2.5 `}
+                                        } flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5 `}
                                 >
                                     <svg
                                         width={22}
@@ -258,7 +258,7 @@ const SidebarLayout = () => {
                         <li>
                             <button
                                 onClick={handleLogout}
-                                className="w-full text-error-3 hover:bg-rose-300 border-b border-black hover:border-transparent flex font-medium font-poppins text-xl gap-4 rounded-md py-4 px-2.5"
+                                className="w-full text-error-3 hover:bg-rose-300 border-b border-black hover:border-transparent flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5"
                             >
                                 <ArrowRightStartOnRectangleIcon className="w-6 h-6 text-error-3" />
                                 Keluar
@@ -266,6 +266,7 @@ const SidebarLayout = () => {
                         </li>
                     </ul>
                 </div>
+                <img src={menara} alt="menara" className='w-[250px] h-[250px] flex absolute -z-50 bottom-[-50px] left-0 rotate-[18.34deg]' />
             </div>
         </>
     );

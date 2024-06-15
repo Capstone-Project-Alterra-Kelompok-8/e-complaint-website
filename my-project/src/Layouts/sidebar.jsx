@@ -7,7 +7,7 @@ import { TbFolderCog } from "react-icons/tb";
 import { IoLogOutOutline } from "react-icons/io5"
 import menara from '../assets/menara.png'
 import { IoMdClose } from "react-icons/io";
-import { Link, useLocation} from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 
 
 export default function Sidebar() {
@@ -23,8 +23,8 @@ export default function Sidebar() {
         setIsOpen(false);
     }
 
-    const isActive = (path)=> location.pathname === path
-    
+    const isActive = (path) => location.pathname === path
+
     return (
         <div className='flex'>
             {/* Hamburger Button */}
@@ -51,7 +51,7 @@ export default function Sidebar() {
             {/* Backdrop */}
             {isOpen && (
                 <div className='absolute top left-0 z-40'>
-                <IoMdClose  className='font-medium size-6' onClick={closeSidebar}/>
+                    <IoMdClose className='font-medium size-6' onClick={closeSidebar} />
                 </div>
             )}
 
@@ -59,9 +59,9 @@ export default function Sidebar() {
             <div className={`fixed top-0 left-0 bottom-0 w-72 bg-main-color flex flex-col justify-between overflow-y-hidden transition-transform transform z-index-20
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
                 <img src={logo} alt="logo" className='py-4 px-7' />
-                
+
                 <div className="button-groups px-4 flex flex-col gap-6 items-start justify-start">
-                <Link to='/dashboard' className={`rounded-md py-4 px-2.5 w-full border-b border-black ${isActive('/dashboard') ? 'bg-white' : ''}`} onClick={closeSidebar}>
+                    <Link to='/dashboard' className={`rounded-md py-4 px-2.5 w-full border-b border-black ${isActive('/dashboard') ? 'bg-white' : ''}`} onClick={closeSidebar}>
                         <div className="flex gap-2.5">
                             <LiaHomeSolid className="size-6 font-medium" />
                             <p className="text-black text-xl font-medium font-['Poppins'] leading-snug">Dashboard</p>
