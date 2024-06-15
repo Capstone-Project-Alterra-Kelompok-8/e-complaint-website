@@ -1,4 +1,6 @@
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
+import HeaderLayout from '../Header/HeaderLayout'
+import SidebarLayout from '../Header/SidebarLayout';
 import {
   Table,
   TableBody,
@@ -91,101 +93,107 @@ const ListComplaint = () => {
   };
 
   return (
-    <main className="container mx-auto px-4 py-4">
-      <section className="flex flex-col items-start mb-4 text-left">
-        <h1 className="text-3xl font-bold">Kelola Complaint</h1>
-      </section>
+    <section className="flex w-full flex-col">
+      <HeaderLayout />
+      <SidebarLayout />
+      <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
+        <main className="container mx-auto px-4 py-4">
+          <section className="flex flex-col items-start mb-4 text-left">
+            <h1 className="text-3xl font-bold">Kelola Complaint</h1>
+          </section>
 
-      <Box p={2} sx={{ backgroundColor: "#E5E7EB" }}>
-        <TextField
-          variant="outlined"
-          placeholder="Search"
-          value={searchTerm}
-          onChange={handleSearch}
-          InputProps={{
-            endAdornment: (
-              <IconButton>
-                <Search />
-              </IconButton>
-            ),
-            sx: {
-              width: "40%",
-              height: "40px",
-              marginLeft: "auto",
-              backgroundColor: "white"  
-            },
-          }}
-          fullWidth
-          margin="normal"
-          className="font-poppins"
-        />
-        <TableContainer component={Paper} className="font-poppins" sx={{ backgroundColor: "#E5E7EB" }}>
-          <Table>
-            <TableHead>
-              <TableRow className="bg-main-color">
-                <TableCell align="center">No</TableCell>
-                <TableCell>No. Complaint </TableCell>
-                <TableCell align="center">Tanggal</TableCell>
-                <TableCell align="center">Lokasi</TableCell>
-                <TableCell align="center">Kategori</TableCell>
-                <TableCell align="center">Tipe</TableCell>
-                <TableCell align="center">Status</TableCell>
-                <TableCell align="center">Detail</TableCell>
-              </TableRow>
-            </TableHead>
-            <TableBody>
-              {filteredComplaints
-                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                .map((complaint, index) => (
-                  <TableRow key={complaint.id}>
-                    <TableCell align="center">{page * rowsPerPage + index + 1}</TableCell>
-                    <TableCell>{complaint.id}</TableCell>
-                    <TableCell align="center">
-                      {format(new Date(complaint.updated_at), "d MMMM yyyy", {
-                        locale: id,
-                      })}
-                    </TableCell>
-                    <TableCell>{complaint.regency.name}</TableCell>
-                    <TableCell align="center">
-                      <span className="bg-light-5 px-3 py-2 rounded">
-                        {complaint.category.name}
-                      </span>
-                    </TableCell>
-                    <TableCell align="center">
-                      <span className="bg-light-5 px-3 py-2 rounded">
-                        {complaint.type}
-                      </span>
-                    </TableCell>
-                    <TableCell align="center">
-                      <span className="bg-light-5 px-3 py-2 rounded">
-                        {complaint.status}
-                      </span>
-                    </TableCell>
-                    <TableCell align="center">
-                      <Link
-                        to={`/complaints/${complaint.id}`}
-                        className="bg-info-3 text-white px-3 py-2 rounded"
-                      >
-                        Detail
-                      </Link>
-                    </TableCell>
+          <Box p={2} sx={{ backgroundColor: "#E5E7EB" }}>
+            <TextField
+              variant="outlined"
+              placeholder="Search"
+              value={searchTerm}
+              onChange={handleSearch}
+              InputProps={{
+                endAdornment: (
+                  <IconButton>
+                    <Search />
+                  </IconButton>
+                ),
+                sx: {
+                  width: "40%",
+                  height: "40px",
+                  marginLeft: "auto",
+                  backgroundColor: "white"
+                },
+              }}
+              fullWidth
+              margin="normal"
+              className="font-poppins"
+            />
+            <TableContainer component={Paper} className="font-poppins" sx={{ backgroundColor: "#E5E7EB" }}>
+              <Table>
+                <TableHead>
+                  <TableRow className="bg-main-color">
+                    <TableCell align="center">No</TableCell>
+                    <TableCell>No. Complaint </TableCell>
+                    <TableCell align="center">Tanggal</TableCell>
+                    <TableCell align="center">Lokasi</TableCell>
+                    <TableCell align="center">Kategori</TableCell>
+                    <TableCell align="center">Tipe</TableCell>
+                    <TableCell align="center">Status</TableCell>
+                    <TableCell align="center">Detail</TableCell>
                   </TableRow>
-                ))}
-            </TableBody>
-          </Table>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 25]}
-            component="div"
-            count={filteredComplaints.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onPageChange={handleChangePage}
-            onRowsPerPageChange={handleChangeRowsPerPage}
-            className="font-poppins"
-          />
-        </TableContainer>
-      </Box>
-    </main>
+                </TableHead>
+                <TableBody>
+                  {filteredComplaints
+                    .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                    .map((complaint, index) => (
+                      <TableRow key={complaint.id}>
+                        <TableCell align="center">{page * rowsPerPage + index + 1}</TableCell>
+                        <TableCell>{complaint.id}</TableCell>
+                        <TableCell align="center">
+                          {format(new Date(complaint.updated_at), "d MMMM yyyy", {
+                            locale: id,
+                          })}
+                        </TableCell>
+                        <TableCell>{complaint.regency.name}</TableCell>
+                        <TableCell align="center">
+                          <span className="bg-light-5 px-3 py-2 rounded">
+                            {complaint.category.name}
+                          </span>
+                        </TableCell>
+                        <TableCell align="center">
+                          <span className="bg-light-5 px-3 py-2 rounded">
+                            {complaint.type}
+                          </span>
+                        </TableCell>
+                        <TableCell align="center">
+                          <span className="bg-light-5 px-3 py-2 rounded">
+                            {complaint.status}
+                          </span>
+                        </TableCell>
+                        <TableCell align="center">
+                          <Link
+                            to={`/complaints/${complaint.id}`}
+                            className="bg-info-3 text-white px-3 py-2 rounded"
+                          >
+                            Detail
+                          </Link>
+                        </TableCell>
+                      </TableRow>
+                    ))}
+                </TableBody>
+              </Table>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25]}
+                component="div"
+                count={filteredComplaints.length}
+                rowsPerPage={rowsPerPage}
+                page={page}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                className="font-poppins"
+              />
+            </TableContainer>
+          </Box>
+        </main>
+      </div>
+    </section>
   );
 };
 
