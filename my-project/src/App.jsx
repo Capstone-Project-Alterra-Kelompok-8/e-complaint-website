@@ -23,7 +23,7 @@ function App() {
         <Route element={<Adminroute />}>
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/category" element={<Category />} />
-          <Route path="/complaints" element={<Complaint />} />
+          <Route path="/complaint" element={<Complaint />} />
           <Route path="/news" element={<NewsPage />} />
         </Route>
 
