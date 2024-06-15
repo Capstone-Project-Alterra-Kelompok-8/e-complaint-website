@@ -15,7 +15,7 @@ export default function Header(){
         }
     }
     return(
-        <div className=" bg-main-color lg:ml-72 p-4 flex justify-between items-center">
+        <div className=" bg-main-color lg:ml-72 top-0 right-0 p-4 flex justify-between items-center">
             <div className="title text-zinc-900 text-3xl font-bold font-poppins">{getTitle(location.pathname)}</div>
             <img src="https://storage.googleapis.com/e-complaint-assets/profile-photos/admin-default.jpg" 
             alt="profile"

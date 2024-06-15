@@ -56,7 +56,7 @@ export default function Sidebar() {
             )}
 
             {/* Sidebar */}
-            <div className={`fixed h-svh w-72 bg-main-color flex flex-col justify-between overflow-y-hidden transition-transform transform z-index-20
+            <div className={`fixed top-0 left-0 bottom-0 w-72 bg-main-color flex flex-col justify-between overflow-y-hidden transition-transform transform z-index-20
                 ${isOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0`}>
                 <img src={logo} alt="logo" className='py-4 px-7' />
                 
