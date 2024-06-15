@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { PlusIcon, PencilSquareIcon, TrashIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import Swal from 'sweetalert2';
 import SuperAdminPanel from './SuperAdminPanel'
-import Header from '../Header/HeaderLayout'
+import HeaderLayout from '../Header/HeaderLayout'
+import SidebarLayout from '../Header/SidebarLayout';
 
 function ListAdminLayout() {
     const [admins, setAdmins] = useState([]);
@@ -193,104 +194,113 @@ function ListAdminLayout() {
 
     return (
         <section className="flex w-full flex-col">
-            <Header />
+            <HeaderLayout />
+            <SidebarLayout />
             <SuperAdminPanel />
-            <main className="w-full lg:ml-[290px] bg-[#E2E2E2] min-h-[100dvh] py-3 px-2">
-                <section>
-                    <button
-                        type="button"
-                        className="flex bg-main-color py-2 pl-4 pr-6 rounded-md mb-4 hover:bg-main-darker"
-                        onClick={() => setIsAdding(true)} // Menampilkan form tambah akun baru
-                    >
-                        <PlusIcon className="size-6 text-black" />
-                        <p className="font-medium text-black font-montserrat">Add/Create</p>
-                    </button>
-                </section>
-                <div className='w-full overflow-x-auto overflow-y-auto h-96'>
-                    <table className='table-auto w-full font-poppins'>
-                        <thead className='w-full'>
-                            <tr className='bg-main-lighter text-black'>
-                                <th className='py-1.5'>No</th>
-                                <th className='py-1.5'>Name</th>
-                                <th className='py-1.5'>Email</th>
-                                <th className='py-1.5'>Phone Number</th>
-                                <th className='py-1.5'>Password</th>
-                                <th className='py-1.5'>Action</th>
-                            </tr>
-                        </thead>
-                        <tbody className='py-4 border-dashed border-2 border-[#9747FF] w-full'>
-                            {admins.map((admin, index) => (
-                                <tr key={admin.id} className='text-black bg-transparent text-center border-b border-black first:pt-4 last:pb-4'>
-                                    <td className='py-2 font-bold'>{index + 1}</td>
-                                    <td className='py-2'>{admin.name}</td>
-                                    <td className='py-2'>{admin.email}</td>
-                                    <td className='py-2'>{admin.telephone_number}</td>
-                                    <td className='py-2'>••••••••</td>
-                                    <td className='flex gap-2 justify-center py-2'>
-                                        {!admin.is_super_admin && (
-                                            <>
-                                                <button onClick={() => handleEditClick(admin)}>
-                                                    <PencilSquareIcon className="size-6 text-blue-500" />
-                                                </button>
-                                                <button onClick={() => deleteAdmin(admin.id)}>
-                                                    <TrashIcon className="size-6 text-red-500" />
-                                                </button>
-                                            </>
-                                        )}
-                                    </td>
+            <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
+                <main className="bg-[#E2E2E2] lg:max-w-[99%] py-4 px-4 rounded-md lg:min-h-[70dvh] overflow-y-auto">
+                    <section className="pl-4">
+                        <button
+                            type="button"
+                            className="flex bg-main-color py-2 pl-4 pr-6 rounded-md mb-4 hover:bg-main-darker"
+                            onClick={() => setIsAdding(true)} // Menampilkan form tambah akun baru
+                        >
+                            <PlusIcon className="size-6 text-black" />
+                            <p className="font-medium text-black font-montserrat">Add/Create</p>
+                        </button>
+                    </section>
+                    <div className='w-full overflow-x-auto overflow-y-auto h-96'>
+                        <table className='table-auto w-full font-poppins'>
+                            <thead className='w-full'>
+                                <tr className='bg-main-color text-black'>
+                                    <th className='py-1.5'>No</th>
+                                    <th className='py-1.5'>Name</th>
+                                    <th className='py-1.5'>Email</th>
+                                    <th className='py-1.5'>Phone Number</th>
+                                    <th className='py-1.5'>Password</th>
+                                    <th className='py-1.5'>Action</th>
                                 </tr>
-                            ))}
-                        </tbody>
-                    </table>
-                </div>
-                {isEditing && (
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                        <div className="bg-white p-4 rounded-md">
-                            <h2 className="text-xl mb-4">Edit Admin</h2>
-                            <form onSubmit={handleEditSubmit}>
+                            </thead>
+                            <tbody className='py-4 w-full'>
+                                {admins.map((admin, index) => (
+                                    <tr key={admin.id} className='text-black bg-white text-center border-b border-black first:pt-4 last:pb-4'>
+                                        <td className='py-2 font-bold'>{index + 1}</td>
+                                        <td className='py-2'>{admin.name}</td>
+                                        <td className='py-2'>{admin.email}</td>
+                                        <td className='py-2'>{admin.telephone_number}</td>
+                                        <td className='py-2'>••••••••</td>
+                                        <td className='flex gap-2 justify-center py-2'>
+                                            {!admin.is_super_admin && (
+                                                <>
+                                                    <button onClick={() => handleEditClick(admin)}>
+                                                        <PencilSquareIcon className="size-6 text-blue-500" />
+                                                    </button>
+                                                    <button onClick={() => deleteAdmin(admin.id)}>
+                                                        <TrashIcon className="size-6 text-red-500" />
+                                                    </button>
+                                                </>
+                                            )}
+                                        </td>
+                                    </tr>
+                                ))}
+                            </tbody>
+                        </table>
+                    </div>
+                    {isEditing && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <form onSubmit={handleEditSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+                                <h2 className="text-2xl mb-4 font-bold">Edit Admin</h2>
                                 <div className="mb-4">
-                                    <label className="block text-gray-700">Name</label>
+                                    <label className="block mb-2 font-bold" htmlFor="name">Name</label>
                                     <input
                                         type="text"
+                                        id="name"
                                         name="name"
                                         value={currentAdmin.name}
                                         onChange={handleInputChange}
-                                        className="mt-1 block w-full"
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                        required
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-700">Email</label>
+                                    <label className="block mb-2 font-bold" htmlFor="email">Email</label>
                                     <input
                                         type="email"
+                                        id="email"
                                         name="email"
                                         value={currentAdmin.email}
                                         onChange={handleInputChange}
-                                        className="mt-1 block w-full"
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                        required
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-700">Phone Number</label>
+                                    <label className="block mb-2 font-bold" htmlFor="telephone_number">Phone Number</label>
                                     <input
                                         type="text"
+                                        id="telephone_number"
                                         name="telephone_number"
                                         value={currentAdmin.telephone_number}
                                         onChange={handleInputChange}
-                                        className="mt-1 block w-full"
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                        required
                                     />
                                 </div>
                                 <div className="mb-4 relative">
-                                    <label className="block text-gray-700">Password</label>
+                                    <label className="block mb-2 font-bold" htmlFor="password">Password</label>
                                     <input
                                         type={showPassword ? "text" : "password"}
+                                        id="password"
                                         name="password"
                                         value={currentAdmin.password}
                                         onChange={handleInputChange}
-                                        className="mt-1 block w-full pr-10"
+                                        className="w-full p-2 border border-gray-300 rounded pr-10"
+                                        required
                                     />
                                     <button
                                         type="button"
                                         onClick={togglePasswordVisibility}
-                                        className="absolute inset-y-0 right-0 pr-3 flex justify-center top-7 items-center text-gray-500"
+                                        className="absolute inset-y-0 right-0 pr-3 flex mt-1 justify-center top-7 items-center text-gray-500"
                                     >
                                         {showPassword ? (
                                             <EyeSlashIcon className="h-5 w-5" />
@@ -300,72 +310,67 @@ function ListAdminLayout() {
                                     </button>
                                 </div>
                                 <div className="flex justify-end">
-                                    <button
-                                        type="button"
-                                        onClick={() => setIsEditing(false)}
-                                        className="mr-2 bg-gray-500 hover:bg-gray-600 text-white py-1 px-4 rounded"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className="bg-success-1 hover:bg-success-2 text-white py-1 px-4 rounded"
-                                    >
-                                        Save
-                                    </button>
+                                    <button type="button" onClick={() => setIsEditing(false)} className="mr-4 px-4 py-2 text-gray-600">Cancel</button>
+                                    <button type="submit" className="px-4 py-2 bg-main-color hover:bg-main-darker text-white rounded">Save</button>
                                 </div>
                             </form>
                         </div>
-                    </div>
-                )}
-                {isAdding && ( // Form tambah akun baru
-                    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-                        <div className="bg-white p-4 rounded-md">
-                            <h2 className="text-xl mb-4">Add New Admin</h2>
-                            <form onSubmit={handleNewAdminSubmit}>
+                    )}
+                    {isAdding && (
+                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <form onSubmit={handleNewAdminSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+                                <h2 className="text-2xl mb-4 font-bold">Tambah Akun</h2>
                                 <div className="mb-4">
-                                    <label className="block text-gray-700">Name</label>
+                                    <label className="block mb-2 font-bold" htmlFor="name">Name</label>
                                     <input
                                         type="text"
+                                        id="name"
                                         name="name"
                                         value={newAdmin.name}
                                         onChange={handleNewAdminInputChange}
-                                        className="mt-1 block w-full"
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                        required
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-700">Email</label>
+                                    <label className="block mb-2 font-bold" htmlFor="email">Email</label>
                                     <input
                                         type="email"
+                                        id="email"
                                         name="email"
                                         value={newAdmin.email}
                                         onChange={handleNewAdminInputChange}
-                                        className="mt-1 block w-full"
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                        required
                                     />
                                 </div>
                                 <div className="mb-4">
-                                    <label className="block text-gray-700">Phone Number</label>
+                                    <label className="block mb-2 font-bold" htmlFor="telephone_number">Phone Number</label>
                                     <input
                                         type="text"
+                                        id="telephone_number"
                                         name="telephone_number"
                                         value={newAdmin.telephone_number}
                                         onChange={handleNewAdminInputChange}
-                                        className="mt-1 block w-full"
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                        required
                                     />
                                 </div>
                                 <div className="mb-4 relative">
-                                    <label className="block text-gray-700">Password</label>
+                                    <label className="block mb-2 font-bold" htmlFor="password">Password</label>
                                     <input
                                         type={showPassword ? "text" : "password"}
+                                        id="password"
                                         name="password"
                                         value={newAdmin.password}
                                         onChange={handleNewAdminInputChange}
-                                        className="mt-1 block w-full pr-10"
+                                        className="w-full p-2 border border-gray-300 rounded pr-10"
+                                        required
                                     />
                                     <button
                                         type="button"
                                         onClick={togglePasswordVisibility}
-                                        className="absolute inset-y-0 right-0 pr-3 flex justify-center top-7 items-center text-gray-500"
+                                        className="absolute inset-y-0 right-0 pr-3 mt-1 flex justify-center top-7 items-center text-gray-500"
                                     >
                                         {showPassword ? (
                                             <EyeSlashIcon className="h-5 w-5" />
@@ -375,25 +380,14 @@ function ListAdminLayout() {
                                     </button>
                                 </div>
                                 <div className="flex justify-end">
-                                    <button
-                                        type="button"
-                                        onClick={() => setIsAdding(false)}
-                                        className="mr-2 bg-gray-500 hover:bg-gray-600 text-white py-1 px-4 rounded"
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        type="submit"
-                                        className="bg-success-1 hover:bg-success-2 text-white py-1 px-4 rounded"
-                                    >
-                                        Save
-                                    </button>
+                                    <button type="button" onClick={() => setIsAdding(false)} className="mr-4 px-4 py-2 text-gray-600">Cancel</button>
+                                    <button type="submit" className="px-4 py-2 bg-main-color hover:bg-main-darker text-white rounded">Save</button>
                                 </div>
                             </form>
                         </div>
-                    </div>
-                )}
-            </main>
+                    )}
+                </main>
+            </div>
         </section>
     );
 }

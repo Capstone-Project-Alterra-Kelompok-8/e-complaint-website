@@ -15,7 +15,7 @@ function SuperAdminPanel() {
     };
 
     return (
-        <main className="py-6 px-3">
+        <main className="py-6 px-3 lg:ml-80">
             <h1 className="font-poppins text-4xl text-black mb-9 font-medium">{getTitle()}</h1>
             <section
                 className="flex row gap-4">

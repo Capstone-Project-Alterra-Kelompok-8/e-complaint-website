@@ -2,7 +2,8 @@ import { useState, useEffect } from 'react';
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/outline';
 import Swal from 'sweetalert2';
 import SuperAdminPanel from './SuperAdminPanel'
-import Header from '../Header/HeaderLayout'
+import HeaderLayout from '../Header/HeaderLayout'
+import SidebarLayout from '../Header/SidebarLayout';
 
 function ListUserLayout() {
     const [users, setUsers] = useState([]);
@@ -142,17 +143,16 @@ function ListUserLayout() {
     };
 
     return (
-        <section className="flex w-full">
-            <div className="lg:w-1/5">
-                <Header />
-            </div>
-            <div className="w-full lg:w-4/5 mt-16">
-                <SuperAdminPanel />
-                <main className="w-full bg-[#E2E2E2] min-h-[100dvh] py-3 px-2">
+        <section className="flex w-full flex-col">
+            <HeaderLayout />
+            <SidebarLayout />
+            <SuperAdminPanel />
+            <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
+                <main className="bg-[#E2E2E2] lg:max-w-[99%] py-4 px-4 rounded-md lg:min-h-[70dvh] lg:overflow-y-auto">
                     <div className='w-full overflow-x-auto'>
                         <table className='table-auto w-full font-poppins'>
                             <thead className='w-full'>
-                                <tr className='bg-main-lighter text-black'>
+                                <tr className='bg-main-color text-black'>
                                     <th className='py-1.5'>No</th>
                                     <th className='py-1.5'>Name</th>
                                     <th className='py-1.5'>Email</th>
@@ -161,9 +161,9 @@ function ListUserLayout() {
                                     <th className='py-1.5'>Action</th>
                                 </tr>
                             </thead>
-                            <tbody className='py-4 border-dashed border-2 border-[#9747FF] w-full'>
+                            <tbody className='py-4 w-full'>
                                 {users.map((user, index) => (
-                                    <tr key={user.id} className='text-black bg-transparent text-center border-b border-black first:pt-4 last:pb-4'>
+                                    <tr key={user.id} className='text-black bg-white text-center border-b border-black first:pt-4 last:pb-4'>
                                         <td className='py-2 font-bold'>{index + 1}</td>
                                         <td className='py-2'>{user.name}</td>
                                         <td className='py-2'>{user.email}</td>
@@ -224,8 +224,8 @@ function ListUserLayout() {
                                     />
                                 </div>
                                 <div className="flex justify-end">
-                                    <button type="button" onClick={() => setIsEditing(false)} className="mr-4 px-4 py-2 text-gray-600">Cancel</button>
-                                    <button type="submit" className="px-4 py-2 bg-main-color text-white rounded">Save</button>
+                                    <button type="button" onClick={() => setIsEditing(false)} className="mr-4 px-4 py-2 text-gray-600">Batal</button>
+                                    <button type="submit" className="px-4 py-2 bg-main-color hover:bg-main-darker text-white rounded">Simpan</button>
                                 </div>
                             </form>
                         </div>
