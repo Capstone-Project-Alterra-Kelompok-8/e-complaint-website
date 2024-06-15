@@ -5,8 +5,8 @@ import SideNar from '../Layouts/sidebar'
 const Category = () => {
     return (
         <main>
-            <Header />
-            <SideNar />
+            {/* <Header />
+            <SideNar /> */}
             <CategoryLayout />
         </main>
     )

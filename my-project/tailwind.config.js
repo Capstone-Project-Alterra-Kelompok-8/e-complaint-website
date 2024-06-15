@@ -8,6 +8,9 @@ export default {
   ],
   theme: {
     extend: {
+      gridTemplateColumns: {
+        'layout': 'auto 1fr', // Kolom pertama untuk sidebar, kolom kedua untuk konten utama
+      },
       fontFamily: {
         montserrat: ["Montserrat", "sans-serif"],
         poppins: ["Poppins", "sans-serif"],

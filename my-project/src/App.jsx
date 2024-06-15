@@ -1,16 +1,15 @@
-
-import { Route, Routes } from "react-router-dom"
-import Login from "./pages/Login"
-import ListAdmin from "./pages/SuperAmin/ListAdmin"
-import ListUser from "./pages/SuperAmin/ListUser"
-import HomePage from "./pages/HomePage"
-import SuperAdminRoute from './route/PrivatSuperAdmin'
-import Adminroute from './route/PrivatAdmin'
-import Dashboard from "./pages/Dashboard"
-import Category from "./pages/Category"
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import ListAdmin from "./pages/SuperAmin/ListAdmin";
+import ListUser from "./pages/SuperAmin/ListUser";
+import HomePage from "./pages/HomePage";
+import SuperAdminRoute from "./route/PrivatSuperAdmin";
+import Adminroute from "./route/PrivatAdmin";
+import Dashboard from "./pages/Dashboard";
+import Category from "./pages/Category";
 import Complaint from "./pages/Complaint";
-import NewsPage from "./pages/news"
-
+import NewsPage from "./pages/news";
+import AdminLayout from "./Layouts/AdminLayout";
 
 function App() {
   return (
@@ -21,10 +20,12 @@ function App() {
 
         {/* Privat route Admin */}
         <Route element={<Adminroute />}>
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/category" element={<Category />} />
-          <Route path="/complaints" element={<Complaint />} />
-          <Route path="/news" element={<NewsPage />} />
+          <Route element={<AdminLayout />}>
+            <Route path="/dashboard" element={<Dashboard />} />
+            <Route path="/category" element={<Category />} />
+            <Route path="/complaints" element={<Complaint />} />
+            <Route path="/news" element={<NewsPage />} />
+          </Route>
         </Route>
 
         {/* Privat route Super Admin */}

@@ -5,8 +5,8 @@ import SideNar from '../Layouts/sidebar'
 const Dashboard = () => {
   return (
     <main>
-      <Header />
-      <SideNar />
+      {/* <Header />
+      <SideNar /> */}
       <Progress />
     </main>
   )
