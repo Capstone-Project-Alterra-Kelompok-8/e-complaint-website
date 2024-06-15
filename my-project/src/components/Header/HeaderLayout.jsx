@@ -1,19 +1,29 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline';
-import { toggleSidebar } from './store';
+import { useDispatch } from 'react-redux';
+import { Bars3Icon } from '@heroicons/react/24/outline';
+import { toggleSidebar } from '../../services/store';
 
 const HeaderLayout = () => {
     const dispatch = useDispatch();
-    const currentPath = useSelector((state) => state.path);
 
-    const pageTitleMap = {
-        '/dashboard': 'Dashboard',
-        '/complaint': 'Complaint',
-        '/chat-user': 'Chat Page',
-        '/category': 'Kategori',
-        '/news': 'Berita',
-        '/super-admin/admin': 'Super Admin',
-        '/super-admin/user': 'Super Admin',
+    const getHeaderText = (path) => {
+        switch (path) {
+            case '/dashboard':
+                return 'Dashboard';
+            case '/complaint':
+                return 'Complaint';
+            case '/chat-user':
+                return 'Chat Page';
+            case '/category':
+                return 'Kategori';
+            case '/news':
+                return 'Berita';
+            case '/super-admin/admin':
+                return 'Super Admin - Admin';
+            case '/super-admin/user':
+                return 'Super Admin - User';
+            default:
+                return 'Welcome';
+        }
     };
 
     return (
@@ -23,7 +33,7 @@ const HeaderLayout = () => {
                     <Bars3Icon className="w-8 h-8 text-white lg:hidden lg:mr-0 mr-4" />
                 </button>
                 <h1 className="font-poppins text-3xl font-bold">
-                    {pageTitleMap[currentPath] || 'Dashboard'}
+                    {getHeaderText(location.pathname)}
                 </h1>
             </section>
             <section className="md:pr-9">
