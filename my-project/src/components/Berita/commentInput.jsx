@@ -1,0 +1,37 @@
+import React, { useState } from 'react';
+import { RiSendPlaneLine } from "react-icons/ri";
+
+const CommentInput = ({ addComment }) => {
+    const [text, setText] = useState('');
+
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (text.trim()) {
+            addComment(text);
+            setText('');
+        }
+    };
+
+    return (
+        <form onSubmit={handleSubmit} className="flex items-center py-6 px-7 border-t bg-white w-full">
+            <img
+                src="https://via.placeholder.com/40"
+                alt="User avatar"
+                className="rounded-full mr-4"
+            />
+            <input
+                type="text"
+                className="flex-grow rounded px-4 py-2 text-gray-600 font-montserrat border-none"
+                placeholder="Tambahkan komentar..."
+                value={text}
+                onChange={(e) => setText(e.target.value)}
+            />
+            <div className="w-px h-9 mx-3 border border-slate-300" />
+            <button type="submit" className='text-2xl'>
+                <RiSendPlaneLine className='hidden md:flex' />
+            </button>
+        </form>
+    );
+};
+
+export default CommentInput;

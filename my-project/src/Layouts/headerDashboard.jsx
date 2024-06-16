@@ -7,9 +7,11 @@ export default function Header(){
         switch(path){
             case '/dashboard' : return 'Dashboard';
             case '/complaint' : return 'Complaint';
+            case '/complaint-detail' : return 'Complaint';
             case '/chat-user' : return 'Chat Page';
             case '/category' : return 'Category';
             case '/news' : return 'News';
+            case '/news-detail:id' : return 'News';
 
             default :return 'Dashboard';
         }
