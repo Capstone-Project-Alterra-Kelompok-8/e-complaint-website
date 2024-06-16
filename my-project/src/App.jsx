@@ -1,18 +1,15 @@
-
-import { Route, Routes } from "react-router-dom"
-import Login from "./pages/Login"
-import ListAdmin from "./pages/SuperAmin/ListAdmin"
-import ListUser from "./pages/SuperAmin/ListUser"
-import HomePage from "./pages/HomePage"
-import SuperAdminRoute from './route/PrivatSuperAdmin'
-import Adminroute from './route/PrivatAdmin'
-import Dashboard from "./pages/Dashboard"
-import Category from "./pages/Category"
+import { Route, Routes } from "react-router-dom";
+import Login from "./pages/Login";
+import ListAdmin from "./pages/SuperAmin/ListAdmin";
+import ListUser from "./pages/SuperAmin/ListUser";
+import HomePage from "./pages/HomePage";
+import SuperAdminRoute from "./route/PrivatSuperAdmin";
+import Adminroute from "./route/PrivatAdmin";
+import Dashboard from "./pages/Dashboard";
+import Category from "./pages/Category";
 import Complaint from "./pages/Complaint";
 import NewsPage from "./pages/news"
-import DetailNews from "./pages/Berita/detailNews"
-
-
+import DetailNews from "./pages/Berita/detailNews";
 
 function App() {
   return (
@@ -27,7 +24,7 @@ function App() {
           <Route path="/category" element={<Category />} />
           <Route path="/complaint" element={<Complaint />} />
           <Route path="/news" element={<NewsPage />} />
-          <Route path="/news-detail:id" element={<DetailNews />} />
+          <Route path="/news-detail" element={<DetailNews />} />
         </Route>
 
         {/* Privat route Super Admin */}

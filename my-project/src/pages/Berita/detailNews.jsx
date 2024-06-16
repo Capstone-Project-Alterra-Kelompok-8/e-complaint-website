@@ -1,15 +1,15 @@
 import DetailCardNews from "../../components/Berita/detailCardNews"
-import Sidebar from "../../Layouts/sidebar"
-import Header from "../../Layouts/headerDashboard"
+import HeaderLayout from "../../components/Header/HeaderLayout"
+import SidebarLayout from "../../components/Header/SidebarLayout"
 import Comment from "./comment"
 import ButtonNews from "../../components/Berita/buttonNews"
 import { ModalDelete } from "../../components/Berita/modalDelete"
 
 export default function DetailNews() {
     return (
-        <>
-            <Sidebar />
-            <Header />
+        <section className="flex w-full flex-col">
+            <HeaderLayout />
+            <SidebarLayout />
             <div className="bg-light-2 px-3 pb-6">
                 <div className="lg:ml-80 pt-9 flex gap-5 ">
                     <span className="font-poppins text-black text-4xl font-medium">Detail Berita</span>
@@ -23,6 +23,6 @@ export default function DetailNews() {
                 </div>
             </div>
             <ModalDelete />
-        </>
+        </section>
     )
 }
