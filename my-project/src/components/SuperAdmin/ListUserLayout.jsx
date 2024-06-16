@@ -4,11 +4,24 @@ import Swal from 'sweetalert2';
 import SuperAdminPanel from './SuperAdminPanel'
 import HeaderLayout from '../Header/HeaderLayout'
 import SidebarLayout from '../Header/SidebarLayout';
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Box,
+  TablePagination,
+  Paper,
+} from "@mui/material";
 
 function ListUserLayout() {
     const [users, setUsers] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
     const [currentUser, setCurrentUser] = useState(null);
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
 
     useEffect(() => {
         fetchUsers();
@@ -103,7 +116,6 @@ function ListUserLayout() {
         setCurrentUser({ ...currentUser, [name]: value });
     };
 
-    console.log("edit current user ", currentUser)
     const handleEditUserSubmit = async (e) => {
         e.preventDefault();
 
@@ -126,7 +138,6 @@ function ListUserLayout() {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
-            console.log("edit user ", currentUser)
             setCurrentUser(null);
             setIsEditing(false);
             fetchUsers();
@@ -142,6 +153,15 @@ function ListUserLayout() {
         }
     };
 
+    const handleChangePage = (event, newPage) => {
+        setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+        setRowsPerPage(parseInt(event.target.value, 10));
+        setPage(0);
+    };
+
     return (
         <section className="flex w-full flex-col">
             <HeaderLayout />
@@ -149,39 +169,53 @@ function ListUserLayout() {
             <SuperAdminPanel />
             <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
                 <main className="bg-[#E2E2E2] lg:max-w-[99%] py-4 px-4 rounded-md lg:min-h-[70dvh] lg:overflow-y-auto">
-                    <div className='w-full overflow-x-auto'>
-                        <table className='table-auto w-full font-poppins'>
-                            <thead className='w-full'>
-                                <tr className='bg-main-color text-black'>
-                                    <th className='py-1.5'>No</th>
-                                    <th className='py-1.5'>Name</th>
-                                    <th className='py-1.5'>Email</th>
-                                    <th className='py-1.5'>Phone Number</th>
-                                    <th className='py-1.5'>Password</th>
-                                    <th className='py-1.5'>Action</th>
-                                </tr>
-                            </thead>
-                            <tbody className='py-4 w-full'>
-                                {users.map((user, index) => (
-                                    <tr key={user.id} className='text-black bg-white text-center border-b border-black first:pt-4 last:pb-4'>
-                                        <td className='py-2 font-bold'>{index + 1}</td>
-                                        <td className='py-2'>{user.name}</td>
-                                        <td className='py-2'>{user.email}</td>
-                                        <td className='py-2'>{user.telephone_number}</td>
-                                        <td className='py-2'>••••••••</td>
-                                        <td className='py-2'>
-                                            <button onClick={() => handleEditUser(user)} className="text-blue-500 hover:text-blue-700">
-                                                <PencilSquareIcon className="h-5 w-5" />
-                                            </button>
-                                            <button onClick={() => deleteUser(user.id)} className="text-red-500 hover:text-red-700 ml-2">
-                                                <TrashIcon className="h-5 w-5" />
-                                            </button>
-                                        </td>
-                                    </tr>
-                                ))}
-                            </tbody>
-                        </table>
-                    </div>
+                    <Box p={2}>
+                        <TableContainer component={Paper} className="font-poppins" sx={{ backgroundColor: "#E5E7EB" }}>
+                            <Table>
+                                <TableHead>
+                                    <TableRow className="bg-main-color">
+                                        <TableCell align="center">No</TableCell>
+                                        <TableCell>Name</TableCell>
+                                        <TableCell align="center">Email</TableCell>
+                                        <TableCell align="center">Phone Number</TableCell>
+                                        <TableCell align="center">Password</TableCell>
+                                        <TableCell align="center">Action</TableCell>
+                                    </TableRow>
+                                </TableHead>
+                                <TableBody>
+                                    {users
+                                        .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                                        .map((user, index) => (
+                                            <TableRow key={user.id} className='text-black bg-white text-center border-b border-black first:pt-4 last:pb-4'>
+                                                <TableCell align="center">{page * rowsPerPage + index + 1}</TableCell>
+                                                <TableCell>{user.name}</TableCell>
+                                                <TableCell align="center">{user.email}</TableCell>
+                                                <TableCell align="center">{user.telephone_number}</TableCell>
+                                                <TableCell align="center">••••••••</TableCell>
+                                                <TableCell align="center">
+                                                    <button onClick={() => handleEditUser(user)} className="text-blue-500 hover:text-blue-700">
+                                                        <PencilSquareIcon className="h-5 w-5" />
+                                                    </button>
+                                                    <button onClick={() => deleteUser(user.id)} className="text-red-500 hover:text-red-700 ml-2">
+                                                        <TrashIcon className="h-5 w-5" />
+                                                    </button>
+                                                </TableCell>
+                                            </TableRow>
+                                        ))}
+                                </TableBody>
+                            </Table>
+                            <TablePagination
+                                rowsPerPageOptions={[5, 10, 25]}
+                                component="div"
+                                count={users.length}
+                                rowsPerPage={rowsPerPage}
+                                page={page}
+                                onPageChange={handleChangePage}
+                                onRowsPerPageChange={handleChangeRowsPerPage}
+                                className="font-poppins"
+                            />
+                        </TableContainer>
+                    </Box>
 
                     {isEditing && (
                         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
