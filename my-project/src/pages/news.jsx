@@ -4,36 +4,18 @@ import ButtonNews from "../components/Berita/buttonNews";
 import HeaderLayout from '../components/Header/HeaderLayout';
 import SidebarLayout from '../components/Header/SidebarLayout';
 import { IoSearch } from "react-icons/io5";
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchNews } from '../services/newsSlice'; // Memanggil action creator fetchNews dari newsSlice
 
 const NewsPage = () => {
-    const [news, setNews] = useState([]);
+    const dispatch = useDispatch();
+    const news = useSelector((state) => state.news.news); // Mengambil state news dari Redux store
     const [searchTerm, setSearchTerm] = useState('');
 
     useEffect(() => {
-        fetchNews();
-    }, []);
-
-    const fetchNews = async () => {
-        try {
-            const token = sessionStorage.getItem('token');
-            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/news', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setNews(data.data);
-        } catch (error) {
-            console.error('Error fetching news: ', error);
-        }
-    };
+        dispatch(fetchNews()); // Memanggil action creator fetchNews saat komponen di-mount
+    }, [dispatch]);
+    
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
@@ -74,7 +56,7 @@ const NewsPage = () => {
                                     key={berita.id}
                                     style={{ marginRight: "42px", marginBottom: "38px" }}
                                 >
-                                    <CardNews
+                                    <CardNews id={berita.id}
                                         image={`https://storage.googleapis.com/e-complaint-assets/${
                                             berita.files && berita.files.length > 0
                                                 ? berita.files[0].path

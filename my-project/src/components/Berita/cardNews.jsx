@@ -1,4 +1,4 @@
-export default function CardNews({ image, title, description }) {
+export default function CardNews({ id, image, title, description }) {
     return (
         <div className="lg:w-[486px] h-[500px] px-5 py-8 bg-slate-50 rounded-2xl flex flex-col shadow">
             <img className="w-full h-48 rounded-lg shadow" src={image} alt={title} />

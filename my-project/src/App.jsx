@@ -24,7 +24,7 @@ function App() {
           <Route path="/category" element={<Category />} />
           <Route path="/complaint" element={<Complaint />} />
           <Route path="/news" element={<NewsPage />} />
-          <Route path="/news-detail" element={<DetailNews />} />
+          <Route path="/news-detail/:id" element={<DetailNews />} />
         </Route>
 
         {/* Privat route Super Admin */}
