@@ -7,9 +7,12 @@ import HomePage from "./pages/HomePage"
 import SuperAdminRoute from './route/PrivatSuperAdmin'
 import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
+import Category from "./pages/Category"
+import Complaint from "./pages/Complaint";
+import NewsPage from "./pages/news"
+
 
 function App() {
-
   return (
     <main>
       <Routes>
@@ -19,6 +22,9 @@ function App() {
         {/* Privat route Admin */}
         <Route element={<Adminroute />}>
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/category" element={<Category />} />
+          <Route path="/complaint" element={<Complaint />} />
+          <Route path="/news" element={<NewsPage />} />
         </Route>
 
         {/* Privat route Super Admin */}
@@ -28,7 +34,7 @@ function App() {
         </Route>
       </Routes>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

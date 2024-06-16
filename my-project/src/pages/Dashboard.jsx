@@ -1,11 +1,11 @@
-import Progress from "../components/Dashboard/ProgressLayout";
+import Progress from '../components/Dashboard/Progress'
 
 const Dashboard = () => {
-    return (
-        <main>
-            <Progress />
-        </main>
-    )
+  return (
+    <>
+      <Progress />
+    </>
+  )
 }
 
 export default Dashboard
