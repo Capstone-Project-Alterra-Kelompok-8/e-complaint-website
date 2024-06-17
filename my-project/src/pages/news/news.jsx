@@ -47,7 +47,7 @@ const NewsPage = () => {
         const handleViewDetail = () => {
             // Implementasi navigasi ke halaman detail berita jika diperlukan
             console.log(`Navigasi ke detail berita dengan ID: ${newsId}`);
-            navigate(`/news-detail/:${newsId}`);
+            navigate(`/news-detail/${newsId}`);
         };
 
         return (
