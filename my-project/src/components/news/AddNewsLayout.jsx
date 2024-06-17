@@ -4,6 +4,7 @@ import HeaderLayout from '../Header/HeaderLayout';
 import SidebarLayout from '../Header/SidebarLayout';
 import { FileInput, Label } from "flowbite-react";
 import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const AddNewsLayout = () => {
     const [category, setCategory] = useState([]);
@@ -51,7 +52,18 @@ const AddNewsLayout = () => {
                     'Content-Type': 'multipart/form-data',
                 },
             });
-            alert('Berita berhasil disimpan');
+
+            setTitle("")
+            setContent("")
+            setCategoryId("")
+            setFile(null)
+            Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Successfully added new news",
+                showConfirmButton: false,
+                timer: 1500
+            });
         } catch (error) {
             console.error('Error saving news:', error);
             alert('Terjadi kesalahan saat menyimpan berita');
@@ -121,7 +133,7 @@ const AddNewsLayout = () => {
                                             </p>
                                             <p className="text-xs font-montserrat text-black/[.4] dark:text-gray-400">Recommended use 300 x 300 px for default theme</p>
                                         </div>
-                                        <FileInput id="dropzone-file" className="hidden" onChange={handleFileChange} />
+                                        <FileInput id="dropzone-file" className="hidden" onChange={handleFileChange} required />
                                     </Label>
                                 </div>
                             </div>
@@ -131,7 +143,7 @@ const AddNewsLayout = () => {
 
                                 <div className="flex flex-col">
                                     <label htmlFor="title">Judul Berita</label>
-                                    <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
+                                    <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} required />
                                 </div>
 
                                 <div className="flex flex-col">
@@ -139,7 +151,7 @@ const AddNewsLayout = () => {
                                     <select id="kategory" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
                                         <option value="">Pilih kategori Berita</option>
                                         {category.map((category, index) => (
-                                            <option key={index} value={category.ID}>{category.Name}</option>
+                                            <option key={index} value={category.ID} required>{category.Name}</option>
                                         ))}
                                     </select>
                                 </div>
@@ -149,7 +161,7 @@ const AddNewsLayout = () => {
 
                         <div className='flex flex-col'>
                             <label htmlFor="content">Isi Berita</label>
-                            <textarea id="content" cols="30" rows="10" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
+                            <textarea required id="content" cols="30" rows="10" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
                         </div>
 
                         {/* Start This is Button in create news */}
