@@ -208,6 +208,9 @@ const SidebarLayout = () => {
                                     } ${location.pathname === '/news-create'
                                         ? 'bg-white border-transparent hover:bg-gray-300'
                                         : 'border-b hover:bg-white border-black hover:border-transparent'
+                                    } ${location.pathname === `/news-detail/${id}`
+                                        ? 'bg-white border-transparent hover:bg-gray-300'
+                                        : 'border-b hover:bg-white border-black hover:border-transparent'
                                     } flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5 `}
                             >
                                 <svg

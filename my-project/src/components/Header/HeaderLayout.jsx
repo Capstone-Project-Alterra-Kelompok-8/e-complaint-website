@@ -19,7 +19,7 @@ const HeaderLayout = () => {
                 return 'Kategori';
             case '/news':
                 return 'Berita';
-            case '/news-detail':
+            case `/news-detail/${id}`:
                 return 'Berita Detail';
             case '/news-create':
                 return 'Tambah Berita';
