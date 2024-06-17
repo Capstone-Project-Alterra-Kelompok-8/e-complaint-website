@@ -1,9 +1,63 @@
+import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import HeaderLayout from '../Header/HeaderLayout'
+import HeaderLayout from '../Header/HeaderLayout';
 import SidebarLayout from '../Header/SidebarLayout';
 import { FileInput, Label } from "flowbite-react";
+import axios from 'axios';
 
 const AddNewsLayout = () => {
+    const [category, setCategory] = useState([]);
+    const [title, setTitle] = useState('');
+    const [content, setContent] = useState('');
+    const [categoryId, setCategoryId] = useState('');
+    const [file, setFile] = useState(null);
+    const token = sessionStorage.getItem('token');
+
+    useEffect(() => {
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('https://capstone-dev.mdrizki.my.id/api/v1/categories', {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                });
+
+                const data = response.data
+                setCategory(data.data);
+            } catch (error) {
+                console.error('Error fetching categories:', error);
+            }
+        };
+
+        fetchCategories();
+    }, [token]);
+
+    const handleFileChange = (event) => {
+        setFile(event.target.files[0]);
+    };
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        const formData = new FormData();
+        formData.append('title', title);
+        formData.append('content', content);
+        formData.append('category_id', categoryId);
+        formData.append('files', file);
+
+        try {
+            await axios.post('https://capstone-dev.mdrizki.my.id/api/v1/news', formData, {
+                headers: {
+                    Authorization: `Bearer ${token}`,
+                    'Content-Type': 'multipart/form-data',
+                },
+            });
+            alert('Berita berhasil disimpan');
+        } catch (error) {
+            console.error('Error saving news:', error);
+            alert('Terjadi kesalahan saat menyimpan berita');
+        }
+    };
+
     return (
         <section className="flex w-full flex-col">
             <HeaderLayout />
@@ -11,10 +65,10 @@ const AddNewsLayout = () => {
             <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
                 <main>
                     {/* Start Content in create news */}
-                    <div>
+                    <form onSubmit={handleSubmit}>
                         <div>
-                            {/* This upload file */}
                             <div>
+                                {/* This upload file */}
                                 <div className="flex w-full items-center justify-center">
                                     <Label
                                         htmlFor="dropzone-file"
@@ -67,54 +121,54 @@ const AddNewsLayout = () => {
                                             </p>
                                             <p className="text-xs font-montserrat text-black/[.4] dark:text-gray-400">Recommended use 300 x 300 px for default theme</p>
                                         </div>
-                                        <FileInput id="dropzone-file" className="hidden" />
+                                        <FileInput id="dropzone-file" className="hidden" onChange={handleFileChange} />
                                     </Label>
                                 </div>
                             </div>
                             {/* End upload file */}
 
-
                             <div>
+
                                 <div className="flex flex-col">
-                                    <label htmlFor="judul">Judul</label>
-                                    <input type="text" id='judul' placeholder='Judul' />
+                                    <label htmlFor="title">Judul Berita</label>
+                                    <input type="text" id="title" value={title} onChange={(e) => setTitle(e.target.value)} />
                                 </div>
 
-                                <div className='flex flex-col'>
-                                    <label htmlFor="kategory">Pilih kategori Berita</label>
-                                    <select name="" id="kategory">
-                                        <option value="">Kategory</option>
+                                <div className="flex flex-col">
+                                    <label htmlFor="kategory">Kategori Berita</label>
+                                    <select id="kategory" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
+                                        <option value="">Pilih kategori Berita</option>
+                                        {category.map((category, index) => (
+                                            <option key={index} value={category.id}>{category.name}</option>
+                                        ))}
                                     </select>
                                 </div>
                             </div>
-                        </div>
 
+                        </div>
 
                         <div className='flex flex-col'>
-                            <label htmlFor="">Isi Berita</label>
-                            <textarea name="" id="" cols="30" rows="10"></textarea>
+                            <label htmlFor="content">Isi Berita</label>
+                            <textarea id="content" cols="30" rows="10" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
                         </div>
 
-                    </div>
+                        {/* Start This is Button in create news */}
+                        <div className='flex justify-between'>
+                            <section>
+                                <button type="button" className='bg-dark-3 text-white'>Preview</button>
+                            </section>
+                            <section>
+                                <Link to='/news' className='border border-black'>Kembali ke Kelola Berita</Link>
+                                <button type="submit" className='bg-green-600 text-white'>Simpan</button>
+                            </section>
+                        </div>
+                        {/* End This is Button in create news */}
+                    </form>
                     {/* End Content in create news */}
-
-
-
-                    {/* Start This is Button in create news */}
-                    <div className='flex justify-between'>
-                        <section>
-                            <button className='bg-dark-3 text-white'>Preview</button>
-                        </section>
-                        <section>
-                            <Link to='/news' className='border border-black'>Kembali ke Kelola Berita</Link>
-                            <button className='bg-green-600 text-white'>Simpan</button>
-                        </section>
-                    </div>
-                    {/* End This is Button in create news */}
                 </main>
             </div>
-        </section >
-    )
+        </section>
+    );
 }
 
-export default AddNewsLayout
+export default AddNewsLayout;
