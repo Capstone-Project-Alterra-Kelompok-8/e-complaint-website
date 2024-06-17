@@ -202,7 +202,10 @@ const SidebarLayout = () => {
                                 className={`${location.pathname === '/news'
                                     ? 'bg-white border-transparent hover:bg-gray-300'
                                     : 'border-b hover:bg-white border-black hover:border-transparent'
-                                    } flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5 `}
+                                    } ${location.pathname === '/news-detail'
+                                        ? 'bg-white border-transparent hover:bg-gray-300'
+                                        : 'border-b hover:bg-white border-black hover:border-transparent'
+                                        } flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5 `}
                             >
                                 <svg
                                     width={24}
