@@ -19,6 +19,10 @@ const HeaderLayout = () => {
                 return 'Kategori';
             case '/news':
                 return 'Berita';
+            case '/news-detail':
+                return 'Berita Detail';
+            case '/news-create':
+                return 'Tambah Berita';
             case '/super-admin/admin':
                 return 'Super Admin - Admin';
             case '/super-admin/user':

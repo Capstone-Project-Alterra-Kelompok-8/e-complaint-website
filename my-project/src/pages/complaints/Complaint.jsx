@@ -1,4 +1,4 @@
-import ListComplaint from '../components/Complaint/ListComplaint'
+import ListComplaint from '../../components/Complaint/ListComplaint'
 
 const Complaint = () => {
   return (
