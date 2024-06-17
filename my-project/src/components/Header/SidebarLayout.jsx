@@ -8,11 +8,19 @@ import Swal from 'sweetalert2';
 import menara from '../../assets/menara.png';
 import withReactContent from 'sweetalert2-react-content';
 import './assets/css/CustomButtomAlertLogout.css';
+import { useEffect, useState } from 'react';
 
 const SidebarLayout = () => {
     const dispatch = useDispatch();
     const location = useLocation();
     const navigate = useNavigate();
+    const [getid, setGetid] = useState([]);
+    const { id } = getid
+
+    useEffect(() => {
+        fetchAllNewsIds();
+    }, []);
+
     const sidebarVisible = useSelector((state) => state.sidebar);
     // eslint-disable-next-line no-unused-vars
     const swalWithBootstrapButtons = withReactContent(Swal.mixin({
@@ -65,6 +73,30 @@ const SidebarLayout = () => {
                 );
             }
         });
+    };
+
+    const fetchAllNewsIds = async () => {
+        try {
+            const token = sessionStorage.getItem('token'); // Ganti dengan cara autentikasi yang sesuai
+            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/news', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+    
+            if (!response.ok) {
+                throw new Error(`HTTP error! status: ${response.status}`);
+            }
+    
+            const data = await response.json();
+            const newsIds = data.data.map(berita => berita.id); // Mengembalikan data berita berdasarkan ID
+            setGetid(newsIds); // Mengembalikan data berita berdasarkan ID
+        } catch (error) {
+            console.error('Error fetching news by ID: ', error);
+            throw error;
+        }
     };
 
 
@@ -202,6 +234,15 @@ const SidebarLayout = () => {
                                 className={`${location.pathname === '/news'
                                     ? 'bg-white border-transparent hover:bg-gray-300'
                                     : 'border-b hover:bg-white border-black hover:border-transparent'
+                                    } ${location.pathname === '/news-detail'
+                                        ? 'bg-white border-transparent hover:bg-gray-300'
+                                        : 'border-b hover:bg-white border-black hover:border-transparent'
+                                    } ${location.pathname === '/news-create'
+                                        ? 'bg-white border-transparent hover:bg-gray-300'
+                                        : 'border-b hover:bg-white border-black hover:border-transparent'
+                                    } ${location.pathname === `/news-detail/${id}`
+                                        ? 'bg-white border-transparent hover:bg-gray-300'
+                                        : 'border-b hover:bg-white border-black hover:border-transparent'
                                     } flex font-medium font-poppins text-lg lg:text-xl gap-4 rounded-md py-4 px-2.5 `}
                             >
                                 <svg
