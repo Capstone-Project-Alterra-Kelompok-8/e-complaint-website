@@ -75,13 +75,14 @@ const AddNewsLayout = () => {
 
 
                             <div>
-                                <div>
+                                <div className="flex flex-col">
                                     <label htmlFor="judul">Judul</label>
                                     <input type="text" id='judul' placeholder='Judul' />
                                 </div>
 
-                                <div>
-                                    <select name="" id="">
+                                <div className='flex flex-col'>
+                                    <label htmlFor="kategory">Pilih kategori Berita</label>
+                                    <select name="" id="kategory">
                                         <option value="">Kategory</option>
                                     </select>
                                 </div>
@@ -89,7 +90,8 @@ const AddNewsLayout = () => {
                         </div>
 
 
-                        <div>
+                        <div className='flex flex-col'>
+                            <label htmlFor="">Isi Berita</label>
                             <textarea name="" id="" cols="30" rows="10"></textarea>
                         </div>
 
