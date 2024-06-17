@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import CardNews from "../components/Berita/cardNews";
-import ButtonNews from "../components/Berita/buttonNews";
-import HeaderLayout from '../components/Header/HeaderLayout';
-import SidebarLayout from '../components/Header/SidebarLayout';
+import CardNews from "../../components/Berita/cardNews";
+import ButtonNews from "../../components/Berita/buttonNews";
+import HeaderLayout from '../../components/Header/HeaderLayout';
+import SidebarLayout from '../../components/Header/SidebarLayout';
 import { IoSearch } from "react-icons/io5";
 
 const NewsPage = () => {
