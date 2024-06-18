@@ -69,7 +69,7 @@ const HeaderLayout = () => {
                 <button className="lg:hidden" onClick={() => dispatch(toggleSidebar())}>
                     <Bars3Icon className="w-8 h-8 text-white lg:hidden lg:mr-0 mr-4" />
                 </button>
-                <h1 className="font-poppins text-3xl font-bold">
+                <h1 className="font-poppins text-3xl font-bold lg:pl-3">
                     {getHeaderText(location.pathname)}
                 </h1>
             </section>
