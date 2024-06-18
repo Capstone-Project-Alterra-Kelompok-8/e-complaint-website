@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux';
 import { Skeleton } from 'primereact/skeleton';
 
 export default function DetailCardNews() {
-  const detailNews = useSelector((state) => state.news.detailNews); // Mengambil detailNews dari state Redux
-
+  const detailNews = useSelector((state) => state.news.detailNews); 
   if (!detailNews) { // Jika detailNews belum ada (masih loading)
     return (
       <div className="px-6 py-5 bg-neutral-50 rounded-2xl flex-col justify-start items-start gap-5 inline-flex lg:w-6/12 mb-5">
@@ -32,12 +31,12 @@ export default function DetailCardNews() {
       </div>
       <div className="flex-col justify-start items-start gap-2.5 flex">
         <div className="flex-col justify-start items-start gap-2.5 flex">
-          <div className="text-center text-black text-base font-bold font-poppins leading-none">{detailNews.title}</div> {/* Menampilkan judul berita */}
-          <div className="text-stone-950 text-base font-normal font-poppins leading-none">{detailNews.content}</div> {/* Menampilkan konten berita */}
+          <div className="text-center text-black text-base font-bold font-poppins leading-none">{detailNews.title}</div> 
+          <div className="text-stone-950 text-base font-normal font-poppins leading-none">{detailNews.content}</div> 
         </div>
         <div className="flex justify-between items-center w-full">
-          <div className="text-center text-gray-400 text-xs font-normal font-montserrat leading-none">{detailNews.admin.name}</div> {/* Menampilkan penulis berita */}
-          <div className="text-center text-gray-400 text-xs font-normal font-montserrat leading-none">{detailNews.updated_at}</div> {/* Menampilkan tanggal berita */}
+          <div className="text-center text-gray-400 text-xs font-normal font-montserrat leading-none">{detailNews.admin.name}</div> 
+          <div className="text-center text-gray-400 text-xs font-normal font-montserrat leading-none">{detailNews.updated_at}</div>
         </div>
       </div>
     </div>
