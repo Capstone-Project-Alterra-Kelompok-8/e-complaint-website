@@ -36,8 +36,8 @@ export default function DetailCardNews() {
           <div className="text-stone-950 text-base font-normal font-poppins leading-none">{detailNews.content}</div> {/* Menampilkan konten berita */}
         </div>
         <div className="flex justify-between items-center w-full">
-          <div className="text-center text-gray-400 text-xs font-normal font-montserrat leading-none">{detailNews.author}</div> {/* Menampilkan penulis berita */}
-          <div className="text-center text-gray-400 text-xs font-normal font-montserrat leading-none">{detailNews.date}</div> {/* Menampilkan tanggal berita */}
+          <div className="text-center text-gray-400 text-xs font-normal font-montserrat leading-none">{detailNews.admin.name}</div> {/* Menampilkan penulis berita */}
+          <div className="text-center text-gray-400 text-xs font-normal font-montserrat leading-none">{detailNews.updated_at}</div> {/* Menampilkan tanggal berita */}
         </div>
       </div>
     </div>
