@@ -1,4 +1,12 @@
+import { useNavigate } from 'react-router-dom';
+
 export default function CardNews({ id, image, title, description }) {
+    const navigate = useNavigate();
+
+    const handleDetailClick = () => {
+        navigate(`/news-detail/${id}`);
+    };
+
     return (
         <div className="lg:w-[486px] h-[500px] px-5 py-8 bg-slate-50 rounded-2xl flex flex-col shadow">
             <img className="w-full h-48 rounded-lg shadow" src={image} alt={title} />
@@ -9,7 +17,7 @@ export default function CardNews({ id, image, title, description }) {
                 </div>
             </div>
             <div className="flex gap-6 mt-auto">
-                <button className="bg-info-3 text-white px-6 py-2.5 rounded shadow">Detail</button>
+                <button className="bg-info-3 text-white px-6 py-2.5 rounded shadow" onClick={handleDetailClick}>Detail</button>
                 <button className="bg-error-3 text-white px-6 py-2.5 rounded shadow">Hapus</button>
             </div>
         </div>
