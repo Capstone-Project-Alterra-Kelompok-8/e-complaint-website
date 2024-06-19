@@ -11,6 +11,7 @@ import Category from "./pages/Category"
 import Complaint from "./pages/complaints/Complaint";
 import News from "./pages/news/news"
 import CreateNews from './pages/news/CreateNews'
+import EditNews from './pages/news/EditNews'
 
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
           <Route path="/complaint" element={<Complaint />} />
           <Route path="/news" element={<News />} />
           <Route path="/news-create" element={<CreateNews />} />
+          <Route path="/news-detail/:id/edit" element={<EditNews />} />
         </Route>
 
         {/* Privat route Super Admin */}
