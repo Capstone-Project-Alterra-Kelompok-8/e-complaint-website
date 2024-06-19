@@ -8,6 +8,7 @@ import SidebarLayout from '../../components/Header/SidebarLayout';
 import Comment from './comment';
 import ButtonNews from '../../components/Berita/buttonNews';
 import { ModalDelete } from '../../components/Berita/modalDelete';
+import { fetchNewsComments } from '../../services/newsCommentSlice';
 
 export default function DetailNews() {
   const { id } = useParams();
@@ -15,6 +16,7 @@ export default function DetailNews() {
 
   useEffect(() => {
     dispatch(fetchNewsDetail(id));
+    dispatch(fetchNewsComments(id));
   }, [dispatch, id]);
 
   return (
