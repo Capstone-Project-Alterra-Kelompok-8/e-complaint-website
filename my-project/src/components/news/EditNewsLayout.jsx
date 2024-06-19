@@ -56,9 +56,9 @@ const EditNewsLayout = () => {
         fetchNews();
     }, [token, id]);
 
-    const handleFileChange = (event) => {
-        setFile(event.target.files[0]);
-        // console.log(file)
+    const handleFileChange = (file) => {
+        setFile(file);
+        console.log(file);
     };
 
     const handleSubmit = async (event) => {
@@ -66,11 +66,12 @@ const EditNewsLayout = () => {
         const formData = new FormData();
         formData.append('title', title);
         formData.append('content', content);
-        formData.append('category_id', categoryId);
+        formData.append('category', categoryId);
+        console.log(formData);
         if (file) {
             formData.append('files', file);
         }
-
+        console.log(formData)
         try {
             const response = await fetch(`https://capstone-dev.mdrizki.my.id/api/v1/news/:${id}`, formData, {
                 method: 'PUT',
@@ -80,8 +81,7 @@ const EditNewsLayout = () => {
                 body: formData
             });
 
-            console.log(formData)
-            console.log(id);
+            
             const result = await response.json();
             if (result.success) {
                 setTitle("");
@@ -122,14 +122,14 @@ const EditNewsLayout = () => {
                                         className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-[#D50000] bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                                     >
                                         <div className="flex flex-col items-center justify-center pb-6 pt-5">
-                                            {/* {existingFile.map((files, index) => (
+                                            {existingFile.map((files, index) => (
                                                 <img
                                                     key={index}
                                                     src={`https://storage.googleapis.com/e-complaint-assets/${files.path}`}
                                                     alt="News"
                                                     className="h-32 w-32 object-cover"
                                                 />
-                                            ))} */}
+                                            ))}
                                             <svg
                                                 width={27}
                                                 height={27}
@@ -176,7 +176,7 @@ const EditNewsLayout = () => {
                                             </p>
                                             <p className="text-xs font-montserrat text-black/[.4] dark:text-gray-400">Recommended use 300 x 300 px for default theme</p>
                                         </div>
-                                        <FileInput id="dropzone-file" className="hidden" onChange={handleFileChange} />
+                                        <FileInput id="dropzone-file" className="hidden" onChange={(e) => handleFileChange(e.target.files[0])} />
                                     </Label>
                                 </div>
                             </div>
