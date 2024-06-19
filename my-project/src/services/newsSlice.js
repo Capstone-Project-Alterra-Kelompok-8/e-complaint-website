@@ -1,25 +1,28 @@
-import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
-import { getNews, getNewsDetail } from './newsService';
+import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { getNews, getNewsDetail } from "./newsService";
 
 // Thunk untuk fetch semua berita
-export const fetchNews = createAsyncThunk('news/fetchNews', async () => {
+export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
   const data = await getNews();
   return data;
 });
 
-// Thunk untuk fetch detail berita berdasarkan ID
-export const fetchNewsDetail = createAsyncThunk('news/fetchNewsDetail', async (newsId) => {
-  const data = await getNewsDetail(newsId);
-  return data;
-});
+// Thunk ini buat fetch detail berita berdasarkan ID
+export const fetchNewsDetail = createAsyncThunk(
+  "news/fetchNewsDetail",
+  async (newsId) => {
+    const data = await getNewsDetail(newsId);
+    return data;
+  }
+);
 
 const newsSlice = createSlice({
-  name: 'news',
+  name: "news",
   initialState: {
     news: [],
     detailNews: null,
     loading: false,
-    error: null
+    error: null,
   },
   reducers: {},
   extraReducers: (builder) => {
@@ -46,7 +49,7 @@ const newsSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       });
-  }
+  },
 });
 
 export default newsSlice.reducer;
