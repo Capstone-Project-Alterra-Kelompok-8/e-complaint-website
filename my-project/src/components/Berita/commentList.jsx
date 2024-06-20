@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Comment from './comment';
-import { useParams } from 'react-router-dom';
 import { deleteComment } from '../../services/newsCommentSlice';
 
 const CommentList = ({ newsId }) => {
@@ -14,7 +13,7 @@ const CommentList = ({ newsId }) => {
   };
 
   return (
-    <div className="bg-white rounded-t-2xl rounded">
+    <div className="bg-white rounded-t-2xl rounded max-h-[500px] overflow-y-auto">
       {comments.map((comment) => (
         <Comment
           key={comment.id}

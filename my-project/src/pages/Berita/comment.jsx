@@ -7,7 +7,7 @@ const Comment = ({ newsId }) => {
     return (
         <div className="lg:w-6/12">
             <CommentList newsId={newsId} />
-            <CommentInput />
+            <CommentInput newsId={newsId} />
         </div>
     );
 };

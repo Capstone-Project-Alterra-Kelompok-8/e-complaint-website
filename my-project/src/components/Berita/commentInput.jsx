@@ -1,13 +1,16 @@
 import React, { useState } from 'react';
 import { RiSendPlaneLine } from "react-icons/ri";
+import { addComment } from '../../services/newsCommentSlice';
+import { useDispatch } from 'react-redux';
 
-const CommentInput = ({ addComment }) => {
+const CommentInput = ({ newsId }) => {
     const [text, setText] = useState('');
+    const dispatch = useDispatch();
 
     const handleSubmit = (e) => {
         e.preventDefault();
         if (text.trim()) {
-            addComment(text);
+            dispatch(addComment({ newsId, text }));
             setText('');
         }
     };

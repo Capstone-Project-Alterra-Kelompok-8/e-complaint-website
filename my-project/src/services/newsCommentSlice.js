@@ -28,6 +28,23 @@ export const deleteComment = createAsyncThunk(
   }
 );
 
+// Thunk untuk menambahkan komentar baru
+export const addComment = createAsyncThunk(
+  'newsComments/addComment',
+  async ({ newsId, text }, { getState }) => {
+    const token = sessionStorage.getItem('token');
+    const response = await axios.post(`https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments`, 
+      { comment: text },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return response.data.data; // Mengembalikan data komentar yang baru ditambahkan
+  }
+);
+
 const newsCommentSlice = createSlice({
   name: 'newsComments',
   initialState: {
@@ -57,6 +74,17 @@ const newsCommentSlice = createSlice({
         state.comments = state.comments.filter(comment => comment.id !== action.payload);
       })
       .addCase(deleteComment.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(addComment.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(addComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.comments.push(action.payload); // Menambahkan komentar baru ke state
+      })
+      .addCase(addComment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
