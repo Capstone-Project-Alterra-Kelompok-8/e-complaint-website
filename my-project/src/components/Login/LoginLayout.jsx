@@ -69,7 +69,7 @@ export default function Login() {
                             value={email}
                             onChange={(ev) => setEmail(ev.target.value)}
                             type="email" id='email'
-                            className={`px-5 py-3 border border-main-color rounded-md w-full text-black placeholder:text-gray-400 text-base font-normal font-poppins leading-normal ${errorLogin ? 'text-error-3 border border-error-3' : ''}`}
+                            className={`px-5 py-3 rounded-md w-full text-black placeholder:text-gray-400 text-base font-normal font-poppins leading-normal ${errorLogin ? 'text-error-3 border border-error-3' : 'border border-main-color'}`}
                             placeholder='Masukkan email'
                         />
                     </div>
@@ -86,7 +86,7 @@ export default function Login() {
                                 value={password}
                                 onChange={(ev) => setPassword(ev.target.value)}
                                 placeholder="Masukkan password"
-                                className={`border border-main-color rounded-md w-full text-black placeholder:text-gray-400 text-base font-normal font-poppins leading-normal ps-5 pe-9 py-3 ${errorLogin ? 'text-error-3 border border-error-3' : ''}`}
+                                className={`rounded-md w-full text-black placeholder:text-gray-400 text-base font-normal font-poppins leading-normal ps-5 pe-9 py-3 ${errorLogin ? 'text-error-3 border border-error-3' : 'border border-main-color'}`}
                             />
 
                             <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
