@@ -3,13 +3,15 @@ import { Route, Routes } from "react-router-dom"
 import Login from "./pages/Login"
 import ListAdmin from "./pages/SuperAmin/ListAdmin"
 import ListUser from "./pages/SuperAmin/ListUser"
-import HomePage from "./pages/HomePage"
+import HomePage from "./pages/Home"
 import SuperAdminRoute from './route/PrivatSuperAdmin'
 import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
 import Category from "./pages/Category"
-import Complaint from "./pages/Complaint";
-import NewsPage from "./pages/news"
+import Complaint from "./pages/complaints/Complaint";
+import News from "./pages/news/news"
+import CreateNews from './pages/news/CreateNews'
+import EditNews from './pages/news/EditNews'
 
 
 function App() {
@@ -24,7 +26,9 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/category" element={<Category />} />
           <Route path="/complaint" element={<Complaint />} />
-          <Route path="/news" element={<NewsPage />} />
+          <Route path="/news" element={<News />} />
+          <Route path="/news-create" element={<CreateNews />} />
+          <Route path="/news-detail/:id/edit" element={<EditNews />} />
         </Route>
 
         {/* Privat route Super Admin */}
