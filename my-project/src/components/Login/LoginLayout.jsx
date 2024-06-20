@@ -69,7 +69,7 @@ export default function Login() {
                             value={email}
                             onChange={(ev) => setEmail(ev.target.value)}
                             type="email" id='email'
-                            className={`px-5 py-3 border border-main-color rounded-md w-full text-black placeholder:text-gray-400 text-base font-normal font-poppins leading-normal ${errorLogin ? 'bg-red-100' : ''}`}
+                            className={`px-5 py-3 border border-main-color rounded-md w-full text-black placeholder:text-gray-400 text-base font-normal font-poppins leading-normal ${errorLogin ? 'text-error-3 border border-error-3' : ''}`}
                             placeholder='Masukkan email'
                         />
                     </div>
@@ -86,13 +86,13 @@ export default function Login() {
                                 value={password}
                                 onChange={(ev) => setPassword(ev.target.value)}
                                 placeholder="Masukkan password"
-                                className={`border border-main-color rounded-md w-full text-black placeholder:text-gray-400 text-base font-normal font-poppins leading-normal ps-5 pe-9 py-3 ${errorLogin ? 'bg-red-100' : ''}`}
+                                className={`border border-main-color rounded-md w-full text-black placeholder:text-gray-400 text-base font-normal font-poppins leading-normal ps-5 pe-9 py-3 ${errorLogin ? 'text-error-3 border border-error-3' : ''}`}
                             />
 
                             <span className="absolute inset-y-0 end-0 grid w-10 place-content-center">
                                 <button type="button" className="text-gray-600 hover:text-gray-700" onClick={toggleShowPassword}>
                                     <span className="sr-only">Password</span>
-                                    {showPassword ? <EyeSlashIcon className={`size-6 text-black ${errorLogin ? 'text-red-500' : ''}`} /> : <EyeIcon className={`size-6 text-black ${errorLogin ? 'text-red-500' : ''}`} />}
+                                    {showPassword ? <EyeSlashIcon className={`size-6 text-black ${errorLogin ? 'text-error-3' : ''}`} /> : <EyeIcon className={`size-6 text-black ${errorLogin ? 'text-error-3' : ''}`} />}
                                 </button>
                             </span>
                         </div>
