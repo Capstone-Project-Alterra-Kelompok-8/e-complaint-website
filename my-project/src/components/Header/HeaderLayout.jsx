@@ -1,18 +1,12 @@
 import { useDispatch } from 'react-redux';
 import { Bars3Icon } from '@heroicons/react/24/outline';
 import { toggleSidebar } from '../../services/store';
-import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useLocation, useParams } from 'react-router-dom';
 
 const HeaderLayout = () => {
     const dispatch = useDispatch();
     const location = useLocation();
-    const [getid, setGetid] = useState([]);
-    const { id } = getid
-
-    useEffect(() => {
-        fetchAllNewsIds();
-    }, []);
+    const { id } = useParams();
 
     const getHeaderText = (path) => {
         switch (path) {
@@ -28,6 +22,8 @@ const HeaderLayout = () => {
                 return 'Berita';
             case `/news-detail/${id}`:
                 return 'Berita Detail';
+            case `/news-detail/${id}/edit`:
+                return 'Berita Detail - Edit';
             case '/news-create':
                 return 'Tambah Berita';
             case '/super-admin/admin':
@@ -36,30 +32,6 @@ const HeaderLayout = () => {
                 return 'Super Admin - User';
             default:
                 return 'Welcome';
-        }
-    };
-
-    const fetchAllNewsIds = async () => {
-        try {
-            const token = sessionStorage.getItem('token'); // Ganti dengan cara autentikasi yang sesuai
-            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/news', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-    
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-    
-            const data = await response.json();
-            const newsIds = data.data.map(berita => berita.id); // Mengembalikan data berita berdasarkan ID
-            setGetid(newsIds); // Mengembalikan data berita berdasarkan ID
-        } catch (error) {
-            console.error('Error fetching news by ID: ', error);
-            throw error;
         }
     };
 
