@@ -13,7 +13,6 @@ import Complaint from "./pages/complaints/Complaint";
 import NewsPage from "./pages/news"
 import CreateNews from './pages/news/CreateNews'
 import EditNews from './pages/news/EditNews'
-
 import DetailNews from "./pages/Berita/detailNews";
 
 function App() {
