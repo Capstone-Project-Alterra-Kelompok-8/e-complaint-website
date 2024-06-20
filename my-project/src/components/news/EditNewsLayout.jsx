@@ -45,7 +45,7 @@ const EditNewsLayout = () => {
                 setTitle(data.data.title);
                 setContent(data.data.content);
                 setCategoryId(data.data.category.id);
-                setExistingFile(data.data.files);
+                setExistingFile(data.data.files[0].path);
             } catch (error) {
                 console.error('Error fetching news:', error);
             }
@@ -115,7 +115,7 @@ const EditNewsLayout = () => {
                                 >
                                     <div className="flex flex-col items-center justify-center pb-6 pt-5">
                                         <img
-                                            src={`https://storage.googleapis.com/e-complaint-assets/${existingFile.path}`}
+                                            src={`https://storage.googleapis.com/e-complaint-assets/${existingFile}`}
                                             alt="News"
                                             className="h-32 w-32 object-cover"
                                         />
