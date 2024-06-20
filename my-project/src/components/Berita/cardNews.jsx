@@ -8,7 +8,7 @@ navigate(`/news-detail/${id}`);
 };
 
 return (
-<div className="lg:w-[486px] h-[500px] px-5 py-8 bg-slate-50 rounded-2xl flex flex-col shadow">
+<div className="lg:w-[486px] h-auto px-5 py-8 bg-slate-50 rounded-2xl flex flex-col shadow">
     <img className="w-full h-48 rounded-lg shadow" src={image} alt={title} />
     <div className="w-full flex-col justify-start items-start gap-4 inline-flex">
         <div className="text-center text-black text-2xl font-medium font-poppins leading-tight tracking-tight mt-3">

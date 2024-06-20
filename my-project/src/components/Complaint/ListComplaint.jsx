@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
-import HeaderLayout from '../Header/HeaderLayout'
-import SidebarLayout from '../Header/SidebarLayout';
+import HeaderLayout from "../Header/HeaderLayout";
+import SidebarLayout from "../Header/SidebarLayout";
 import {
   Table,
   TableBody,
@@ -51,9 +51,7 @@ const ListComplaint = () => {
           complaint.regency.name
             .toLowerCase()
             .includes(searchTerm.toLowerCase()) ||
-          complaint.type
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase())
+          complaint.type.toLowerCase().includes(searchTerm.toLowerCase())
         );
       })
     );
@@ -61,7 +59,7 @@ const ListComplaint = () => {
 
   const fetchComplaints = async () => {
     try {
-      const token = sessionStorage.getItem('token');
+      const token = sessionStorage.getItem("token");
       const response = await axios.get(
         "https://capstone-dev.mdrizki.my.id/api/v1/complaints?sort_by=id&sort_type=desc&limit=10&page=1",
         {
@@ -118,14 +116,18 @@ const ListComplaint = () => {
                   width: "40%",
                   height: "40px",
                   marginLeft: "auto",
-                  backgroundColor: "white"
+                  backgroundColor: "white",
                 },
               }}
               fullWidth
               margin="normal"
               className="font-poppins"
             />
-            <TableContainer component={Paper} className="font-poppins" sx={{ backgroundColor: "#E5E7EB" }}>
+            <TableContainer
+              component={Paper}
+              className="font-poppins"
+              sx={{ backgroundColor: "#E5E7EB" }}
+            >
               <Table>
                 <TableHead>
                   <TableRow className="bg-main-color">
@@ -144,26 +146,32 @@ const ListComplaint = () => {
                     .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                     .map((complaint, index) => (
                       <TableRow key={complaint.id}>
-                        <TableCell align="center">{page * rowsPerPage + index + 1}</TableCell>
+                        <TableCell align="center">
+                          {page * rowsPerPage + index + 1}
+                        </TableCell>
                         <TableCell>{complaint.id}</TableCell>
                         <TableCell align="center">
-                          {format(new Date(complaint.updated_at), "d MMMM yyyy", {
-                            locale: id,
-                          })}
+                          {format(
+                            new Date(complaint.updated_at),
+                            "d MMMM yyyy",
+                            {
+                              locale: id,
+                            }
+                          )}
                         </TableCell>
                         <TableCell>{complaint.regency.name}</TableCell>
                         <TableCell align="center">
-                          <span className="bg-light-5 px-3 py-2 rounded">
+                          <span className="bg-light-4 px-3 py-2 rounded">
                             {complaint.category.name}
                           </span>
                         </TableCell>
                         <TableCell align="center">
-                          <span className="bg-light-5 px-3 py-2 rounded">
+                          <span className="bg-light-4 px-3 py-2 rounded">
                             {complaint.type}
                           </span>
                         </TableCell>
                         <TableCell align="center">
-                          <span className="bg-light-5 px-3 py-2 rounded">
+                          <span className="bg-light-4 px-3 py-2 rounded">
                             {complaint.status}
                           </span>
                         </TableCell>
