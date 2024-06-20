@@ -14,6 +14,20 @@ export const fetchNewsComments = createAsyncThunk(
   }
 );
 
+// Thunk untuk menghapus komentar
+export const deleteComment = createAsyncThunk(
+  'newsComments/deleteComment',
+  async ({ newsId, commentId }, { getState }) => {
+    const token = sessionStorage.getItem('token');
+    await axios.delete(`https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments/${commentId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return commentId;
+  }
+);
+
 const newsCommentSlice = createSlice({
   name: 'newsComments',
   initialState: {
@@ -32,6 +46,17 @@ const newsCommentSlice = createSlice({
         state.comments = action.payload;
       })
       .addCase(fetchNewsComments.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(deleteComment.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteComment.fulfilled, (state, action) => {
+        state.loading = false;
+        state.comments = state.comments.filter(comment => comment.id !== action.payload);
+      })
+      .addCase(deleteComment.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });

@@ -1,16 +1,30 @@
 import React from 'react';
 import { FaTrash } from 'react-icons/fa';
-import { ModalDelete } from './modalDelete';
-import { useState } from'react';
+import Swal from 'sweetalert2';
 
-const Comment = ({ username, time, text, profilePhoto, alignRight, onDelete }) => {
+const Comment = ({ commentId, username, time, text, profilePhoto, alignRight, onDelete }) => {
 
-    const [openModal, setOpenModal] = useState(false);
-
-    const handleDelete = () => {
-        onDelete();
-        setOpenModal(false);
-    };
+    const handleDeleteClick = () => {
+        Swal.fire({
+          title: 'Apakah Anda yakin?',
+          text: "Anda tidak dapat mengembalikan ini!",
+          icon: 'warning',
+          showCancelButton: true,
+          confirmButtonColor: '#3085d6',
+          cancelButtonColor: '#d33',
+          confirmButtonText: 'Ya, hapus!',
+          cancelButtonText: 'Batal'
+        }).then((result) => {
+          if (result.isConfirmed) {
+            onDelete(commentId);
+            Swal.fire(
+              'Dihapus!',
+              'Komentar telah dihapus.',
+              'success'
+            );
+          }
+        });
+      };
 
     return (
          <div className={`flex items-start p-4 border-b font-montserrat ${alignRight ? 'justify-end' : 'justify-start'}`}>
@@ -18,7 +32,7 @@ const Comment = ({ username, time, text, profilePhoto, alignRight, onDelete }) =
                 <>
                     <div className="flex-grow">
                         <div className="flex justify-between items-center">
-                            <button onClick={() => setOpenModal(true)} className="text-red-500">
+                            <button onClick={handleDeleteClick} className="text-red-500">
                                 <FaTrash className="inline" /> Hapus
                             </button>
                             <div>
@@ -29,7 +43,6 @@ const Comment = ({ username, time, text, profilePhoto, alignRight, onDelete }) =
                         </div>
                         <p className='text-right'>{text}</p>
                     </div>
-                    <ModalDelete open={openModal} onClose={() => setOpenModal(false)} onConfirm={handleDelete} />
                     <img
                         src={`https://storage.googleapis.com/e-complaint-assets/${profilePhoto}`}
                         alt="User avatar"
@@ -51,13 +64,12 @@ const Comment = ({ username, time, text, profilePhoto, alignRight, onDelete }) =
                                 <span className="font-bold">{username}</span>
                                 <span className="text-gray-500 text-sm ml-2">{time}</span>
                             </div>
-                            <button onClick={() => setOpenModal(true)} className="text-red-500">
+                            <button onClick={handleDeleteClick} className="text-red-500">
                                 <FaTrash className="inline" /> Hapus
                             </button>
                         </div>
                         <p>{text}</p>
                     </div>
-                    <ModalDelete open={openModal} onClose={() => setOpenModal(false)} onConfirm={handleDelete} />
                 </>
             )}
         </div>

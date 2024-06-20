@@ -30,7 +30,7 @@ export default function DetailNews() {
         </div>
         <div className="container mt-9 lg:ml-80 lg:flex lg:gap-2 bg-gray-300 w-fit justify-between p-5 rounded-lg">
           <DetailCardNews />
-          <Comment />
+          <Comment newsId={id} />
         </div>
       </div>
       <ModalDelete />

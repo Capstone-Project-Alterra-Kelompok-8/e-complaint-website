@@ -2,11 +2,11 @@ import React, { useState } from 'react';
 import CommentList from '../../components/Berita/commentList';
 import CommentInput from '../../components/Berita/commentInput';
 
-const Comment = () => {
+const Comment = ({ newsId }) => {
 
     return (
         <div className="lg:w-6/12">
-            <CommentList  />
+            <CommentList newsId={newsId} />
             <CommentInput />
         </div>
     );
