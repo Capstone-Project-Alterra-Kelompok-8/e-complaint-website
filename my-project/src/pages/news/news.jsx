@@ -1,39 +1,22 @@
 import { useState, useEffect } from 'react';
-import HeaderLayout from '../../components/Header/HeaderLayout';
-import SidebarLayout from '../../components/Header/SidebarLayout';
+import { useDispatch, useSelector } from 'react-redux';
 import { IoSearch } from "react-icons/io5";
-import { useNavigate } from "react-router-dom";
+import { fetchNews } from '../services/newsSlice';
+import CardNews from "../components/Berita/cardNews";
+import ButtonNews from "../components/Berita/buttonNews";
+import HeaderLayout from '../components/Header/HeaderLayout';
+import SidebarLayout from '../components/Header/SidebarLayout';
 
 const NewsPage = () => {
-    const [news, setNews] = useState([]);
+    const dispatch = useDispatch();
+    const news = useSelector((state) => state.news.news);
+    const loading = useSelector((state) => state.news.loading);
     const [searchTerm, setSearchTerm] = useState('');
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchNews();
-    }, []);
-
-    const fetchNews = async () => {
-        try {
-            const token = sessionStorage.getItem('token');
-            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/news', {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
-            }
-
-            const data = await response.json();
-            setNews(data.data);
-        } catch (error) {
-            console.error('Error fetching news: ', error);
-        }
-    };
+        dispatch(fetchNews());
+    }, [dispatch]);
 
     const handleSearch = (event) => {
         setSearchTerm(event.target.value);
@@ -92,27 +75,31 @@ const NewsPage = () => {
                             </div>
                         </div>
                         <div className="container w-full flex flex-wrap gap-2">
-                            {filteredNews.map((berita) => (
-                                <div
-                                    key={berita.id}
-                                    style={{ marginRight: "42px", marginBottom: "38px" }}
-                                >
-                                    <CardNews
-                                        image={`https://storage.googleapis.com/e-complaint-assets/${
-                                            berita.files && berita.files.length > 0
-                                                ? berita.files[0].path
-                                                : "default.jpg"
-                                        }`}
-                                        title={berita.title}
-                                        description={
-                                            berita.content.slice(0, 200) +
-                                            (berita.content.length > 200 ? "..." : "")
-                                        }
-                                        newsId={berita.id}
-                                    />
-                                </div>
-                            ))}
-                            {filteredNews.length === 0 && (
+                            {loading ? (
+                                // Show loading text while data is being fetched
+                                <div className="w-full text-center text-gray-500">Loading...</div>
+                            ) : (
+                                filteredNews.map((berita) => (
+                                    <div
+                                        key={berita.id}
+                                        style={{ marginRight: "42px", marginBottom: "38px" }}
+                                    >
+                                        <CardNews id={berita.id}
+                                            image={`https://storage.googleapis.com/e-complaint-assets/${
+                                                berita.files && berita.files.length > 0
+                                                    ? berita.files[0].path
+                                                    : "default.jpg"
+                                            }`}
+                                            title={berita.title}
+                                            description={
+                                                berita.content.slice(0, 200) +
+                                                (berita.content.length > 200 ? "..." : "")
+                                            }
+                                        />
+                                    </div>
+                                ))
+                            )}
+                            {filteredNews.length === 0 && !loading && (
                                 <div className="w-full text-center text-gray-500">Tidak ada berita yang ditemukan.</div>
                             )}
                         </div>

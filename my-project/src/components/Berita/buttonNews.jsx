@@ -1,11 +1,17 @@
 import { FaPlus } from "react-icons/fa6";
-import { Link } from "react-router-dom";
+import { FiEdit } from "react-icons/fi";
 
-export default function ButtonNews() {
+export default function ButtonNews({ onClick, mode }) {
+    const isEditMode = mode === "edit";
     return (
-        <Link to="/news-create" className="bg-main-color hover:bg-main-darker rounded justify-center px-6 py-2.5 items-center gap-2 inline-flex">
-            <FaPlus />
-            <div className="text-center text-violet-950 text-sm font-medium leading-tight tracking-tight">Tambah Berita</div>
-        </Link>
+        <button 
+            className="bg-main-darker hover:bg-main-lighter rounded justify-center px-6 py-2.5 items-center gap-2 inline-flex" 
+            onClick={onClick}
+        >
+            {isEditMode ? <FiEdit /> : <FaPlus />}
+            <div className="text-center text-violet-950 text-sm font-medium leading-tight tracking-tight">
+                {isEditMode ? "Edit Berita" : "Tambah Berita"}
+            </div>
+        </button>
     );
 }
