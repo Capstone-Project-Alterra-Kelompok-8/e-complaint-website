@@ -2,7 +2,7 @@ import CardProgress from "./CardProgress";
 
 const Progress = () => {
   return (
-    <div className="flex flex-wrap justify-around p-4 gap-4">
+    <div className="grid grid-cols-4 gap-4 pb-4">
       <CardProgress
         number="2175"
         text="Laporan Diterima"
