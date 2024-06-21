@@ -9,9 +9,12 @@ import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
 import Category from "./pages/Category"
 import Complaint from "./pages/complaints/Complaint";
-import News from "./pages/news/news"
+// import News from "./pages/news/news"
+import NewsPage from "./pages/news"
 import CreateNews from './pages/news/CreateNews'
-
+import EditNews from './pages/news/EditNews'
+import DetailNews from "./pages/Berita/detailNews";
+import NotFound from './pages/404-NotFound'
 
 function App() {
   return (
@@ -25,8 +28,10 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/category" element={<Category />} />
           <Route path="/complaint" element={<Complaint />} />
-          <Route path="/news" element={<News />} />
           <Route path="/news-create" element={<CreateNews />} />
+          <Route path="/news" element={<NewsPage />} />
+          <Route path="/news-detail/:id/edit" element={<EditNews />} />
+          <Route path="/news-detail/:id" element={<DetailNews />} />
         </Route>
 
         {/* Privat route Super Admin */}
@@ -34,6 +39,8 @@ function App() {
           <Route path="/super-admin/admin" element={<ListAdmin />} />
           <Route path="/super-admin/user" element={<ListUser />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
   );

@@ -12,7 +12,6 @@ const NewsPage = () => {
     const news = useSelector((state) => state.news.news);
     const loading = useSelector((state) => state.news.loading);
     const [searchTerm, setSearchTerm] = useState('');
-    const navigate = useNavigate();
 
     useEffect(() => {
         dispatch(fetchNews());
@@ -26,30 +25,6 @@ const NewsPage = () => {
         berita.title.toLowerCase().includes(searchTerm.toLowerCase())
     );
 
-    const CardNews = ({ image, title, description, newsId }) => {
-        const handleViewDetail = () => {
-            // Implementasi navigasi ke halaman detail berita jika diperlukan
-            console.log(`Navigasi ke detail berita dengan ID: ${newsId}`);
-            navigate(`/news-detail/${newsId}`);
-        };
-
-        return (
-            <div className="lg:w-[486px] h-[500px] px-5 py-8 bg-slate-50 rounded-2xl flex flex-col shadow">
-                <img className="w-full h-48 rounded-lg shadow" src={image} alt={title} />
-                <div className="w-full flex-col justify-start items-start gap-4 inline-flex">
-                    <div className="text-center text-black text-2xl font-medium font-poppins leading-tight tracking-tight mt-3">{title}</div>
-                    <div className="text-justify text-black text-base font-medium font-montserrat leading-7">
-                        {description}
-                    </div>
-                </div>
-                <div className="flex gap-6 mt-auto">
-                    <button onClick={handleViewDetail} className="bg-info-3 text-white px-6 py-2.5 rounded shadow">Detail</button>
-                    <button className="bg-error-3 text-white px-6 py-2.5 rounded shadow">Hapus</button>
-                </div>
-            </div>
-        );
-    };
-
     return (
         <section className="flex w-full flex-col">
             <HeaderLayout />
@@ -61,6 +36,7 @@ const NewsPage = () => {
                     </div>
                     <div className="container mt-9 w-full bg-gray-300 justify-between px-5 pt-5 rounded-lg min-h-[70vh]">
                         <div className="container lg:flex justify-between items-center mb-5">
+                            <ButtonNews />
                             <div className="flex mt-5 lg:mt-0 px-2 lg:w-80 items-center rounded border border-gray-400 bg-white">
                                 <span className="text-2xl">
                                     <IoSearch />
@@ -91,6 +67,7 @@ const NewsPage = () => {
                                                     : "default.jpg"
                                             }`}
                                             title={berita.title}
+                                            total_likes={berita.total_likes}
                                             description={
                                                 berita.content.slice(0, 200) +
                                                 (berita.content.length > 200 ? "..." : "")

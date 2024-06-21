@@ -1,4 +1,6 @@
 import { configureStore, createSlice } from "@reduxjs/toolkit";
+import newsReducer from './newsSlice';
+import newsCommentReducer from './newsCommentSlice';
 
 const initialState = {
   currentPath: "/dashboard",
@@ -29,6 +31,8 @@ const store = configureStore({
   reducer: {
     path: pathSlice.reducer,
     sidebar: sidebarSlice.reducer,
+    news: newsReducer,
+    newsComments: newsCommentReducer,
   },
 });
 
