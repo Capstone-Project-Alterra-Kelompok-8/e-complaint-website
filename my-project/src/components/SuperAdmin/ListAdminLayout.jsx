@@ -1,14 +1,14 @@
 import { useState, useEffect } from 'react';
 import { PlusIcon, EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import Swal from 'sweetalert2';
-import SuperAdminPanel from './SuperAdminPanel';
-import HeaderLayout from '../Header/HeaderLayout';
+import SuperAdminPanel from './SuperAdminPanel'
+import HeaderLayout from '../Header/HeaderLayout'
 import SidebarLayout from '../Header/SidebarLayout';
 
 function ListAdminLayout() {
     const [admins, setAdmins] = useState([]);
-    const [isAdding, setIsAdding] = useState(false);
     const [isEditing, setIsEditing] = useState(false);
+    const [isAdding, setIsAdding] = useState(false); // State untuk form tambah akun baru
     const [currentAdmin, setCurrentAdmin] = useState({
         id: '',
         name: '',
@@ -16,7 +16,7 @@ function ListAdminLayout() {
         telephone_number: '',
         password: ''
     });
-    const [newAdmin, setNewAdmin] = useState({
+    const [newAdmin, setNewAdmin] = useState({ // State untuk akun baru
         name: '',
         email: '',
         telephone_number: '',
@@ -117,6 +117,11 @@ function ListAdminLayout() {
         setCurrentAdmin({ ...currentAdmin, [name]: value });
     };
 
+    const handleNewAdminInputChange = (e) => { // Fungsi untuk menangani input pada form tambah akun baru
+        const { name, value } = e.target;
+        setNewAdmin({ ...newAdmin, [name]: value });
+    };
+
     const handleEditSubmit = async (e) => {
         e.preventDefault();
 
@@ -136,7 +141,7 @@ function ListAdminLayout() {
             }
 
             setIsEditing(false);
-            fetchAdmins();
+            fetchAdmins(); // Refresh the admin list
 
             Swal.fire({
                 position: "top-end",
@@ -151,12 +156,7 @@ function ListAdminLayout() {
     };
 
 
-    const handleNewAdminInputChange = (e) => {
-        const { name, value } = e.target;
-        setNewAdmin({ ...newAdmin, [name]: value });
-    };
-
-    const handleNewAdminSubmit = async (e) => {
+    const handleNewAdminSubmit = async (e) => { // Fungsi untuk submit form tambah akun baru
         e.preventDefault();
 
         try {
@@ -175,8 +175,7 @@ function ListAdminLayout() {
             }
 
             setIsAdding(false);
-            fetchAdmins();
-
+            fetchAdmins(); // Refresh the admin list
             Swal.fire({
                 position: "top-end",
                 icon: "success",
@@ -286,34 +285,74 @@ function ListAdminLayout() {
                         </table>
                     </div>
                     {isEditing && (
-                        <form onSubmit={handleEditSubmit}>
-                            <input
-                                type="text"
-                                name="name"
-                                value={currentAdmin.name}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="email"
-                                name="email"
-                                value={currentAdmin.email}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="text"
-                                name="telephone_number"
-                                value={currentAdmin.telephone_number}
-                                onChange={handleInputChange}
-                            />
-                            <input
-                                type="password"
-                                name="password"
-                                value={currentAdmin.password}
-                                onChange={handleInputChange}
-                            />
-                            <button type="submit">Save</button>
-                            <button type="button" onClick={() => setIsEditing(false)}>Cancel</button>
-                        </form>
+                        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+                            <form onSubmit={handleEditSubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
+                                <h2 className="text-2xl mb-4 font-bold">Edit Admin</h2>
+                                <div className="mb-4">
+                                    <label className="block mb-2 font-bold" htmlFor="name">Name</label>
+                                    <input
+                                        type="text"
+                                        id="name"
+                                        name="name"
+                                        value={currentAdmin.name}
+                                        onChange={handleInputChange}
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block mb-2 font-bold" htmlFor="email">Email</label>
+                                    <input
+                                        type="email"
+                                        id="email"
+                                        name="email"
+                                        value={currentAdmin.email}
+                                        onChange={handleInputChange}
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4">
+                                    <label className="block mb-2 font-bold" htmlFor="telephone_number">Phone Number</label>
+                                    <input
+                                        type="text"
+                                        id="telephone_number"
+                                        name="telephone_number"
+                                        value={currentAdmin.telephone_number}
+                                        onChange={handleInputChange}
+                                        className="w-full p-2 border border-gray-300 rounded"
+                                        required
+                                    />
+                                </div>
+                                <div className="mb-4 relative">
+                                    <label className="block mb-2 font-bold" htmlFor="password">Password</label>
+                                    <input
+                                        type={showPassword ? "text" : "password"}
+                                        id="password"
+                                        name="password"
+                                        value={currentAdmin.password}
+                                        onChange={handleInputChange}
+                                        className="w-full p-2 border border-gray-300 rounded pr-10"
+                                        required
+                                    />
+                                    <button
+                                        type="button"
+                                        onClick={togglePasswordVisibility}
+                                        className="absolute inset-y-0 right-0 pr-3 flex mt-1 justify-center top-7 items-center text-gray-500"
+                                    >
+                                        {showPassword ? (
+                                            <EyeSlashIcon className="h-5 w-5" />
+                                        ) : (
+                                            <EyeIcon className="h-5 w-5" />
+                                        )}
+                                    </button>
+                                </div>
+                                <div className="flex justify-end">
+                                    <button type="button" onClick={() => setIsEditing(false)} className="mr-4 px-4 py-2 text-gray-600">Cancel</button>
+                                    <button type="submit" className="px-4 py-2 bg-main-color hover:bg-main-darker text-white rounded">Save</button>
+                                </div>
+                            </form>
+                        </div>
                     )}
                     {isAdding && (
                         <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
