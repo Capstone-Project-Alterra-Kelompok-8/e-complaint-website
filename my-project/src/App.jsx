@@ -9,6 +9,7 @@ import Adminroute from './route/PrivatAdmin'
 import Dashboard from "./pages/Dashboard"
 import Category from "./pages/Category"
 import Complaint from "./pages/complaints/Complaint";
+import DetailComplaint from "./pages/complaints/Complaint-Detail"
 // import News from "./pages/news/news"
 import NewsPage from "./pages/news"
 import CreateNews from './pages/news/CreateNews'
@@ -28,6 +29,7 @@ function App() {
           <Route path="/dashboard" element={<Dashboard />} />
           <Route path="/category" element={<Category />} />
           <Route path="/complaint" element={<Complaint />} />
+          <Route path="/complaint-detail" element={<DetailComplaint />} />
           <Route path="/news-create" element={<CreateNews />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news-detail/:id/edit" element={<EditNews />} />
