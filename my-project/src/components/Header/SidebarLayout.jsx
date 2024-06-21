@@ -75,7 +75,7 @@ const SidebarLayout = () => {
             {sidebarVisible && (
                 <div className="fixed inset-0 bg-black opacity-50 lg:hidden" onClick={() => dispatch(closeSidebar())}></div>
             )}
-            <div className={`fixed w-72 bg-main-color h-full ${sidebarVisible ? 'block' : 'hidden'} lg:block`}>
+            <div className={`fixed z-50 w-72 bg-main-color h-full ${sidebarVisible ? 'block' : 'hidden'} lg:block`}>
                 <div className="flex justify-between items-center py-4 px-7">
                     <img src={logo} alt="logo" />
                     <button className="lg:hidden" onClick={() => dispatch(closeSidebar())}>
