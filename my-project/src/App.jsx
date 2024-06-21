@@ -14,6 +14,7 @@ import NewsPage from "./pages/news"
 import CreateNews from './pages/news/CreateNews'
 import EditNews from './pages/news/EditNews'
 import DetailNews from "./pages/Berita/detailNews";
+import NotFound from './pages/404-NotFound'
 
 function App() {
   return (
@@ -38,6 +39,8 @@ function App() {
           <Route path="/super-admin/admin" element={<ListAdmin />} />
           <Route path="/super-admin/user" element={<ListUser />} />
         </Route>
+
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </main>
   );
