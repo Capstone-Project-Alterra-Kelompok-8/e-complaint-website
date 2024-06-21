@@ -1,6 +1,10 @@
+import DetailComplaintLayout from "../../components/Complaint/DetailComplaintLayout"
+
 const ComplaintDetail = () => {
     return (
-        <main></main>
+        <main>
+            <DetailComplaintLayout />
+        </main>
     )
 }
 
