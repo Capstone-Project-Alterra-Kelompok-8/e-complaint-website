@@ -67,6 +67,7 @@ const NewsPage = () => {
                                                     : "default.jpg"
                                             }`}
                                             title={berita.title}
+                                            total_likes={berita.total_likes}
                                             description={
                                                 berita.content.slice(0, 200) +
                                                 (berita.content.length > 200 ? "..." : "")
