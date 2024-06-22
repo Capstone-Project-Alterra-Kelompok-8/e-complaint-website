@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,7 +10,7 @@ import {
   Legend,
 } from "chart.js";
 
-// Mendaftarkan skala yang diperlukan
+// ini buat mendaftarkan skala yang diperlukan
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,7 +20,8 @@ ChartJS.register(
   Legend
 );
 
-const ChartTotalUser = ({ data }) => {
+const ChartTotalUser = ({ data, years }) => {
+   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const chartData = {
     labels: [
       "Jan",
@@ -39,11 +40,11 @@ const ChartTotalUser = ({ data }) => {
     datasets: [
       {
         label: "Total User",
-        data: data,
-        backgroundColor: "rgba(255, 206, 86, 0.2)",
-        borderColor: "rgba(255, 206, 86, 1)",
+        data: data[selectedYear] || [],
+        backgroundColor: "rgba(250, 204, 21, 1)",
+        borderColor: "rgba(250, 204, 21, 1)",
         borderWidth: 1,
-        barThickness: 40,
+        barThickness: 30,
       },
     ],
   };
@@ -53,9 +54,33 @@ const ChartTotalUser = ({ data }) => {
     maintainAspectRatio: false,
   };
 
+   const handleYearChange = (e) => {
+     setSelectedYear(e.target.value);
+   };
+
+
   return (
-    <div className="bg-yellow-100 p-4 rounded-lg shadow-md w-full overflow-x-auto">
-      <h2 className="text-xl font-bold mb-4">Total User</h2>
+    <div className="bg-main-lighter p-4 rounded-lg shadow-md w-full overflow-x-auto">
+      <div className="flex justify-between items-center mb-4">
+        <h2 className="text-[26px] font-bold">Total User</h2>
+        <div>
+          <label htmlFor="year-select" className="mr-2">
+            Year:
+          </label>
+          <select
+            id="year-select"
+            value={selectedYear}
+            onChange={handleYearChange}
+            className="bg-main-lighter border border-gray-300 rounded px-2 py-1"
+          >
+            {years.map((year) => (
+              <option key={year} value={year}>
+                {year}
+              </option>
+            ))}
+          </select>
+        </div>
+      </div>
       <div className="min-w-[600px] h-80">
         <Bar data={chartData} options={options} />
       </div>

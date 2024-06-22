@@ -2,7 +2,7 @@ import CardProgress from "./CardProgress";
 
 const Progress = () => {
   return (
-    <div className="grid grid-cols-4 gap-4 pb-4">
+    <div className="justify-center grid grid-cols-4 gap-4 pb-4">
       <CardProgress
         number="2175"
         text="Laporan Diterima"
