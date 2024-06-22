@@ -49,7 +49,7 @@ const Dashboard = () => {
       setProgressData(complaintsByStatus);
       setUserChartData(usersByYearAndMonth);
       setYears(Object.keys(usersByYearAndMonth));
-      setLatestComplaints(latestComplaints.slice(0, 3));
+      setLatestComplaints(latestComplaints);
 
       setIsLoadingProgress(false);
       setIsLoadingChart(false);
