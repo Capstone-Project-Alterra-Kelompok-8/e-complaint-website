@@ -18,6 +18,7 @@ const Dashboard = () => {
   const [userChartData, setUserChartData] = useState({});
   const [years, setYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+  const [latestComplaints, setLatestComplaints] = useState([]);
 
   useEffect(() => {
     fetchData();
@@ -35,10 +36,11 @@ const Dashboard = () => {
           },
         }
       );
-      const { complaintsByStatus, usersByYearAndMonth } = response.data.data;
+      const { complaintsByStatus, usersByYearAndMonth, latestComplaints } = response.data.data;
       setProgressData(complaintsByStatus);
       setUserChartData(usersByYearAndMonth);
       setYears(Object.keys(usersByYearAndMonth));
+      setLatestComplaints(latestComplaints.slice(0, 3));
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
     }
@@ -46,27 +48,7 @@ const Dashboard = () => {
 
   console.log(userChartData);
   console.log(years);
-
-  const riwayatAduanData = [
-    {
-      name: "John Doe",
-      date: "2024-06-01",
-      category: "Kategori 1",
-      status: "Diproses",
-    },
-    {
-      name: "Jane Smith",
-      date: "2024-06-02",
-      category: "Kategori 2",
-      status: "Selesai",
-    },
-    {
-      name: "Bob Johnson",
-      date: "2024-06-03",
-      category: "Kategori 3",
-      status: "Tertunda",
-    },
-  ];
+  console.log(latestComplaints);
 
   return (
     <>
@@ -82,7 +64,7 @@ const Dashboard = () => {
               selectedYear={selectedYear}
               setSelectedYear={setSelectedYear}
             />
-            <RiwayatAduan data={riwayatAduanData} />
+            <RiwayatAduan data={latestComplaints} />
           </div>
         </div>
       </section>
