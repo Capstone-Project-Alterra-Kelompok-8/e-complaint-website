@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Bar } from "react-chartjs-2";
 import {
   Chart as ChartJS,
@@ -10,7 +10,7 @@ import {
   Legend,
 } from "chart.js";
 
-// ini buat mendaftarkan skala yang diperlukan
+// Daftarkan skala yang diperlukan
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -20,8 +20,12 @@ ChartJS.register(
   Legend
 );
 
-const ChartTotalUser = ({ data, years }) => {
-   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
+const ChartTotalUser = ({ data, years, selectedYear, setSelectedYear }) => {
+  const calculateTotalUser = (year) => {
+    if (!data[year]) return 0;
+    return data[year].reduce((total, monthData) => total + monthData.count, 0);
+  };
+  
   const chartData = {
     labels: [
       "Jan",
@@ -31,16 +35,18 @@ const ChartTotalUser = ({ data, years }) => {
       "May",
       "Jun",
       "Jul",
-      "Aug",
-      "Sep",
+      "Ags",
+      "Sept",
       "Oct",
       "Nov",
       "Dec",
     ],
     datasets: [
       {
-        label: "Total User",
-        data: data[selectedYear] || [],
+        label: `Total User for ${selectedYear} = ${calculateTotalUser(
+          selectedYear
+        )}`,
+        data: data[selectedYear]?.map((monthData) => monthData.count) || [],
         backgroundColor: "rgba(250, 204, 21, 1)",
         borderColor: "rgba(250, 204, 21, 1)",
         borderWidth: 1,
@@ -49,20 +55,47 @@ const ChartTotalUser = ({ data, years }) => {
     ],
   };
 
-  const options = {
+   const options = {
     responsive: true,
     maintainAspectRatio: false,
+    scales: {
+      x: {
+        grid: {
+          display: false,
+        },
+        ticks: {
+          color: "rgba(0, 0, 0, 0.7)",
+          font: {
+            size: 12,
+            weight: 'bold',
+          },
+        },
+      },
+      y: {
+        grid: {
+          color: "rgba(0, 0, 0, 0.1)",
+          lineWidth: 2,
+        },
+        ticks: {
+          color: "rgba(0, 0, 0, 0.7)",
+          font: {
+            size: 12,
+            weight: 'bold',
+          },
+        },
+      },
+    },
   };
 
-   const handleYearChange = (e) => {
-     setSelectedYear(e.target.value);
-   };
-
+  // Handle year change event
+  const handleYearChange = (e) => {
+    setSelectedYear(parseInt(e.target.value));
+  };
 
   return (
     <div className="bg-main-lighter p-4 rounded-lg shadow-md w-full overflow-x-auto">
       <div className="flex justify-between items-center mb-4">
-        <h2 className="text-[26px] font-bold">Total User</h2>
+        <h2 className="text-2xl font-bold">Total User</h2>
         <div>
           <label htmlFor="year-select" className="mr-2">
             Year:
