@@ -73,14 +73,26 @@ const Dashboard = () => {
         <div className="flex flex-col flex-grow lg:ml-[287px]">
           <HeaderLayout />
           <div className="flex-grow bg-light-2 p-8 overflow-y-auto">
-            <Progress progressData={progressData} />
-            <ChartTotalUser
-              data={userChartData}
-              years={years}
-              selectedYear={selectedYear}
-              setSelectedYear={setSelectedYear}
-            />
-            <RiwayatAduan data={latestComplaints} />
+            {isLoadingProgress ? (
+              <div className="text-center mt-4">Loading Progress...</div>
+            ) : (
+              <Progress progressData={progressData} />
+            )}
+            {isLoadingChart ? (
+              <div className="text-center mt-4">Loading Chart...</div>
+            ) : (
+              <ChartTotalUser
+                data={userChartData}
+                years={years}
+                selectedYear={selectedYear}
+                setSelectedYear={setSelectedYear}
+              />
+            )}
+            {isLoadingRiwayatAduan ? (
+              <div className="text-center mt-4">Loading Riwayat Aduan...</div>
+            ) : (
+              <RiwayatAduan data={latestComplaints} />
+            )}
           </div>
         </div>
       </section>
