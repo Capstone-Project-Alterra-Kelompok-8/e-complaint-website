@@ -18,7 +18,7 @@ const DetailComplaintLayout = () => {
                             <p>Nomor Aduan</p>
                             <p>G5102</p>
                         </div>
-                        <div className="font-poppins bg-white border border-gray-300 rounded-lg px-4 py- flex justify-center items-center">
+                        <div className="font-poppins bg-white border border-gray-300 rounded-lg px-4 py-2 flex justify-center items-center">
                             <p className='text-main-darker'>On Progress</p>
                         </div>
                         <button className='bg-[#EA1212] text-white py-2 px-6 rounded-lg'>Hapus</button>
