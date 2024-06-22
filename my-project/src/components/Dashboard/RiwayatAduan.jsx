@@ -22,9 +22,14 @@ return (
               <td className="py-2 px-4">{item.user.name}</td>
               <td className="py-2 px-4">
                 {new Date(item.complaint.date).toLocaleDateString("id-ID", {
-                  day: "numeric",
-                  month: "long",
+                  day: "2-digit",
+                  month: "2-digit",
                   year: "numeric",
+                })}{" "}
+                {new Date(item.complaint.date).toLocaleTimeString("id-ID", {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                  second: "2-digit",
                 })}
               </td>
               <td className="py-3 px-4">

@@ -43,7 +43,7 @@ const ChartTotalUser = ({ data, years, selectedYear, setSelectedYear }) => {
     ],
     datasets: [
       {
-        label: `Total User for ${selectedYear} = ${calculateTotalUser(
+        label: `Total User ${selectedYear} = ${calculateTotalUser(
           selectedYear
         )}`,
         data: data[selectedYear]?.map((monthData) => monthData.count) || [],
@@ -98,7 +98,7 @@ const ChartTotalUser = ({ data, years, selectedYear, setSelectedYear }) => {
         <h2 className="text-2xl font-bold">Total User</h2>
         <div>
           <label htmlFor="year-select" className="mr-2">
-            Year:
+            Tahun:
           </label>
           <select
             id="year-select"
