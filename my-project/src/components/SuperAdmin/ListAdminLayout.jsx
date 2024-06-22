@@ -5,6 +5,7 @@ import SuperAdminPanel from './SuperAdminPanel'
 import HeaderLayout from '../Header/HeaderLayout'
 import SidebarLayout from '../Header/SidebarLayout';
 
+//! Ini tabel superadmin yang sudah fix
 function ListAdminLayout() {
     const [admins, setAdmins] = useState([]);
     const [isEditing, setIsEditing] = useState(false);
