@@ -19,6 +19,9 @@ const Dashboard = () => {
   const [years, setYears] = useState([]);
   const [selectedYear, setSelectedYear] = useState(new Date().getFullYear());
   const [latestComplaints, setLatestComplaints] = useState([]);
+  const [isLoadingProgress, setIsLoadingProgress] = useState(true);
+  const [isLoadingChart, setIsLoadingChart] = useState(true);
+  const [isLoadingRiwayatAduan, setIsLoadingRiwayatAduan] = useState(true);
 
   useEffect(() => {
     fetchData();
@@ -26,6 +29,10 @@ const Dashboard = () => {
 
   const fetchData = async () => {
     try {
+      setIsLoadingProgress(true);
+      setIsLoadingChart(true);
+      setIsLoadingRiwayatAduan(true);
+
       const token = sessionStorage.getItem("token");
       const response = await axios.get(
         "https://capstone-dev.mdrizki.my.id/api/v1/admins/dashboard",
@@ -36,13 +43,22 @@ const Dashboard = () => {
           },
         }
       );
+
       const { complaintsByStatus, usersByYearAndMonth, latestComplaints } = response.data.data;
+
       setProgressData(complaintsByStatus);
       setUserChartData(usersByYearAndMonth);
       setYears(Object.keys(usersByYearAndMonth));
       setLatestComplaints(latestComplaints.slice(0, 3));
+
+      setIsLoadingProgress(false);
+      setIsLoadingChart(false);
+      setIsLoadingRiwayatAduan(false);
     } catch (error) {
       console.error("Error fetching dashboard data:", error);
+      setIsLoadingProgress(false);
+      setIsLoadingChart(false);
+      setIsLoadingRiwayatAduan(false);
     }
   };
 
