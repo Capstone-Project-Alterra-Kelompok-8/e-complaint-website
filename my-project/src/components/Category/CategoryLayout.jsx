@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { PlusIcon, TrashIcon, PencilSquareIcon } from '@heroicons/react/24/outline';
+import { PlusIcon } from '@heroicons/react/24/outline';
 import Swal from 'sweetalert2';
 import HeaderLayout from '../Header/HeaderLayout'
 import SidebarLayout from '../Header/SidebarLayout';
