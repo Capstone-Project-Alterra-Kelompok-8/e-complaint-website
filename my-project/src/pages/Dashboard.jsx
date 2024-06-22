@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Progress from "../components/Dashboard/Progress";
 import HeaderLayout from "../components/Header/HeaderLayout";
 import SidebarLayout from "../components/Header/SidebarLayout";
@@ -62,41 +62,35 @@ const Dashboard = () => {
     }
   };
 
-  console.log(userChartData);
-  console.log(years);
-  console.log(latestComplaints);
-
   return (
-    <>
-      <section className="flex w-full min-h-screen">
-        <SidebarLayout />
-        <div className="flex flex-col flex-grow lg:ml-[287px]">
-          <HeaderLayout />
-          <div className="flex-grow bg-light-2 p-8 overflow-y-auto">
-            {isLoadingProgress ? (
-              <div className="text-center mt-4">Loading Progress...</div>
-            ) : (
-              <Progress progressData={progressData} />
-            )}
-            {isLoadingChart ? (
-              <div className="text-center mt-4">Loading Chart...</div>
-            ) : (
-              <ChartTotalUser
-                data={userChartData}
-                years={years}
-                selectedYear={selectedYear}
-                setSelectedYear={setSelectedYear}
-              />
-            )}
-            {isLoadingRiwayatAduan ? (
-              <div className="text-center mt-4">Loading Riwayat Aduan...</div>
-            ) : (
-              <RiwayatAduan data={latestComplaints} />
-            )}
-          </div>
+    <section className="flex w-full flex-col">
+      <HeaderLayout />
+      <SidebarLayout />
+      <div className="lg:ml-72 min-h-[80dvh] overflow-y-auto">
+        <div className="flex-grow bg-light-2 p-8">
+          {isLoadingProgress ? (
+            <div className="text-center mt-4">Loading Progress...</div>
+          ) : (
+            <Progress progressData={progressData} />
+          )}
+          {isLoadingChart ? (
+            <div className="text-center mt-4">Loading Chart...</div>
+          ) : (
+            <ChartTotalUser
+              data={userChartData}
+              years={years}
+              selectedYear={selectedYear}
+              setSelectedYear={setSelectedYear}
+            />
+          )}
+          {isLoadingRiwayatAduan ? (
+            <div className="text-center mt-4">Loading Riwayat Aduan...</div>
+          ) : (
+            <RiwayatAduan data={latestComplaints} />
+          )}
         </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 };
 

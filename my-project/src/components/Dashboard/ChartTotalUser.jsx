@@ -92,8 +92,8 @@ const ChartTotalUser = ({ data, years, selectedYear, setSelectedYear }) => {
   };
 
   return (
-    <div className="bg-main-lighter p-4 rounded-lg shadow-md w-full overflow-x-auto">
-      <div className="flex justify-between items-center mb-4">
+    <div className="bg-main-lighter mt-4 p-4 rounded-lg shadow-md w-full overflow-x-auto">
+      <div className="flex flex-wrap justify-between items-center mb-4">
         <h2 className="text-2xl font-bold">Total User</h2>
         <div>
           <label htmlFor="year-select" className="mr-2">

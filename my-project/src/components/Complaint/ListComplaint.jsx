@@ -177,7 +177,7 @@ const ListComplaint = () => {
                         </TableCell>
                         <TableCell align="center">
                           <Link
-                            to={`/complaints/${complaint.id}`}
+                            to={`/complaint-detail/${complaint.id}`}
                             className="bg-info-3 text-white px-3 py-2 rounded"
                           >
                             Detail
