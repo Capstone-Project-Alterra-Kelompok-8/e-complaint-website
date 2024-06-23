@@ -1,12 +1,16 @@
-import React from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
+import axios from "axios";
 import iconGemeni from "../../assets/icon.svg";
 import Hapus from "../../assets/delete_24px.svg";
 
 const MySwal = withReactContent(Swal);
 
 const DiskusiAduan = ({ complaint, discussions }) => {
+  const [recommendation, setRecommendation] = useState("");
+  const [textInput, setTextInput] = useState("");
+
   // Function untuk menampilkan SweetAlert2 konfirmasi penghapusan
   const handleDeleteDiscussion = (id) => {
     MySwal.fire({
@@ -28,6 +32,36 @@ const DiskusiAduan = ({ complaint, discussions }) => {
         MySwal.fire("Terhapus!", "Diskusi telah dihapus.", "success");
       }
     });
+  };
+
+  // Function untuk mengambil rekomendasi AI dari API
+  const fetchRecommendation = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await axios.get(
+        `https://capstone-dev.mdrizki.my.id/api/v1/complaints/${complaint.id}/discussions/get-recommendation`,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setRecommendation(response.data.data.answer); // Mengambil nilai dari response.data.data.answer
+      console.log("Fetched recommendation:", response.data.data);
+    } catch (error) {
+      console.error("Error fetching recommendation:", error);
+    }
+  };
+
+  // Event handler untuk tombol "Get Rekomendasi AI"
+  const handleGetRecommendation = () => {
+    fetchRecommendation();
+  };
+
+  // Event handler untuk perubahan teks di textarea
+  const handleTextInputChange = (e) => {
+    setTextInput(e.target.value);
   };
 
   return (
@@ -108,7 +142,10 @@ const DiskusiAduan = ({ complaint, discussions }) => {
       </div>
 
       <div className="flex flex-col w-full">
-        <button className="flex w-full justify-center items-center rounded border border-dark-4 py-2 px-5 gap-1">
+        <button
+          className="flex w-full justify-center items-center rounded border border-dark-4 py-2 px-5 gap-1"
+          onClick={handleGetRecommendation}
+        >
           <img src={iconGemeni} alt="icon" />
           <p className="bg-gradient-to-r from-[#4796E3] to-[#C96676] text-transparent bg-clip-text">
             Get Rekomendasi AI
@@ -117,8 +154,8 @@ const DiskusiAduan = ({ complaint, discussions }) => {
         <textarea
           className="w-full mt-5 border border-gray-300 rounded p-2 min-h-28"
           placeholder="Ketik disini"
-          name=""
-          id=""
+          value={recommendation || textInput}
+          onChange={handleTextInputChange}
           cols="30"
         ></textarea>
         <button className="text-info-3 bg-white border border-info-3 px-6 py-2.5 rounded shadow mt-3 font-medium">
