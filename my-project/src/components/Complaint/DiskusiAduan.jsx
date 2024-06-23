@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import axios from "axios";
@@ -11,6 +11,7 @@ const DiskusiAduan = ({ complaint, discussions }) => {
   const [recommendation, setRecommendation] = useState("");
   const [textInput, setTextInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [newDiscussion, setNewDiscussion] = useState(null);
 
   // Function untuk menampilkan SweetAlert2 konfirmasi penghapusan
   const handleDeleteDiscussion = (id) => {
@@ -59,15 +60,51 @@ const DiskusiAduan = ({ complaint, discussions }) => {
     }
   };
 
+  // Function untuk mengirim diskusi baru ke API
+  const postDiscussion = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await axios.post(
+        `https://capstone-dev.mdrizki.my.id/api/v1/complaints/${complaint.id}/discussions`,
+        {
+          comment: textInput, // Mengirim teks dari textarea
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setNewDiscussion(response.data.data); // Menyimpan diskusi baru yang dikirim ke state
+      setTextInput(""); // Mengosongkan textarea setelah berhasil mengirim
+      console.log("Posted discussion:", response.data.data);
+    } catch (error) {
+      console.error("Error posting discussion:", error);
+    }
+  };
+
   // Event handler untuk tombol "Get Rekomendasi AI"
   const handleGetRecommendation = () => {
     fetchRecommendation();
+  };
+
+  // Event handler untuk tombol "Kirim Diskusi"
+  const handlePostDiscussion = () => {
+    postDiscussion();
   };
 
   // Event handler untuk perubahan teks di textarea
   const handleTextInputChange = (e) => {
     setTextInput(e.target.value);
   };
+
+  useEffect(() => {
+    if (newDiscussion) {
+      // Tampilkan pesan SweetAlert2 atau notifikasi lainnya untuk konfirmasi diskusi terkirim
+      MySwal.fire("Berhasil!", "Diskusi telah terkirim.", "success");
+    }
+  }, [newDiscussion]);
 
   return (
     <div className="bg-white w-full rounded-2xl py-4 px-5 flex flex-col gap-4">
@@ -144,6 +181,36 @@ const DiskusiAduan = ({ complaint, discussions }) => {
             )}
           </div>
         ))}
+        {/* Menampilkan diskusi yang baru terkirim */}
+        {newDiscussion && (
+          <div className="border-b border-light-1 p-2 flex flex-col gap-3 md:flex-row-reverse">
+            <img
+              src={`https://storage.googleapis.com/e-complaint-assets/${newDiscussion.admin.profile_photo}`}
+              alt="Admin avatar"
+              className="rounded-full mr-4"
+              style={{ width: "40px", height: "40px" }}
+            />
+            <div className="flex-grow">
+              <div className="flex justify-between items-center">
+                <button
+                  onClick={() => handleDeleteDiscussion(newDiscussion.id)}
+                  className="text-red-500 flex items-center"
+                >
+                  <img src={Hapus} alt="" className="w-4 h-4 mr-1" /> Hapus
+                </button>
+                <div>
+                  <span className="text-gray-500 text-sm">
+                    {newDiscussion.update_at}
+                  </span>
+                  <span className="font-bold ml-2">
+                    {newDiscussion.admin.name}
+                  </span>
+                </div>
+              </div>
+              <p className="text-right">{newDiscussion.comment}</p>
+            </div>
+          </div>
+        )}
       </div>
 
       <div className="flex flex-col w-full">
@@ -169,7 +236,10 @@ const DiskusiAduan = ({ complaint, discussions }) => {
           onChange={handleTextInputChange}
           cols="30"
         ></textarea>
-        <button className="text-info-3 bg-white border border-info-3 px-6 py-2.5 rounded shadow mt-3 font-medium">
+        <button
+          className="text-info-3 bg-white border border-info-3 px-6 py-2.5 rounded shadow mt-3 font-medium"
+          onClick={handlePostDiscussion}
+        >
           Kirim Diskusi
         </button>
       </div>
