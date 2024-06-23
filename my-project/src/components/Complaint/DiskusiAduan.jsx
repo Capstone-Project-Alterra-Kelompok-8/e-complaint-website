@@ -12,8 +12,10 @@ const DiskusiAduan = ({ complaint, discussions }) => {
   const [textInput, setTextInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
   const [newDiscussion, setNewDiscussion] = useState(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [isFetchingRecommendation, setIsFetchingRecommendation] =
+    useState(false);
 
-  // Function untuk menampilkan SweetAlert2 konfirmasi penghapusan
   const handleDeleteDiscussion = (id) => {
     MySwal.fire({
       title: "Apakah Anda yakin?",
@@ -24,21 +26,35 @@ const DiskusiAduan = ({ complaint, discussions }) => {
       cancelButtonColor: "#d33",
       confirmButtonText: "Ya, hapus!",
       cancelButtonText: "Batal",
-    }).then((result) => {
+    }).then(async (result) => {
       if (result.isConfirmed) {
-        // Lakukan penghapusan di sini (simulasi penghapusan untuk contoh)
-        // Anda dapat menambahkan logika penghapusan sesuai dengan aplikasi Anda
-        console.log("Menghapus diskusi dengan ID:", id);
-
-        // Tampilkan pesan SweetAlert2 sukses jika diperlukan
-        MySwal.fire("Terhapus!", "Diskusi telah dihapus.", "success");
+        try {
+          const token = sessionStorage.getItem("token");
+          await axios.delete(
+            `https://capstone-dev.mdrizki.my.id/api/v1/complaints/${complaint.id}/discussions/${id}`,
+            {
+              headers: {
+                "Content-Type": "application/json",
+                Authorization: `Bearer ${token}`,
+              },
+            }
+          );
+          const updatedDiscussions = discussions.filter(
+            (discussion) => discussion.id !== id
+          );
+          setNewDiscussion(null);
+          setTextInput("");
+          MySwal.fire("Terhapus!", "Diskusi telah dihapus.", "success");
+        } catch (error) {
+          console.error("Error deleting discussion:", error);
+          MySwal.fire("Gagal!", "Gagal menghapus diskusi.", "error");
+        }
       }
     });
   };
 
-  // Function untuk mengambil rekomendasi AI dari API
   const fetchRecommendation = async () => {
-    setIsLoading(true); // Mengatur isLoading menjadi true saat fetching dimulai
+    setIsFetchingRecommendation(true);
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.get(
@@ -50,24 +66,25 @@ const DiskusiAduan = ({ complaint, discussions }) => {
           },
         }
       );
-      setRecommendation(response.data.data.answer); // Mengambil nilai dari response.data.data.answer
-      setTextInput(response.data.data.answer); // Mengisi textarea dengan hasil rekomendasi
-      setIsLoading(false); // Mengatur isLoading menjadi false setelah fetching selesai
+      setRecommendation(response.data.data.answer);
+      setTextInput(response.data.data.answer);
+      setIsFetchingRecommendation(false);
       console.log("Fetched recommendation:", response.data.data);
     } catch (error) {
       console.error("Error fetching recommendation:", error);
-      setIsLoading(false); // Mengatur isLoading menjadi false jika terjadi error
+      setIsFetchingRecommendation(false);
     }
   };
 
-  // Function untuk mengirim diskusi baru ke API
   const postDiscussion = async () => {
+    if (isSubmitting) return;
+    setIsSubmitting(true);
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.post(
         `https://capstone-dev.mdrizki.my.id/api/v1/complaints/${complaint.id}/discussions`,
         {
-          comment: textInput, // Mengirim teks dari textarea
+          comment: textInput,
         },
         {
           headers: {
@@ -76,32 +93,30 @@ const DiskusiAduan = ({ complaint, discussions }) => {
           },
         }
       );
-      setNewDiscussion(response.data.data); // Menyimpan diskusi baru yang dikirim ke state
-      setTextInput(""); // Mengosongkan textarea setelah berhasil mengirim
+      setNewDiscussion(response.data.data);
+      setTextInput("");
+      setIsSubmitting(false);
       console.log("Posted discussion:", response.data.data);
     } catch (error) {
       console.error("Error posting discussion:", error);
+      setIsSubmitting(false);
     }
   };
 
-  // Event handler untuk tombol "Get Rekomendasi AI"
   const handleGetRecommendation = () => {
     fetchRecommendation();
   };
 
-  // Event handler untuk tombol "Kirim Diskusi"
   const handlePostDiscussion = () => {
     postDiscussion();
   };
 
-  // Event handler untuk perubahan teks di textarea
   const handleTextInputChange = (e) => {
     setTextInput(e.target.value);
   };
 
   useEffect(() => {
     if (newDiscussion) {
-      // Tampilkan pesan SweetAlert2 atau notifikasi lainnya untuk konfirmasi diskusi terkirim
       MySwal.fire("Berhasil!", "Diskusi telah terkirim.", "success");
     }
   }, [newDiscussion]);
@@ -181,7 +196,6 @@ const DiskusiAduan = ({ complaint, discussions }) => {
             )}
           </div>
         ))}
-        {/* Menampilkan diskusi yang baru terkirim */}
         {newDiscussion && (
           <div className="border-b border-light-1 p-2 flex flex-col gap-3 md:flex-row-reverse">
             <img
@@ -215,30 +229,32 @@ const DiskusiAduan = ({ complaint, discussions }) => {
 
       <div className="flex flex-col w-full">
         <button
-          className="flex w-full justify-center items-center rounded border border-dark-4 py-2 px-5 gap-1"
+          className={`flex w-full justify-center items-center rounded border border-dark-4 py-2 px-5 gap-1 ${
+            isFetchingRecommendation ? "opacity-50 cursor-not-allowed" : ""
+          }`}
           onClick={handleGetRecommendation}
-          disabled={isLoading} // Mengatur disabled saat sedang loading
+          disabled={isFetchingRecommendation}
         >
-          {isLoading ? (
-            <span>Harap tunggu...</span> // Tampilkan "Harap tunggu..." saat isLoading true
-          ) : (
-            <>
-              <img src={iconGemeni} alt="icon" />
-              <p className="bg-gradient-to-r from-[#4796E3] to-[#C96676] text-transparent bg-clip-text">
-                Get Rekomendasi AI
-              </p>
-            </>
-          )}
+          <img src={iconGemeni} alt="icon" />
+          <p className="bg-gradient-to-r from-[#4796E3] to-[#C96676] text-transparent bg-clip-text">
+            {isFetchingRecommendation
+              ? "Harap tunggu..."
+              : "Get Rekomendasi AI"}
+          </p>
         </button>
         <textarea
           className="w-full mt-5 border border-gray-300 rounded p-2 min-h-28"
           value={textInput}
           onChange={handleTextInputChange}
+          disabled={isSubmitting}
           cols="30"
         ></textarea>
         <button
-          className="text-info-3 bg-white border border-info-3 px-6 py-2.5 rounded shadow mt-3 font-medium"
+          className={`text-info-3 bg-white border border-info-3 px-6 py-2.5 rounded shadow mt-3 font-medium ${
+            isSubmitting ? "opacity-50 cursor-not-allowed" : ""
+          }`}
           onClick={handlePostDiscussion}
+          disabled={isSubmitting}
         >
           Kirim Diskusi
         </button>
