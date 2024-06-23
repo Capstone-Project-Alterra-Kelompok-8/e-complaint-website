@@ -77,21 +77,21 @@ const ProsesAduan = () => {
           <div className="flex w-full text-xl flex-col border-b border-gray-200 py-2">
             <div className="flex items-center">
               <span
-                className={`h-5 w-5 mr-2 rounded-full ${
+                className={`h-4 w-4 mr-2 rounded-full ${
                   iconColorMap[currentStatus.status]
                 }`}
               ></span>
               <h4
-                className={`font-semibold ${
+                className={`font-semibold text-lg ${
                   statusColorMap[currentStatus.status]
                 }`}
               >
                 {currentStatus.status}
               </h4>
             </div>
-            <p className="text-gray-500">{currentStatus.waktu}</p>
+            <p className="text-gray-500 text-lg">{currentStatus.waktu}</p>
             <h5 className="font-semibold">{currentStatus.admin}</h5>
-            <p className="text-gray-700">{currentStatus.deskripsi}</p>
+            <p className="text-gray-700 text-lg">{currentStatus.deskripsi}</p>
           </div>
         ) : (
           <div className="text-dark-3 flex justify-center w-full text-xl">

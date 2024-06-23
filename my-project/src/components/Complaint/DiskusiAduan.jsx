@@ -15,13 +15,15 @@ const DiskusiAduan = () => {
       time: "Kamis, 09 Mei 2024 - 04:27 WIB",
       content:
         "Betul, kemarin saya lewat situ. Masa sampai sekarang belum ditangani sih.",
+      isUser: true, // Tambahkan properti isUser untuk menandakan pesan dari user
     },
     {
       id: 2,
-      author: "Anonymouse",
+      author: "Admin",
       time: "Kamis, 09 Mei 2024 - 04:27 WIB",
       content:
-        "Betul, kemarin saya lewat situ. Masa sampai sekarang belum ditangani sih.",
+        "Pesan dari admin. Betul, kemarin saya lewat situ. Masa sampai sekarang belum ditangani sih.",
+      isUser: false, // Tambahkan properti isUser untuk menandakan pesan dari admin
     },
     {
       id: 3,
@@ -29,6 +31,7 @@ const DiskusiAduan = () => {
       time: "Kamis, 09 Mei 2024 - 04:27 WIB",
       content:
         "Betul, kemarin saya lewat situ. Masa sampai sekarang belum ditangani sih.",
+      isUser: true, // Tambahkan properti isUser untuk menandakan pesan dari user
     },
     {
       id: 4,
@@ -36,14 +39,15 @@ const DiskusiAduan = () => {
       time: "Kamis, 09 Mei 2024 - 04:27 WIB",
       content:
         "Betul, kemarin saya lewat situ. Masa sampai sekarang belum ditangani sih.",
+      isUser: true, // Tambahkan properti isUser untuk menandakan pesan dari user
     },
   ];
 
   // Function untuk menampilkan SweetAlert2 konfirmasi penghapusan
   const handleDeleteDiscussion = (id) => {
     MySwal.fire({
-      title: "Anda yakin?",
-      text: "Anda tidak akan dapat mengembalikan ini!",
+      title: "Apakah Anda yakin?",
+      text: "Anda tidak dapat mengembalikan ini!",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -76,27 +80,65 @@ const DiskusiAduan = () => {
         {discussions.map((discussion) => (
           <div
             key={discussion.id}
-            className="border-b border-light-1 p-2 flex flex-col gap-3"
+            className={`border-b border-light-1 p-2 flex flex-col gap-3 ${
+              discussion.isUser ? "md:flex-row" : "md:flex-row-reverse"
+            }`}
           >
-            <div className="flex flex-col md:flex-row gap-2 items-center md:justify-between">
-              <div className="flex flex-row gap-2 items-center justify-between">
+            {discussion.isUser ? (
+              <>
                 <img
-                  className="w-10 h-10 rounded-full"
-                  src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
-                  alt=""
+                  src={`https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
+                  alt="User avatar"
+                  className="rounded-full ml-4"
+                  style={{ width: "40px", height: "40px" }}
                 />
-                <h4>{discussion.author}</h4>
-                <p>{discussion.time}</p>
-              </div>
-              <button
-                className="flex text-error-3 items-center"
-                onClick={() => handleDeleteDiscussion(discussion.id)}
-              >
-                <img src={Hapus} alt="" className="w-6 h-6 mr-1" />
-                <span className="font-poppins font-medium">Hapus</span>
-              </button>
-            </div>
-            <p>{discussion.content}</p>
+                <div className="flex-grow">
+                  <div className="flex justify-between items-center">
+                    <div>
+                      <span className="font-bold">{discussion.author}</span>
+                      <span className="text-gray-500 text-sm ml-2">
+                        {discussion.time}
+                      </span>
+                    </div>
+                    <button
+                      onClick={() => handleDeleteDiscussion(discussion.id)}
+                      className="text-red-500 flex items-center"
+                    >
+                      <img src={Hapus} alt="" className="w-4 h-4 mr-1" /> Hapus
+                    </button>
+                  </div>
+                  <p>{discussion.content}</p>
+                </div>
+              </>
+            ) : (
+              <>
+                <img
+                  src={`https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
+                  alt="User avatar"
+                  className="rounded-full mr-4"
+                  style={{ width: "40px", height: "40px" }}
+                />
+                <div className="flex-grow">
+                  <div className="flex justify-between items-center">
+                    <button
+                      onClick={() => handleDeleteDiscussion(discussion.id)}
+                      className="text-red-500 flex items-center"
+                    >
+                      <img src={Hapus} alt="" className="w-4 h-4 mr-1" /> Hapus
+                    </button>
+                    <div>
+                      <span className="text-gray-500 text-sm">
+                        {discussion.time}
+                      </span>
+                      <span className="font-bold ml-2">
+                        {discussion.author}
+                      </span>
+                    </div>
+                  </div>
+                  <p className="text-right">{discussion.content}</p>
+                </div>
+              </>
+            )}
           </div>
         ))}
       </div>
