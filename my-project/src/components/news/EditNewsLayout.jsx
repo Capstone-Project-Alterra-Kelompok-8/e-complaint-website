@@ -155,17 +155,13 @@ const EditNewsLayout = () => {
               <textarea required id="content" cols="30" rows="10" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
             </div>
 
-            <div className="flex justify-between">
+            <div className="flex justify-end pt-4">
+              
               <section>
-                <button type="button" className="bg-dark-3 text-white">
-                  Preview
-                </button>
-              </section>
-              <section>
-                <Link to="/news" className="border border-black">
+                <Link to="/news" className="border border-black w-56 bg-white mr-2 pl-5 pr-5 ">
                   Kembali ke Kelola Berita
                 </Link>
-                <button type="submit" className="bg-green-600 text-white">
+                <button type="submit" className=" bg-main-color font-semibold w-24 rounded-sm">
                   Simpan
                 </button>
               </section>
