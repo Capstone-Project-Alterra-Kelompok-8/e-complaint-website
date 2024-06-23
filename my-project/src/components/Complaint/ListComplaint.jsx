@@ -85,6 +85,9 @@ const ListComplaint = () => {
           complaint.regency.name
             .toLowerCase()
             .includes(searchTerm.toLowerCase()) ||
+          complaint.id
+            .toLowerCase()
+            .includes(searchTerm.toLowerCase()) ||
           complaint.type.toLowerCase().includes(searchTerm.toLowerCase())) &&
         (selectedCategory === "" ||
           complaint.category.name === selectedCategory)
