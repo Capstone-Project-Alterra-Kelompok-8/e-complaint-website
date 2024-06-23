@@ -13,6 +13,10 @@ import {
   TablePagination,
   TextField,
   Paper,
+  MenuItem,
+  FormControl,
+  Select,
+  InputLabel,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { Link } from "react-router-dom";
@@ -26,23 +30,53 @@ const ListComplaint = () => {
   const [rowsPerPage, setRowsPerPage] = useState(10);
   const [searchTerm, setSearchTerm] = useState("");
   const [filteredComplaints, setFilteredComplaints] = useState([]);
+  const [categories, setCategories] = useState([]);
+  const [selectedCategory, setSelectedCategory] = useState("");
 
   useEffect(() => {
     fetchComplaints();
   }, []);
 
   useEffect(() => {
-    setFilteredComplaints(
-      complaints.filter((complaint) => {
-        const formattedDate = format(
-          new Date(complaint.updated_at),
-          "d MMMM yyyy",
-          { locale: id }
-        ).toLowerCase();
-        return (
-          complaint.user.name
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
+    filterComplaints();
+  }, [searchTerm, complaints, selectedCategory]);
+
+  const fetchComplaints = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await axios.get(
+        "https://capstone-dev.mdrizki.my.id/api/v1/complaints",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      setComplaints(response.data.data);
+      setFilteredComplaints(response.data.data);
+      extractCategories(response.data.data);
+    } catch (error) {
+      console.error("Error fetching complaints:", error);
+    }
+  };
+
+  const extractCategories = (complaints) => {
+    const uniqueCategories = [
+      ...new Set(complaints.map((complaint) => complaint.category.name)),
+    ];
+    setCategories(uniqueCategories);
+  };
+
+  const filterComplaints = () => {
+    const filtered = complaints.filter((complaint) => {
+      const formattedDate = format(
+        new Date(complaint.updated_at),
+        "d MMMM yyyy",
+        { locale: id }
+      ).toLowerCase();
+      return (
+        (complaint.user.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
           complaint.category.name
             .toLowerCase()
             .includes(searchTerm.toLowerCase()) ||
@@ -51,34 +85,20 @@ const ListComplaint = () => {
           complaint.regency.name
             .toLowerCase()
             .includes(searchTerm.toLowerCase()) ||
-          complaint.type.toLowerCase().includes(searchTerm.toLowerCase())
-        );
-      })
-    );
-  }, [searchTerm, complaints]);
-
-  const fetchComplaints = async () => {
-    try {
-      const token = sessionStorage.getItem("token");
-      const response = await axios.get(
-        "https://capstone-dev.mdrizki.my.id/api/v1/complaints?sort_by=id&sort_type=desc&limit=10&page=1",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
-        }
+          complaint.type.toLowerCase().includes(searchTerm.toLowerCase())) &&
+        (selectedCategory === "" ||
+          complaint.category.name === selectedCategory)
       );
-      console.log(response.data.data); // Logging data to console
-      setComplaints(response.data.data);
-      setFilteredComplaints(response.data.data);
-    } catch (error) {
-      console.error("Error fetching complaints:", error);
-    }
+    });
+    setFilteredComplaints(filtered);
   };
 
   const handleSearch = (event) => {
     setSearchTerm(event.target.value);
+  };
+
+  const handleCategoryChange = (event) => {
+    setSelectedCategory(event.target.value);
   };
 
   const handleChangePage = (event, newPage) => {
@@ -101,28 +121,51 @@ const ListComplaint = () => {
           </section>
 
           <Box p={2} sx={{ backgroundColor: "#E5E7EB" }}>
-            <TextField
-              variant="outlined"
-              placeholder="Search"
-              value={searchTerm}
-              onChange={handleSearch}
-              InputProps={{
-                endAdornment: (
-                  <IconButton>
-                    <Search />
-                  </IconButton>
-                ),
-                sx: {
-                  width: "40%",
-                  height: "40px",
-                  marginLeft: "auto",
-                  backgroundColor: "white",
-                },
-              }}
-              fullWidth
-              margin="normal"
-              className="font-poppins"
-            />
+            <div className="flex items-center justify-between mb-4">
+              <TextField
+                variant="outlined"
+                placeholder="Kata kunci atau tracking ID"
+                value={searchTerm}
+                onChange={handleSearch}
+                InputProps={{
+                  startAdornment: (
+                    <IconButton>
+                      <Search />
+                    </IconButton>
+                  ),
+                  sx: {
+                    backgroundColor: "white",
+                    borderTopRightRadius: 0,
+                    borderBottomRightRadius: 0,
+                  },
+                }}
+                sx={{ flex: 1, marginRight: 0 }}
+              />
+              <FormControl sx={{ minWidth: 120 }}>
+                <InputLabel id="category-select-label">Filter</InputLabel>
+                <Select
+                  labelId="category-select-label"
+                  id="category-select"
+                  value={selectedCategory}
+                  onChange={handleCategoryChange}
+                  label="Filter"
+                  sx={{
+                    borderTopLeftRadius: 0,
+                    borderBottomLeftRadius: 0,
+                    backgroundColor: "white",
+                  }}
+                >
+                  <MenuItem value="">
+                    <em>Semua</em>
+                  </MenuItem>
+                  {categories.map((category, index) => (
+                    <MenuItem key={index} value={category}>
+                      {category}
+                    </MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </div>
             <TableContainer
               component={Paper}
               className="font-poppins"
@@ -132,7 +175,7 @@ const ListComplaint = () => {
                 <TableHead>
                   <TableRow className="bg-main-color">
                     <TableCell align="center">No</TableCell>
-                    <TableCell>No. Complaint </TableCell>
+                    <TableCell>No. Complaint</TableCell>
                     <TableCell align="center">Tanggal</TableCell>
                     <TableCell align="center">Lokasi</TableCell>
                     <TableCell align="center">Kategori</TableCell>
@@ -154,9 +197,7 @@ const ListComplaint = () => {
                           {format(
                             new Date(complaint.updated_at),
                             "d MMMM yyyy",
-                            {
-                              locale: id,
-                            }
+                            { locale: id }
                           )}
                         </TableCell>
                         <TableCell>{complaint.regency.name}</TableCell>
