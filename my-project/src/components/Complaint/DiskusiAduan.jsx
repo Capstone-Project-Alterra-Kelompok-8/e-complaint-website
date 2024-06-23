@@ -10,6 +10,7 @@ const MySwal = withReactContent(Swal);
 const DiskusiAduan = ({ complaint, discussions }) => {
   const [recommendation, setRecommendation] = useState("");
   const [textInput, setTextInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   // Function untuk menampilkan SweetAlert2 konfirmasi penghapusan
   const handleDeleteDiscussion = (id) => {
@@ -36,6 +37,7 @@ const DiskusiAduan = ({ complaint, discussions }) => {
 
   // Function untuk mengambil rekomendasi AI dari API
   const fetchRecommendation = async () => {
+    setIsLoading(true); // Mengatur isLoading menjadi true saat fetching dimulai
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.get(
@@ -48,9 +50,12 @@ const DiskusiAduan = ({ complaint, discussions }) => {
         }
       );
       setRecommendation(response.data.data.answer); // Mengambil nilai dari response.data.data.answer
+      setTextInput(response.data.data.answer); // Mengisi textarea dengan hasil rekomendasi
+      setIsLoading(false); // Mengatur isLoading menjadi false setelah fetching selesai
       console.log("Fetched recommendation:", response.data.data);
     } catch (error) {
       console.error("Error fetching recommendation:", error);
+      setIsLoading(false); // Mengatur isLoading menjadi false jika terjadi error
     }
   };
 
@@ -145,16 +150,22 @@ const DiskusiAduan = ({ complaint, discussions }) => {
         <button
           className="flex w-full justify-center items-center rounded border border-dark-4 py-2 px-5 gap-1"
           onClick={handleGetRecommendation}
+          disabled={isLoading} // Mengatur disabled saat sedang loading
         >
-          <img src={iconGemeni} alt="icon" />
-          <p className="bg-gradient-to-r from-[#4796E3] to-[#C96676] text-transparent bg-clip-text">
-            Get Rekomendasi AI
-          </p>
+          {isLoading ? (
+            <span>Harap tunggu...</span> // Tampilkan "Harap tunggu..." saat isLoading true
+          ) : (
+            <>
+              <img src={iconGemeni} alt="icon" />
+              <p className="bg-gradient-to-r from-[#4796E3] to-[#C96676] text-transparent bg-clip-text">
+                Get Rekomendasi AI
+              </p>
+            </>
+          )}
         </button>
         <textarea
           className="w-full mt-5 border border-gray-300 rounded p-2 min-h-28"
-          placeholder="Ketik disini"
-          value={recommendation || textInput}
+          value={textInput}
           onChange={handleTextInputChange}
           cols="30"
         ></textarea>
