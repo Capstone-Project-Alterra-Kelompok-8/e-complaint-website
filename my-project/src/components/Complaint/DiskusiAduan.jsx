@@ -6,43 +6,7 @@ import Hapus from "../../assets/delete_24px.svg";
 
 const MySwal = withReactContent(Swal);
 
-const DiskusiAduan = () => {
-  // Data dummy untuk pengujian
-  const discussions = [
-    {
-      id: 1,
-      author: "Anonymouse",
-      time: "Kamis, 09 Mei 2024 - 04:27 WIB",
-      content:
-        "Betul, kemarin saya lewat situ. Masa sampai sekarang belum ditangani sih.",
-      isUser: true, // Tambahkan properti isUser untuk menandakan pesan dari user
-    },
-    {
-      id: 2,
-      author: "Admin",
-      time: "Kamis, 09 Mei 2024 - 04:27 WIB",
-      content:
-        "Pesan dari admin. Betul, kemarin saya lewat situ. Masa sampai sekarang belum ditangani sih.",
-      isUser: false, // Tambahkan properti isUser untuk menandakan pesan dari admin
-    },
-    {
-      id: 3,
-      author: "Anonymouse",
-      time: "Kamis, 09 Mei 2024 - 04:27 WIB",
-      content:
-        "Betul, kemarin saya lewat situ. Masa sampai sekarang belum ditangani sih.",
-      isUser: true, // Tambahkan properti isUser untuk menandakan pesan dari user
-    },
-    {
-      id: 4,
-      author: "Anonymouse",
-      time: "Kamis, 09 Mei 2024 - 04:27 WIB",
-      content:
-        "Betul, kemarin saya lewat situ. Masa sampai sekarang belum ditangani sih.",
-      isUser: true, // Tambahkan properti isUser untuk menandakan pesan dari user
-    },
-  ];
-
+const DiskusiAduan = ({ complaint, discussions }) => {
   // Function untuk menampilkan SweetAlert2 konfirmasi penghapusan
   const handleDeleteDiscussion = (id) => {
     MySwal.fire({
@@ -72,7 +36,7 @@ const DiskusiAduan = () => {
       <section className="flex flex-col">
         <div className="bg-main-color p-4">
           <p>
-            No Aduan <span>G5102</span>
+            No Aduan <span>{complaint.id}</span>
           </p>
         </div>
       </section>
@@ -81,13 +45,13 @@ const DiskusiAduan = () => {
           <div
             key={discussion.id}
             className={`border-b border-light-1 p-2 flex flex-col gap-3 ${
-              discussion.isUser ? "md:flex-row" : "md:flex-row-reverse"
+              discussion.user ? "md:flex-row" : "md:flex-row-reverse"
             }`}
           >
-            {discussion.isUser ? (
+            {discussion.user ? (
               <>
                 <img
-                  src={`https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
+                  src={`https://storage.googleapis.com/e-complaint-assets/${discussion.user.profile_photo}`}
                   alt="User avatar"
                   className="rounded-full ml-4"
                   style={{ width: "40px", height: "40px" }}
@@ -95,9 +59,9 @@ const DiskusiAduan = () => {
                 <div className="flex-grow">
                   <div className="flex justify-between items-center">
                     <div>
-                      <span className="font-bold">{discussion.author}</span>
+                      <span className="font-bold">{discussion.user.name}</span>
                       <span className="text-gray-500 text-sm ml-2">
-                        {discussion.time}
+                        {discussion.update_at}
                       </span>
                     </div>
                     <button
@@ -107,14 +71,14 @@ const DiskusiAduan = () => {
                       <img src={Hapus} alt="" className="w-4 h-4 mr-1" /> Hapus
                     </button>
                   </div>
-                  <p>{discussion.content}</p>
+                  <p>{discussion.comment}</p>
                 </div>
               </>
             ) : (
               <>
                 <img
-                  src={`https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=1887&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D`}
-                  alt="User avatar"
+                  src={`https://storage.googleapis.com/e-complaint-assets/${discussion.admin.profile_photo}`}
+                  alt="Admin avatar"
                   className="rounded-full mr-4"
                   style={{ width: "40px", height: "40px" }}
                 />
@@ -128,14 +92,14 @@ const DiskusiAduan = () => {
                     </button>
                     <div>
                       <span className="text-gray-500 text-sm">
-                        {discussion.time}
+                        {discussion.update_at}
                       </span>
                       <span className="font-bold ml-2">
-                        {discussion.author}
+                        {discussion.admin.name}
                       </span>
                     </div>
                   </div>
-                  <p className="text-right">{discussion.content}</p>
+                  <p className="text-right">{discussion.comment}</p>
                 </div>
               </>
             )}

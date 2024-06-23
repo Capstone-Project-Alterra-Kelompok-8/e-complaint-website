@@ -10,12 +10,15 @@ import axios from "axios";
 const DetailComplaintLayout = () => {
      const { id } = useParams();
      const [complaint, setComplaint] = useState(null);
+     const [discussions, setDiscussions] = useState([]);
+     const [loading, setLoading] = useState(true);
      const [showModal, setShowModal] = useState(false);
      const [selectedOption, setSelectedOption] = useState("");
      const [textInput, setTextInput] = useState("");
 
      useEffect(() => {
        fetchComplaintDetails();
+        fetchComplaintDiscussions();
      }, [id]);
 
      const fetchComplaintDetails = async () => {
@@ -36,6 +39,27 @@ const DetailComplaintLayout = () => {
          console.error("Error fetching complaint details:", error);
        }
      };
+
+    const fetchComplaintDiscussions = async () => {
+         try {
+           const token = sessionStorage.getItem("token");
+           const response = await axios.get(
+             `https://capstone-dev.mdrizki.my.id/api/v1/complaints/${id}/discussions`,
+             {
+               headers: {
+                 "Content-Type": "application/json",
+                 Authorization: `Bearer ${token}`,
+               },
+             }
+           );
+           setDiscussions(response.data.data);
+           setLoading(false);
+           console.log("Fetched discussions:", response.data.data);
+         } catch (error) {
+           console.error("Error fetching discussions:", error);
+           setLoading(false);
+         }
+    };
 
      const handleOpenModal = () => {
        setShowModal(true);
@@ -170,7 +194,7 @@ const DetailComplaintLayout = () => {
             <section className="flex flex-col lg:flex-row gap-4 mt-6 w-full">
               <ProsesAduan />
 
-              <DiskusiAduan />
+              <DiskusiAduan complaint={complaint} discussions={discussions} />
             </section>
           </main>
         </div>
