@@ -135,8 +135,6 @@ const ListComplaint = () => {
                   ),
                   sx: {
                     backgroundColor: "white",
-                    borderTopRightRadius: 0,
-                    borderBottomRightRadius: 0,
                   },
                 }}
                 sx={{ flex: 1, marginRight: 0 }}
