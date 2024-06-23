@@ -1,18 +1,15 @@
 import React, { useState } from "react";
-import "flowbite";
 
-const Content = () => {
+const Content = ({ complaint }) => {
   const [currentImage, setCurrentImage] = useState(0);
-
-  const images = [
-    "https://images.unsplash.com/photo-1494783367193-149034c05e8f?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1506748686214-e9df14d4d9d0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-    "https://images.unsplash.com/photo-1511497584788-876760111969?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
-  ];
 
   const handleChange = (index) => {
     setCurrentImage(index);
   };
+
+  if (!complaint) {
+    return <p>Loading...</p>; // Tampilkan pesan loading atau indikator lainnya jika complaint masih kosong
+  }
 
   return (
     <>
@@ -20,14 +17,14 @@ const Content = () => {
         <div className="flex-1 mb-2 overflow-hidden rounded-lg">
           <img
             className="object-cover w-full h-full"
-            src={images[currentImage]}
+            src={`https://storage.googleapis.com/e-complaint-assets/${complaint.files[currentImage].path}`}
             alt={`Gambar ${currentImage + 1}`}
           />
         </div>
 
         <div className="relative w-full" data-carousel="static">
           <div className="relative h-32 overflow-hidden rounded-lg">
-            {images.map((image, index) => (
+            {complaint.files.map((file, index) => (
               <div
                 key={index}
                 className={`absolute inset-0 duration-700 ease-in-out transform ${
@@ -36,8 +33,8 @@ const Content = () => {
                 data-carousel-item
               >
                 <img
-                  src={image}
-                  className="block w-full h-full object-contain"
+                  src={`https://storage.googleapis.com/e-complaint-assets/${file.path}`}
+                  className="block w-full h-full object-contain cursor-pointer"
                   alt={`Gambar ${index + 1}`}
                   onClick={() => handleChange(index)}
                 />
@@ -46,7 +43,7 @@ const Content = () => {
           </div>
 
           <div className="absolute z-30 flex space-x-3 -translate-x-1/2 bottom-3 left-1/2">
-            {images.map((_, index) => (
+            {complaint.files.map((_, index) => (
               <button
                 key={index}
                 type="button"
@@ -67,7 +64,9 @@ const Content = () => {
             data-carousel-prev
             onClick={() =>
               handleChange(
-                currentImage === 0 ? images.length - 1 : currentImage - 1
+                currentImage === 0
+                  ? complaint.files.length - 1
+                  : currentImage - 1
               )
             }
           >
@@ -94,7 +93,9 @@ const Content = () => {
             type="button"
             className="absolute top-0 right-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
             data-carousel-next
-            onClick={() => handleChange((currentImage + 1) % images.length)}
+            onClick={() =>
+              handleChange((currentImage + 1) % complaint.files.length)
+            }
           >
             <span className="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
               <svg
@@ -121,27 +122,27 @@ const Content = () => {
       <div className="flex flex-col gap-2 w-full h-auto lg:w-[80%] lg:h-[500px]">
         <section className="bg-[#E6E0E9] py-1 px-4 rounded-t-lg">
           <h6>Pengadu</h6>
-          <p>Anonymous</p>
+          <p>{complaint.user.name}</p>
         </section>
         <section className="w-full">
           <div className="w-full flex flex-col lg:flex-row gap-2">
             <section className="bg-[#E6E0E9] py-1 px-4 rounded-t-lg w-full">
               <h6>Tanggal Aduan</h6>
-              <p>G5102</p>
+              <p>{complaint.date}</p>
             </section>
             <section className="bg-[#E6E0E9] py-1 px-4 rounded-t-lg w-full">
               <h6>Lokasi</h6>
-              <p>Kab Banten</p>
+              <p>{complaint.regency.name}</p>
             </section>
           </div>
         </section>
         <section className="bg-[#E6E0E9] py-1 px-4 rounded-t-lg w-full">
           <h6>Alamat</h6>
-          <p>Detail Aduan</p>
+          <p>{complaint.address}</p>
         </section>
         <section className="bg-[#E6E0E9] py-1 px-4 rounded-t-lg w-full h-full">
           <h6>Aduan</h6>
-          <p>Detail Aduan</p>
+          <p>{complaint.description}</p>
         </section>
       </div>
     </>

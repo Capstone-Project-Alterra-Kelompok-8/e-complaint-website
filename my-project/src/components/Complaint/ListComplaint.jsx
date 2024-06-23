@@ -19,7 +19,7 @@ import {
   InputLabel,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { format } from "date-fns";
 import { id } from "date-fns/locale";
@@ -32,6 +32,7 @@ const ListComplaint = () => {
   const [filteredComplaints, setFilteredComplaints] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchComplaints();
@@ -112,6 +113,10 @@ const ListComplaint = () => {
     setRowsPerPage(parseInt(event.target.value, 10));
     setPage(0);
   };
+
+   const handleDetailClick = (complaintId) => {
+     navigate(`/complaint-detail/${complaintId}`); // Navigate to complaint detail page with complaintId
+   };
 
   return (
     <section className="flex w-full flex-col">
@@ -218,12 +223,12 @@ const ListComplaint = () => {
                           </span>
                         </TableCell>
                         <TableCell align="center">
-                          <Link
-                            to={`/complaint-detail/${complaint.id}`}
+                          <button
+                            onClick={() => handleDetailClick(complaint.id)}
                             className="bg-info-3 text-white px-3 py-2 rounded"
                           >
                             Detail
-                          </Link>
+                          </button>
                         </TableCell>
                       </TableRow>
                     ))}

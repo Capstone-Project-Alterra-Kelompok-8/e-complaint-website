@@ -3,12 +3,39 @@ import SidebarLayout from '../Header/SidebarLayout';
 import ProsesAduan from './ProsesAduan';
 import DiskusiAduan from './DiskusiAduan';
 import Content from './Content';
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
+import axios from "axios";
 
 const DetailComplaintLayout = () => {
+     const { id } = useParams();
+     const [complaint, setComplaint] = useState(null);
      const [showModal, setShowModal] = useState(false);
      const [selectedOption, setSelectedOption] = useState("");
      const [textInput, setTextInput] = useState("");
+
+     useEffect(() => {
+       fetchComplaintDetails();
+     }, [id]);
+
+     const fetchComplaintDetails = async () => {
+       try {
+         const token = sessionStorage.getItem("token");
+         const response = await axios.get(
+           `https://capstone-dev.mdrizki.my.id/api/v1/complaints/${id}`,
+           {
+             headers: {
+               "Content-Type": "application/json",
+               Authorization: `Bearer ${token}`,
+             },
+           }
+         );
+         setComplaint(response.data.data);
+        console.log("Fetched complaint:", response.data.data); 
+       } catch (error) {
+         console.error("Error fetching complaint details:", error);
+       }
+     };
 
      const handleOpenModal = () => {
        setShowModal(true);
@@ -63,14 +90,14 @@ const DetailComplaintLayout = () => {
               <section className="flex md:flex-row flex-col gap-3 mt-5 w-full">
                 <div className="font-poppins bg-[#E6E0E9] rounded-lg px-4 py-1 pr-20">
                   <p>Nomor Aduan</p>
-                  <p>G5102</p>
+                  <p>{complaint?.id}</p>
                 </div>
                 <div className="font-poppins bg-white border border-gray-300 rounded-lg px-4 py-2 flex justify-center items-center">
                   <button
                     className="text-main-darker"
                     onClick={handleOpenModal}
                   >
-                    On Progress
+                    {complaint?.status}
                   </button>
                 </div>
                 <button className="bg-[#EA1212] text-white py-2 px-6 rounded-lg">
@@ -136,7 +163,7 @@ const DetailComplaintLayout = () => {
 
             {/* Content */}
             <section className="flex flex-col lg:flex-row mt-16 w-full gap-4">
-              <Content />
+              <Content complaint={complaint} />
             </section>
 
             {/* Diskusi & Progress */}
