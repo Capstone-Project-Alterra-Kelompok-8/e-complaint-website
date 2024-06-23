@@ -15,6 +15,7 @@ import NewsPage from "./pages/news"
 import CreateNews from './pages/news/CreateNews'
 import EditNews from './pages/news/EditNews'
 import DetailNews from "./pages/Berita/detailNews";
+import Chat from "./pages/chat/chat-user"
 import NotFound from './pages/404-NotFound'
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news-detail/:id/edit" element={<EditNews />} />
           <Route path="/news-detail/:id" element={<DetailNews />} />
+          <Route path="/chat-user" element={<Chat />} />
         </Route>
 
         {/* Privat route Super Admin */}
