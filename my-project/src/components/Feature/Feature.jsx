@@ -2,11 +2,12 @@ import logo from '../../assets/bel.png';
 import logo2 from '../../assets/chat.png';
 import logo3 from '../../assets/map.png';
 import logo4 from '../../assets/share.png';
-import iphone from '../../assets/gambar feature.png';
+import iphone from '../../assets/hp-feature.png';
+import redDots from '../../assets/titik2.png';
 
 export default function Features() {
   return (
-    <div className="h-[670px] bg-yellow-500 flex flex-row justify-between pe-20 relative" id="features">
+    <div className="h-[670px] bg-main-color flex flex-row justify-between pe-14 relative" id="features">
       {/* Background SVG */}
       <div className="absolute inset-0 pl-96">
         <svg width="979" height="740" viewBox="0 0 979 740" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -64,8 +65,10 @@ export default function Features() {
       </div>
 
       {/* Phone Mockups */}
+      <img src={redDots} alt="pattern" className="absolute right-0 top-0" />
+      <img src={redDots} alt="pattern" className="absolute right-0 bottom-0" />
       <div className="relative pl-20 ml-auto ">
-        <img src={iphone} alt="image" className=" pb-20 " />
+        <img src={iphone} alt="image" className=" pb-20 h-[680px] mt-10" />
       </div>
     </div>
   );

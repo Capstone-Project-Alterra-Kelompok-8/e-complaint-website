@@ -10,7 +10,7 @@ export default function Benefit() {
       <div className="z-10 flex  items-center ">
         <button className="btn btn-square pr-20">
           <svg width="40" height="40" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M25 10L15 20L25 30" stroke="#262626" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" />
+            <path d="M25 10L15 20L25 30" stroke="#262626" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" />
           </svg>
         </button>
         <div className="text-zinc-900 text-2xl font-bold font-['Montserrat'] leading-normal ">Apa yang klien kami katakan tentang kami</div>
