@@ -50,10 +50,10 @@ const NewsPage = () => {
                                 />
                             </div>
                         </div>
-                        <div className="container w-full flex flex-wrap gap-2">
+                        <div className="container w-full flex flex-wrap gap-2 ">
                             {loading ? (
                                 // Show loading text while data is being fetched
-                                <div className="w-full text-center text-gray-500">Loading...</div>
+                                <div className="w-full text-center text-gray-500 ">Loading...</div>
                             ) : (
                                 filteredNews.map((berita) => (
                                     <div
