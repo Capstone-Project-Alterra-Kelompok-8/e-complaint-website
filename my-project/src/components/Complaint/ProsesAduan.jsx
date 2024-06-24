@@ -47,26 +47,28 @@ const ProsesAduan = ({ complaintId }) => {
     return <p>No processes found for this complaint.</p>;
   }
 
-  // Fungsi untuk mendapatkan proses berdasarkan status tertentu
-  const getProcessByStatus = (status) => {
-    return processes.find((process) => process.status === status);
-  };
-
   // Ambil proses dengan status terakhir yang sesuai urutan
   const getLastProcess = () => {
-    const lastProcess = processes[0]; // Proses pertama setelah diurutkan
+    // Ambil proses pertama (terbaru setelah diurutkan)
+    const lastProcess = processes[0];
 
-    // Cek jika status terakhir adalah "Selesai" atau "Ditolak", ambil proses ini
+    // Jika status terakhir adalah "Selesai" atau "Ditolak", ambil proses ini
     if (lastProcess.status === "Selesai" || lastProcess.status === "Ditolak") {
       return lastProcess;
     }
 
-    // Jika tidak, ambil proses berdasarkan status yang lain
-    return (
-      getProcessByStatus("On Progress") ||
-      getProcessByStatus("Verifikasi") ||
-      getProcessByStatus("Pending")
-    );
+    // Cari proses lainnya yang sesuai urutan
+    // Mulai dari "On Progress", "Verifikasi", dan terakhir "Pending"
+    const statusOrder = ["On Progress", "Verifikasi", "Pending"];
+    for (let i = 0; i < statusOrder.length; i++) {
+      const process = processes.find((p) => p.status === statusOrder[i]);
+      if (process) {
+        return process;
+      }
+    }
+
+    // Jika tidak ditemukan, kembalikan proses pertama (seharusnya tidak terjadi)
+    return lastProcess;
   };
 
   const currentStatus = getLastProcess();
