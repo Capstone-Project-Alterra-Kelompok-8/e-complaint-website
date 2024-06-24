@@ -199,7 +199,7 @@ const DetailComplaintLayout = () => {
 
           {/* Diskusi & Progress */}
           <section className="flex flex-col lg:flex-row gap-4 mt-6 w-full">
-            <ProsesAduan />
+            <ProsesAduan complaintId={id} />
             <DiskusiAduan discussions={discussions} complaint={complaint} />
           </section>
         </main>

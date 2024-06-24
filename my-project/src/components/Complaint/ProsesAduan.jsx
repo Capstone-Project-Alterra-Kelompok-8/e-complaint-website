@@ -1,57 +1,82 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
+import axios from "axios";
+import PropTypes from "prop-types";
 
-const ProsesAduan = () => {
-  // Data dummy untuk pengujian
-  const aduan = {
-    noAduan: "G5102",
-    proses: [
-      {
-        status: "Pending",
-        waktu: "Kamis, 09 Mei 2024 - 04:27 WIB",
-        admin: "Admin",
-        deskripsi: "Laporan Anda akan segera kami periksa.",
-      },
-      {
-        status: "Verifikasi",
-        waktu: "Kamis, 09 Mei 2024 - 04:27 WIB",
-        admin: "Admin",
-        deskripsi: "Laporan Anda akan segera kami periksa.",
-      },
-      {
-        status: "On Progress",
-        waktu: "Kamis, 09 Mei 2024 - 04:27 WIB",
-        admin: "Admin",
-        deskripsi: "Laporan Anda akan segera kami periksa.",
-      },
-      {
-        status: "Selesai",
-        waktu: "Kamis, 09 Mei 2024 - 04:27 WIB",
-        admin: "Admin",
-        deskripsi: "Laporan Anda akan segera kami periksa.",
-      },
-      {
-        status: "Ditolak",
-        waktu: "Kamis, 09 Mei 2024 - 04:27 WIB",
-        admin: "Admin",
-        deskripsi: "Laporan Anda ditolak karena tidak memenuhi syarat.",
-      },
-    ],
+const ProsesAduan = ({ complaintId }) => {
+  const [processes, setProcesses] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchComplaintProcesses = async () => {
+      try {
+        const token = sessionStorage.getItem("token");
+        const response = await axios.get(
+          `https://capstone-dev.mdrizki.my.id/api/v1/complaints/${complaintId}/processes`,
+          {
+            headers: {
+              "Content-Type": "application/json",
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        const sortedProcesses = response.data.data.sort((a, b) => {
+          // Urutkan berdasarkan waktu terbaru ke terlama
+          return new Date(b.updated_at) - new Date(a.updated_at);
+        });
+        setProcesses(sortedProcesses);
+        setLoading(false);
+      } catch (error) {
+        setError("Failed to fetch complaint processes.");
+        setLoading(false);
+      }
+    };
+
+    fetchComplaintProcesses();
+  }, [complaintId]);
+
+  if (loading) {
+    return <p>Loading...</p>;
+  }
+
+  if (error) {
+    return <p>{error}</p>;
+  }
+
+  if (processes.length === 0) {
+    return <p>No processes found for this complaint.</p>;
+  }
+
+  // Fungsi untuk mendapatkan proses berdasarkan status tertentu
+  const getProcessByStatus = (status) => {
+    return processes.find((process) => process.status === status);
   };
 
-  // Logika untuk menentukan status yang ditampilkan
-  const currentStatus =
-    aduan.proses.find((proses) => proses.status === "On Progress") ||
-    aduan.proses.find((proses) => proses.status === "Verifikasi") ||
-    aduan.proses.find((proses) => proses.status === "Pending") ||
-    aduan.proses.find((proses) => proses.status === "Selesai") ||
-    aduan.proses.find((proses) => proses.status === "Ditolak");
+  // Ambil proses dengan status terakhir yang sesuai urutan
+  const getLastProcess = () => {
+    const lastProcess = processes[0]; // Proses pertama setelah diurutkan
+
+    // Cek jika status terakhir adalah "Selesai" atau "Ditolak", ambil proses ini
+    if (lastProcess.status === "Selesai" || lastProcess.status === "Ditolak") {
+      return lastProcess;
+    }
+
+    // Jika tidak, ambil proses berdasarkan status yang lain
+    return (
+      getProcessByStatus("On Progress") ||
+      getProcessByStatus("Verifikasi") ||
+      getProcessByStatus("Pending")
+    );
+  };
+
+  const currentStatus = getLastProcess();
 
   const statusColorMap = {
     Pending: "text-gray-500",
     Verifikasi: "text-blue-500",
     "On Progress": "text-yellow-500",
     Selesai: "text-green-500",
-    Ditolak: "text-red-500", // Warna merah untuk status "Ditolak"
+    Ditolak: "text-red-500",
   };
 
   const iconColorMap = {
@@ -59,7 +84,7 @@ const ProsesAduan = () => {
     Verifikasi: "bg-blue-500",
     "On Progress": "bg-yellow-500",
     Selesai: "bg-green-500",
-    Ditolak: "bg-red-500", // Warna merah untuk status "Ditolak"
+    Ditolak: "bg-red-500",
   };
 
   return (
@@ -68,7 +93,7 @@ const ProsesAduan = () => {
       <section className="flex flex-col">
         <div className="bg-main-color p-4 rounded-md text-white">
           <p>
-            No Aduan: <span>{aduan.noAduan}</span>
+            No Aduan: <span>{complaintId}</span>
           </p>
         </div>
       </section>
@@ -89,9 +114,11 @@ const ProsesAduan = () => {
                 {currentStatus.status}
               </h4>
             </div>
-            <p className="text-gray-500 text-lg">{currentStatus.waktu}</p>
-            <h5 className="font-semibold">{currentStatus.admin}</h5>
-            <p className="text-gray-700 text-lg">{currentStatus.deskripsi}</p>
+            <p className="text-gray-500 text-lg">{currentStatus.updated_at}</p>
+            <h5 className="font-semibold">
+              {currentStatus.admin.name || currentStatus.admin.email}
+            </h5>
+            <p className="text-gray-700 text-lg">{currentStatus.message}</p>
           </div>
         ) : (
           <div className="text-dark-3 flex justify-center w-full text-xl">
@@ -101,6 +128,10 @@ const ProsesAduan = () => {
       </div>
     </div>
   );
+};
+
+ProsesAduan.propTypes = {
+  complaintId: PropTypes.string.isRequired,
 };
 
 export default ProsesAduan;
