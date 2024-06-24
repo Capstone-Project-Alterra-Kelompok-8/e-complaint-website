@@ -2,7 +2,7 @@ import logo from '../../assets/bel.png';
 import logo2 from '../../assets/chat.png';
 import logo3 from '../../assets/map.png';
 import logo4 from '../../assets/share.png';
-import iphone from '../../assets/hp-feature.png';
+import iphone from '../../assets/hp-feature2.png';
 import redDots from '../../assets/titik2.png';
 
 export default function Features() {
@@ -63,7 +63,7 @@ export default function Features() {
       </div>
 
       {/* Phone Mockups */}
-      <img src={redDots} alt="pattern" className="absolute right-0 top-0 lg:hidden" />
+      <img src={redDots} alt="pattern" className="absolute right-0 top-0" />
       <img src={redDots} alt="pattern" className="absolute right-0 bottom-0" />
       <div className="relative flex justify-center lg:justify-start w-full lg:w-6/10 pl-0 lg:pl-20 ml-auto">
         <img src={iphone} alt="image" className="w-full h-auto lg:h-[680px] mt-10 pb-20" />
