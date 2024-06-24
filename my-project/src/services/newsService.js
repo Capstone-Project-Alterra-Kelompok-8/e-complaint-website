@@ -1,6 +1,6 @@
-import axios from 'axios';
+import axios from "axios";
 
-const token = sessionStorage.getItem('token');
+const token = sessionStorage.getItem("token");
 
 export const getNews = async () => {
   try {
@@ -30,11 +30,28 @@ export const getNews = async () => {
 };
 
 export const getNewsDetail = async (newsId) => {
-  const response = await axios.get(`https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}`, {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+  try {
+    const response = await axios.get(
+      `https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}`,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const newsDetail = response.data.data;
+
+    // Check if news detail is null or undefined
+    if (!newsDetail) {
+      // Force reload the page if news detail is not found
+      window.location.reload();
     }
-  });
-  return response.data.data;
+
+    return newsDetail;
+  } catch (error) {
+    console.error(`Error fetching news detail for id ${newsId}:`, error);
+    throw error; // Rethrow the error to handle it further up the call stack
+  }
 };
