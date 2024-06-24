@@ -6,6 +6,16 @@ import Content from "./Content";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import axios from "axios";
+import Swal from "sweetalert2";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc"; // Plugin untuk UTC
+import timezone from "dayjs/plugin/timezone"; // Plugin untuk timezone
+import localizedFormat from "dayjs/plugin/localizedFormat"; // Plugin untuk format waktu lokal
+
+// Mengaktifkan plugin dayjs
+dayjs.extend(utc);
+dayjs.extend(timezone);
+dayjs.extend(localizedFormat);
 
 const DetailComplaintLayout = () => {
   const { id } = useParams();
@@ -75,19 +85,19 @@ const DetailComplaintLayout = () => {
     setSelectedOption(e.target.value);
     // Set deskripsi berdasarkan opsi dropdown yang dipilih
     switch (e.target.value) {
-      case "pending":
+      case "Pending":
         setTextInput("Aduan anda akan segera diperiksa");
         break;
-      case "verifikasi":
+      case "Verifikasi":
         setTextInput("Aduan anda telah terverifikasi");
         break;
-      case "onprogress":
+      case "On Progress":
         setTextInput("Aduan anda sedang diproses");
         break;
-      case "selesai":
+      case "Selesai":
         setTextInput("Aduan anda telah selesai");
         break;
-      case "ditolak":
+      case "Ditolak":
         setTextInput("Aduan anda ditolak");
         break;
       default:
@@ -98,6 +108,46 @@ const DetailComplaintLayout = () => {
 
   const handleTextInputChange = (e) => {
     setTextInput(e.target.value);
+  };
+
+  const handleStatusUpdate = async () => {
+    try {
+      const token = sessionStorage.getItem("token");
+      const response = await axios.post(
+        `https://capstone-dev.mdrizki.my.id/api/v1/complaints/${id}/processes`,
+        {
+          status: selectedOption,
+          message: textInput,
+          // Tambahkan field waktu Indonesia bagian barat di sini
+          // Misalnya, jika menggunakan library dayjs untuk manajemen waktu
+          updated_at: dayjs().tz("Asia/Jakarta").format("YYYY-MM-DD HH:mm:ss"),
+        },
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Updated complaint process:", response.data);
+      Swal.fire({
+        icon: "success",
+        title: "Success",
+        text: "Complaint status updated successfully",
+      }).then(() => {
+        // Refresh data setelah berhasil update
+        fetchComplaintDetails();
+        fetchComplaintDiscussions();
+        handleCloseModal();
+      });
+    } catch (error) {
+      console.error("Error updating complaint process:", error);
+      Swal.fire({
+        icon: "error",
+        title: "Error",
+        text: "Failed to update complaint status",
+      });
+    }
   };
 
   // Menampilkan loading spinner atau teks saat data masih dimuat
@@ -126,14 +176,39 @@ const DetailComplaintLayout = () => {
             <section className="flex md:flex-row flex-col gap-3 mt-5 w-full">
               <div className="font-poppins bg-[#E6E0E9] rounded-lg px-4 py-1 pr-20">
                 <p>Nomor Aduan</p>
-                <p>{complaint.id}</p> {/* Pastikan complaint tidak null */}
+                <p>{complaint.id}</p>
               </div>
               <div className="font-poppins bg-white border border-gray-300 rounded-lg px-4 py-2 flex justify-center items-center">
                 <button className="text-main-darker" onClick={handleOpenModal}>
                   {complaint.status}
                 </button>
               </div>
-              <button className="bg-[#EA1212] text-white py-2 px-6 rounded-lg">
+              <button
+                className="bg-[#EA1212] text-white py-2 px-6 rounded-lg"
+                onClick={() => {
+                  // Logika untuk menghapus complaint
+                  Swal.fire({
+                    title: "Are you sure?",
+                    text: "You won't be able to revert this!",
+                    icon: "warning",
+                    showCancelButton: true,
+                    confirmButtonColor: "#EA1212",
+                    cancelButtonColor: "#6B7280",
+                    confirmButtonText: "Yes, delete it!",
+                  }).then((result) => {
+                    if (result.isConfirmed) {
+                      // Lakukan tindakan hapus di sini
+                      Swal.fire(
+                        "Deleted!",
+                        "Your complaint has been deleted.",
+                        "success"
+                      ).then(() => {
+                        // Redirect atau lakukan sesuatu setelah penghapusan berhasil
+                      });
+                    }
+                  });
+                }}
+              >
                 Hapus
               </button>
             </section>
@@ -153,11 +228,11 @@ const DetailComplaintLayout = () => {
                       onChange={handleSelectChange}
                       className="w-full border border-gray-300 rounded p-2"
                     >
-                      <option value="pending">Pending</option>
-                      <option value="verifikasi">Verifikasi</option>
-                      <option value="onprogress">On Progress</option>
-                      <option value="selesai">Selesai</option>
-                      <option value="ditolak">Ditolak</option>
+                      <option value="Pending">Pending</option>
+                      <option value="Verifikasi">Verifikasi</option>
+                      <option value="On Progress">On Progress</option>
+                      <option value="Selesai">Selesai</option>
+                      <option value="Ditolak">Ditolak</option>
                     </select>
                   </div>
                   <div className="mb-4">
@@ -182,7 +257,7 @@ const DetailComplaintLayout = () => {
                     </button>
                     <button
                       className="bg-blue-500 text-white px-4 py-2 rounded"
-                      onClick={handleCloseModal}
+                      onClick={handleStatusUpdate}
                     >
                       Save
                     </button>
