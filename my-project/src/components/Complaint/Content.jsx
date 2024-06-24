@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 
 const Content = ({ complaint }) => {
   const [currentImage, setCurrentImage] = useState(0);

@@ -3,8 +3,8 @@ import SidebarLayout from "../Header/SidebarLayout";
 import ProsesAduan from "./ProsesAduan";
 import DiskusiAduan from "./DiskusiAduan";
 import Content from "./Content";
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
 import Swal from "sweetalert2";
 import dayjs from "dayjs";
@@ -25,6 +25,7 @@ const DetailComplaintLayout = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [textInput, setTextInput] = useState("");
+  const Navigate = useNavigate()
 
   useEffect(() => {
     fetchComplaintDetails();
@@ -147,6 +148,60 @@ const DetailComplaintLayout = () => {
     }
   };
 
+  //! Hapus complaint
+  const handleDeleteComplaint = async (complaintId) => {
+    try {
+      const token = sessionStorage.getItem('token');
+      const confirmed = await confirmDelete();
+
+      if (!confirmed) return;
+
+      const response = await axios.delete(`https://capstone-dev.mdrizki.my.id/api/v1/complaints/${complaintId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        }
+      });
+
+      if (response.status === 200) {
+        Swal.fire({
+          title: 'Deleted!',
+          text: 'Your complaint has been deleted.',
+          icon: 'success',
+          confirmButtonColor: '#DC2626',
+        });
+        setComplaint(null);
+      } else {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      Navigate('/complaint');
+    } catch (error) {
+      console.error('Error deleting complaint:', error);
+      Swal.fire({
+        title: 'Error!',
+        text: 'Failed to delete complaint.',
+        icon: 'error',
+        confirmButtonColor: '#2563EB',
+      });
+    }
+  };
+
+  const confirmDelete = async () => {
+    const result = await Swal.fire({
+      title: 'Are you sure?',
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, cancel!',
+      confirmButtonColor: '#DC2626',
+      cancelButtonColor: '#2563EB',
+      reverseButtons: true,
+    });
+
+    return result.isConfirmed;
+  };
+
   // Menampilkan loading spinner atau teks saat data masih dimuat
   if (loading) {
     return <p>Loading...</p>;
@@ -182,29 +237,7 @@ const DetailComplaintLayout = () => {
               </div>
               <button
                 className="bg-[#EA1212] text-white py-2 px-6 rounded-lg"
-                onClick={() => {
-                  // Logika untuk menghapus complaint
-                  Swal.fire({
-                    title: "Are you sure?",
-                    text: "You won't be able to revert this!",
-                    icon: "warning",
-                    showCancelButton: true,
-                    confirmButtonColor: "#EA1212",
-                    cancelButtonColor: "#6B7280",
-                    confirmButtonText: "Yes, delete it!",
-                  }).then((result) => {
-                    if (result.isConfirmed) {
-                      // Lakukan tindakan hapus di sini
-                      Swal.fire(
-                        "Deleted!",
-                        "Your complaint has been deleted.",
-                        "success"
-                      ).then(() => {
-                        // Redirect atau lakukan sesuatu setelah penghapusan berhasil
-                      });
-                    }
-                  });
-                }}
+                onClick={() => handleDeleteComplaint(complaint.id)}
               >
                 Hapus
               </button>
