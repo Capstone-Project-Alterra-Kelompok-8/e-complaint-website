@@ -3,6 +3,7 @@ import logo from '../../assets/logo.png';
 import { EyeIcon, EyeSlashIcon } from '@heroicons/react/24/outline';
 import { useState } from 'react';
 import { useNavigate } from "react-router-dom";
+import axios from 'axios';
 
 export default function Login() {
     const [email, setEmail] = useState('');
@@ -15,29 +16,32 @@ export default function Login() {
         event.preventDefault();
 
         try {
-            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/admins/login', {
-                method: 'POST',
+            const response = await axios.post('https://capstone-dev.mdrizki.my.id/api/v1/admins/login', {
+                // Data yang dikirimkan dalam body request, sesuaikan dengan API Anda
+                email: event.target.email.value,
+                password: event.target.password.value,
+            }, {
                 headers: {
                     'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
+                }
             });
 
-            if (!response.ok) {
+            // Tidak perlu memeriksa response.ok, cukup cek response.status
+            if (response.status !== 200) {
                 throw new Error('Login failed');
             }
 
-            const data = await response.json();
-            const datastatusloginAdmin = data.data;
+            const datastatusloginAdmin = response.data.data;
+
             // Simpan status login dan token ke Session Storage
             sessionStorage.setItem('isLoggedIn', true);
             sessionStorage.setItem('token', datastatusloginAdmin.token);
 
             // Redirect atau lakukan operasi lain setelah berhasil login sesuai role
-            if (datastatusloginAdmin.is_super_admin === true) {
+            if (datastatusloginAdmin.is_super_admin) {
                 sessionStorage.setItem('isSuperAdmin', true);
                 navigate("/super-admin/admin");
-            } else if (datastatusloginAdmin.is_super_admin === false) {
+            } else {
                 sessionStorage.setItem('isSuperAdmin', false);
                 navigate("/dashboard");
             }
@@ -45,6 +49,7 @@ export default function Login() {
             setErrorLogin(true); // Mengatur errorLogin menjadi true saat login gagal
         }
     };
+
 
     const toggleShowPassword = () => {
         setShowPassword(prevState => !prevState); // Mengubah nilai state showPassword menjadi kebalikan dari nilai sebelumnya
