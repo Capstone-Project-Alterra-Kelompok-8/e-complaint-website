@@ -4,6 +4,7 @@ import Swal from 'sweetalert2';
 import SuperAdminPanel from './SuperAdminPanel'
 import HeaderLayout from '../Header/HeaderLayout'
 import SidebarLayout from '../Header/SidebarLayout';
+import axios from 'axios';
 
 //! Ini tabel superadmin yang sudah fix
 function ListAdminLayout() {
@@ -157,21 +158,18 @@ function ListAdminLayout() {
     };
 
 
-    const handleNewAdminSubmit = async (e) => { // Fungsi untuk submit form tambah akun baru
+    const handleNewAdminSubmit = async (e) => {
         e.preventDefault();
 
         try {
             const token = sessionStorage.getItem('token');
-            const response = await fetch('https://capstone-dev.mdrizki.my.id/api/v1/admins', {
-                method: 'POST',
+            const response = await axios.post('https://capstone-dev.mdrizki.my.id/api/v1/admins', newAdmin, {
                 headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${token}`
-                },
-                body: JSON.stringify(newAdmin)
+                    Authorization: `Bearer ${token}`
+                }
             });
 
-            if (!response.ok) {
+            if (response.status !== 200) {
                 throw new Error(`HTTP error! status: ${response.status}`);
             }
 
@@ -188,6 +186,7 @@ function ListAdminLayout() {
             console.error('Error creating new admin:', error);
         }
     };
+
 
     const togglePasswordVisibility = () => {
         setShowPassword(!showPassword);
