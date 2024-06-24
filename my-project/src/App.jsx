@@ -29,9 +29,9 @@ function App() {
         {/* Privat route Admin */}
         <Route element={<Adminroute />}>
           <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/category" element={<Category />} />
+          <Route path="/category" element={<Category />} /> 
           <Route path="/complaint" element={<Complaint />} />
-          <Route path="/complaint-detail" element={<DetailComplaint />} />
+          <Route path="/complaint-detail/:id" element={<DetailComplaint />} />
           <Route path="/news-create" element={<CreateNews />} />
           <Route path="/news" element={<NewsPage />} />
           <Route path="/news-detail/:id/edit" element={<EditNews />} />
