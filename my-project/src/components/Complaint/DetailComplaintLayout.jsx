@@ -45,7 +45,6 @@ const DetailComplaintLayout = () => {
       );
       setComplaint(response.data.data);
       setLoading(false);
-      console.log("Fetched complaint:", response.data.data);
     } catch (error) {
       console.error("Error fetching complaint details:", error);
       setLoading(false);
@@ -66,9 +65,7 @@ const DetailComplaintLayout = () => {
       );
       setDiscussions(response.data.data);
       setLoading(false);
-      console.log("Fetched discussions:", response.data.data);
     } catch (error) {
-      console.error("Error fetching discussions:", error);
       setLoading(false);
     }
   };
