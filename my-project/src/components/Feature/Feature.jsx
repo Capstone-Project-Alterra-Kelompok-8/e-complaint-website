@@ -7,9 +7,9 @@ import redDots from '../../assets/titik2.png';
 
 export default function Features() {
   return (
-    <div className="h-[670px] bg-main-color flex flex-row justify-between pe-14 relative" id="features">
+    <div className="h-auto lg:h-[670px] bg-main-color flex flex-col lg:flex-row justify-between p-4 lg:pe-14 relative" id="features">
       {/* Background SVG */}
-      <div className="absolute inset-0 pl-96">
+      <div className="absolute inset-0 lg:pl-96 lg:hidden hidden">
         <svg width="979" height="740" viewBox="0 0 979 740" fill="none" xmlns="http://www.w3.org/2000/svg">
           <g filter="url(#filter0_f_302_1488)">
             <path
@@ -29,46 +29,44 @@ export default function Features() {
       </div>
 
       {/* Content */}
-      <div className="relative flex flex-row justify-start  w-[578px] gap-24 pl-12 ">
-        <div className="flex flex-col">
-          <div className="text-justify text-zinc-900 text-2xl font-bold font-montserrat leading-normal  pt-24">Efisiensi dan Transparansi</div>
-          <div className="text-justify text-zinc-900 text-lg font-semibold font-montserrat leading-normal  pt-2 ">Solusi Digital untuk Masyarakat yang Lebih Responsif</div>
+      <div className="relative flex flex-col lg:flex-row justify-start w-full lg:w-4/10 gap-8 lg:gap-24 pl-4 lg:pl-12 pr-4 lg:pr-20 z-50">
+        <div className="flex flex-col items-center lg:items-start">
+          <div className="text-center lg:text-justify text-zinc-900 text-xl lg:text-2xl font-bold font-montserrat leading-normal lg:pt-8 z">Efisiensi dan Transparansi</div>
+          <div className="text-center lg:text-justify text-zinc-900 text-base lg:text-lg font-semibold font-montserrat leading-normal pt-2">Solusi Digital untuk Masyarakat yang Lebih Responsif</div>
 
-          <div class="flex flext-row justify-between pt-5">
-            <div class="flex-auto w-80 ...">
-              <img src={logo} alt="image" className="w-30 h-16  flex flex-row" />
-              <div className="text-justify text-zinc-800 text-xl font-bold font-montserrat leading-normal "> Notifikasi Langsung </div>
-              <p className="font-montserrat  text-zinc-800 text-left text-lg font-normal">Tetap terinformasi secara instan dengan pembaruan real-time tentang keluhan Anda.</p>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-8 pt-5 lg:pt-10">
+            <div className="flex flex-col items-center lg:items-start">
+              <img src={logo} alt="image" className="w-30 h-16 mx-auto lg:mx-0" />
+              <div className="text-center lg:text-justify text-zinc-800 text-base lg:text-xl font-bold font-montserrat leading-normal pt-4">Notifikasi Langsung</div>
+              <p className="font-montserrat text-center lg:text-left text-sm lg:text-lg px-4 lg:px-0">Tetap terinformasi secara instan dengan pembaruan real-time tentang keluhan Anda.</p>
             </div>
 
-            <div class="flex-auto w-80 ...">
-              <img src={logo3} alt="image" className="w-30 h-16  flex flex-row" />
-              <div className="text-justify text-zinc-800 text-xl font-bold font-montserrat leading-normal "> Peta Interaktif </div>
-              <p className="font-montserrat  text-zinc-800 text-left text-lg font-normal">peta interaktif untuk melacak masalah di wilayah Anda atau melihat tren.</p>
-            </div>
-          </div>
-
-          <div class="flex flex-row justify-between pt-24">
-            <div class="flex-auto w-80 ...">
-              <img src={logo4} alt="image" className="w-30 h-16  flex flex-row" />
-              <div className="text-justify text-zinc-800 text-xl font-bold font-montserrat leading-normal "> Sosial Media </div>
-              <p className="font-montserrat  text-zinc-800 text-left text-lg font-normal">Bagikan pengalaman Anda dengan lancar diplatform media sosial.</p>
+            <div className="flex flex-col items-center lg:items-start">
+              <img src={logo3} alt="image" className="w-30 h-16 mx-auto lg:mx-0" />
+              <div className="text-center lg:text-justify text-zinc-800 text-base lg:text-xl font-bold font-montserrat leading-normal pt-4">Peta Interaktif</div>
+              <p className="font-montserrat text-center lg:text-left text-sm lg:text-lg px-4 lg:px-0">peta interaktif untuk melacak masalah di wilayah Anda atau melihat tren.</p>
             </div>
 
-            <div class="flex-auto w-80 ...">
-              <img src={logo2} alt="image" className="w-30 h-16  flex flex-row" />
-              <div className="text-justify text-zinc-800 text-xl font-bold font-montserrat leading-normal "> Umpan Balik </div>
-              <p className="font-montserrat  text-zinc-800 text-left text-lg font-normal">saluran komunikasi terbuka untuk memberikan umpan balik atas keluhan Anda.</p>
+            <div className="flex flex-col items-center lg:items-start">
+              <img src={logo4} alt="image" className="w-30 h-16 mx-auto lg:mx-0" />
+              <div className="text-center lg:text-justify text-zinc-800 text-base lg:text-xl font-bold font-montserrat leading-normal pt-4">Sosial Media</div>
+              <p className="font-montserrat text-center lg:text-left text-sm lg:text-lg px-4 lg:px-0">Bagikan pengalaman Anda dengan lancar di platform media sosial.</p>
+            </div>
+
+            <div className="flex flex-col items-center lg:items-start">
+              <img src={logo2} alt="image" className="w-30 h-16 mx-auto lg:mx-0" />
+              <div className="text-center lg:text-justify text-zinc-800 text-base lg:text-xl font-bold font-montserrat leading-normal pt-4">Umpan Balik</div>
+              <p className="font-montserrat text-center lg:text-left text-sm lg:text-lg px-4 lg:px-0">saluran komunikasi terbuka untuk memberikan umpan balik atas keluhan Anda.</p>
             </div>
           </div>
         </div>
       </div>
 
       {/* Phone Mockups */}
-      <img src={redDots} alt="pattern" className="absolute right-0 top-0" />
+      <img src={redDots} alt="pattern" className="absolute right-0 top-0 lg:hidden" />
       <img src={redDots} alt="pattern" className="absolute right-0 bottom-0" />
-      <div className="relative pl-20 ml-auto ">
-        <img src={iphone} alt="image" className=" pb-20 h-[680px] mt-10" />
+      <div className="relative flex justify-center lg:justify-start w-full lg:w-6/10 pl-0 lg:pl-20 ml-auto">
+        <img src={iphone} alt="image" className="w-full h-auto lg:h-[680px] mt-10 pb-20" />
       </div>
     </div>
   );

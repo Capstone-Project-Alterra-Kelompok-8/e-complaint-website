@@ -199,7 +199,7 @@ function CategoryLayout() {
     <section className="flex w-full flex-col">
       <HeaderLayout />
       <SidebarLayout />
-      <div className=" pl-80 py-3 px-2 min-h-[80dvh] overflow-y-auto bg-light-1">
+      <div className=" pl-80 py-3 px-2 min-h-[80dvh]  overflow-y-auto bg-light-1">
         <main className="py-4 px-2">
           <h1 className="text-2xl lg:text-4xl mb-5">Kategori</h1>
           <section className="flex justify-between">
