@@ -3,13 +3,30 @@ import axios from 'axios';
 const token = sessionStorage.getItem('token');
 
 export const getNews = async () => {
-  const response = await axios.get('https://capstone-dev.mdrizki.my.id/api/v1/news', {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${token}`
+  try {
+    const response = await axios.get(
+      "https://capstone-dev.mdrizki.my.id/api/v1/news",
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+
+    const responseData = response.data.data;
+
+    // Check if response data is empty or null
+    if (!responseData || responseData.length === 0) {
+      // Force reload the page if data is not found
+      window.location.reload();
     }
-  });
-  return response.data.data;
+
+    return responseData;
+  } catch (error) {
+    console.error("Error fetching news:", error);
+    throw error; // Rethrow the error to handle it further up the call stack
+  }
 };
 
 export const getNewsDetail = async (newsId) => {
