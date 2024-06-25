@@ -10,11 +10,9 @@ const MySwal = withReactContent(Swal);
 const DiskusiAduan = ({ complaint, discussions }) => {
   const [recommendation, setRecommendation] = useState("");
   const [textInput, setTextInput] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
-  const [newDiscussion, setNewDiscussion] = useState(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isFetchingRecommendation, setIsFetchingRecommendation] =
-    useState(false);
+  const [isFetchingRecommendation, setIsFetchingRecommendation] = useState(false);
+  const [newDiscussion, setNewDiscussion] = useState(null);
   const [error, setError] = useState(null);
 
   const handleDeleteDiscussion = (id) => {
@@ -70,7 +68,6 @@ const DiskusiAduan = ({ complaint, discussions }) => {
       setRecommendation(response.data.data.answer);
       setTextInput(response.data.data.answer);
       setIsFetchingRecommendation(false);
-      console.log("Fetched recommendation:", response.data.data);
     } catch (error) {
       console.error("Error fetching recommendation:", error);
       setIsFetchingRecommendation(false);
@@ -97,7 +94,6 @@ const DiskusiAduan = ({ complaint, discussions }) => {
       setNewDiscussion(response.data.data);
       setTextInput("");
       setIsSubmitting(false);
-      console.log("Posted discussion:", response.data.data);
     } catch (error) {
       console.error("Error posting discussion:", error);
       setIsSubmitting(false);
@@ -112,10 +108,6 @@ const DiskusiAduan = ({ complaint, discussions }) => {
     postDiscussion();
   };
 
-  const handleTextInputChange = (e) => {
-    setTextInput(e.target.value);
-  };
-
   useEffect(() => {
     if (newDiscussion) {
       MySwal.fire("Berhasil!", "Diskusi telah terkirim.", "success");
@@ -123,8 +115,7 @@ const DiskusiAduan = ({ complaint, discussions }) => {
   }, [newDiscussion]);
 
   useEffect(() => {
-    // Handling error for discussions endpoint not found
-    setError(null); // Reset error state
+    setError(null);
     if (discussions.length === 0) {
       setError("Tidak ada diskusi ditemukan.");
     }
@@ -264,7 +255,7 @@ const DiskusiAduan = ({ complaint, discussions }) => {
         <textarea
           className="w-full mt-5 border border-gray-300 rounded p-2 min-h-28"
           value={textInput}
-          onChange={handleTextInputChange}
+          onChange={(e) => setTextInput(e.target.value)}
           disabled={isSubmitting}
           cols="30"
         ></textarea>
