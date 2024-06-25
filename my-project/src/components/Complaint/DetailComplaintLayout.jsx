@@ -25,6 +25,7 @@ const DetailComplaintLayout = () => {
   const [showModal, setShowModal] = useState(false);
   const [selectedOption, setSelectedOption] = useState("");
   const [textInput, setTextInput] = useState("");
+  const [refreshProcess, setRefreshProcess] = useState(false);
   const Navigate = useNavigate()
 
   useEffect(() => {
@@ -116,8 +117,6 @@ const DetailComplaintLayout = () => {
         {
           status: selectedOption,
           message: textInput,
-          // Tambahkan field waktu Indonesia bagian barat di sini
-          // Misalnya, jika menggunakan library dayjs untuk manajemen waktu
           updated_at: dayjs().tz("Asia/Jakarta").format("YYYY-MM-DD HH:mm:ss"),
         },
         {
@@ -127,7 +126,7 @@ const DetailComplaintLayout = () => {
           },
         }
       );
-      console.log("Updated complaint process:", response.data);
+
       Swal.fire({
         icon: "success",
         title: "Success",
@@ -137,6 +136,8 @@ const DetailComplaintLayout = () => {
         fetchComplaintDetails();
         fetchComplaintDiscussions();
         handleCloseModal();
+        // Perbarui state untuk memicu refresh di ProsesAduan
+        setRefreshProcess((prev) => !prev); // Membalik nilai refreshProcess
       });
     } catch (error) {
       console.error("Error updating complaint process:", error);
@@ -304,7 +305,7 @@ const DetailComplaintLayout = () => {
 
           {/* Diskusi & Progress */}
           <section className="flex flex-col lg:flex-row gap-4 mt-6 w-full">
-            <ProsesAduan complaintId={id} />
+            <ProsesAduan complaintId={id} refreshProcess={refreshProcess} />
             <DiskusiAduan discussions={discussions} complaint={complaint} />
           </section>
         </main>

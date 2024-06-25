@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import PropTypes from "prop-types";
 
-const ProsesAduan = ({ complaintId }) => {
+const ProsesAduan = ({ complaintId, refreshProcess }) => {
   const [processes, setProcesses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -21,19 +21,38 @@ const ProsesAduan = ({ complaintId }) => {
           }
         );
         const sortedProcesses = response.data.data.sort((a, b) => {
-          // Urutkan berdasarkan waktu terbaru ke terlama
           return new Date(b.updated_at) - new Date(a.updated_at);
         });
         setProcesses(sortedProcesses);
         setLoading(false);
       } catch (error) {
-        setError("Failed to fetch complaint processes.");
+        setError("Gagal mengambil proses aduan.");
         setLoading(false);
       }
     };
 
     fetchComplaintProcesses();
-  }, [complaintId]);
+  }, [complaintId, refreshProcess]);
+
+  const getLastProcess = () => {
+    const statusOrder = [
+      "Selesai",
+      "Ditolak",
+      "On Progress",
+      "Verifikasi",
+      "Pending",
+    ];
+
+    for (let i = 0; i < statusOrder.length; i++) {
+      const process = processes.find((p) => p.status === statusOrder[i]);
+      if (process) {
+        return process;
+      }
+    }
+
+    // Jika tidak ada proses yang sesuai, kembalikan null
+    return null;
+  };
 
   if (loading) {
     return <p>Loading...</p>;
@@ -43,35 +62,7 @@ const ProsesAduan = ({ complaintId }) => {
     return <p>{error}</p>;
   }
 
-  if (processes.length === 0) {
-    return <p>No processes found for this complaint.</p>;
-  }
-
-  // Ambil proses dengan status terakhir yang sesuai urutan
-  const getLastProcess = () => {
-    // Ambil proses pertama (terbaru setelah diurutkan)
-    const lastProcess = processes[0];
-
-    // Jika status terakhir adalah "Selesai" atau "Ditolak", ambil proses ini
-    if (lastProcess.status === "Selesai" || lastProcess.status === "Ditolak") {
-      return lastProcess;
-    }
-
-    // Cari proses lainnya yang sesuai urutan
-    // Mulai dari "On Progress", "Verifikasi", dan terakhir "Pending"
-    const statusOrder = ["On Progress", "Verifikasi", "Pending"];
-    for (let i = 0; i < statusOrder.length; i++) {
-      const process = processes.find((p) => p.status === statusOrder[i]);
-      if (process) {
-        return process;
-      }
-    }
-
-    // Jika tidak ditemukan, kembalikan proses pertama (seharusnya tidak terjadi)
-    return lastProcess;
-  };
-
-  const currentStatus = getLastProcess();
+  const currentProcess = getLastProcess();
 
   const statusColorMap = {
     Pending: "text-gray-500",
@@ -100,27 +91,27 @@ const ProsesAduan = ({ complaintId }) => {
         </div>
       </section>
       <div className="w-full flex flex-col">
-        {currentStatus ? (
+        {currentProcess ? (
           <div className="flex w-full text-xl flex-col border-b border-gray-200 py-2">
             <div className="flex items-center">
               <span
                 className={`h-4 w-4 mr-2 rounded-full ${
-                  iconColorMap[currentStatus.status]
+                  iconColorMap[currentProcess.status]
                 }`}
               ></span>
               <h4
                 className={`font-semibold text-lg ${
-                  statusColorMap[currentStatus.status]
+                  statusColorMap[currentProcess.status]
                 }`}
               >
-                {currentStatus.status}
+                {currentProcess.status}
               </h4>
             </div>
-            <p className="text-gray-500 text-lg">{currentStatus.updated_at}</p>
+            <p className="text-gray-500 text-lg">{currentProcess.updated_at}</p>
             <h5 className="font-semibold">
-              {currentStatus.admin.name || currentStatus.admin.email}
+              {currentProcess.admin.name || currentProcess.admin.email}
             </h5>
-            <p className="text-gray-700 text-lg">{currentStatus.message}</p>
+            <p className="text-gray-700 text-lg">{currentProcess.message}</p>
           </div>
         ) : (
           <div className="text-dark-3 flex justify-center w-full text-xl">
@@ -134,6 +125,7 @@ const ProsesAduan = ({ complaintId }) => {
 
 ProsesAduan.propTypes = {
   complaintId: PropTypes.string.isRequired,
+  refreshProcess: PropTypes.bool.isRequired,
 };
 
 export default ProsesAduan;
