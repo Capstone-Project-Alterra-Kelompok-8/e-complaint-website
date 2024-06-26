@@ -56,20 +56,21 @@ export const getNewsDetail = async (newsId) => {
   }
 };
 
+// Function to delete news by ID
 export const deleteNews = async (newsId) => {
   try {
-    const token = sessionStorage.getItem("token");
-    await axios.delete(
+    const response = await axios.delete(
       `https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}`,
       {
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    return newsId;
+    return response.data;
   } catch (error) {
-    console.error(`Error deleting news with ID ${newsId}:`, error);
+    console.error(`Error deleting news with id ${newsId}:`, error);
     throw error;
   }
 };

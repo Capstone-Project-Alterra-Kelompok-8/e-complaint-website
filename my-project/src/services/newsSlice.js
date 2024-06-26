@@ -1,8 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import { getNews, getNewsDetail } from "./newsService";
-import { deleteComment } from "./newsCommentSlice";
-
-const token = sessionStorage.getItem("token");
+import { getNews, getNewsDetail, deleteNews } from "./newsService"; // Update the import
 
 // Thunk untuk fetch semua berita
 export const fetchNews = createAsyncThunk("news/fetchNews", async () => {
@@ -19,40 +16,13 @@ export const fetchNewsDetail = createAsyncThunk(
   }
 );
 
-export const deleteNews = createAsyncThunk(
-  "news/deleteNews",
+// Thunk untuk menghapus berita berdasarkan ID
+export const removeNews = createAsyncThunk(
+  "news/removeNews",
   async (newsId, { dispatch }) => {
-    try {
-      // Delete news
-      await axios.delete(
-        `https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      // Fetch comments and delete each one
-      const response = await axios.get(
-        `https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-
-      const comments = response.data.data;
-      comments.forEach(async (comment) => {
-        await dispatch(deleteComment({ newsId, commentId: comment.id }));
-      });
-
-      return newsId;
-    } catch (error) {
-      console.error(`Error deleting news with ID ${newsId}:`, error);
-      throw error;
-    }
+    await deleteNews(newsId);
+    dispatch(fetchNews()); // Refresh the news list after deletion
+    return newsId;
   }
 );
 
@@ -89,15 +59,14 @@ const newsSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
-      .addCase(deleteNews.pending, (state) => {
+      .addCase(removeNews.pending, (state) => {
         state.loading = true;
       })
-      .addCase(deleteNews.fulfilled, (state, action) => {
+      .addCase(removeNews.fulfilled, (state, action) => {
         state.loading = false;
-        // Filter out the deleted news item
-        state.news = state.news.filter((news) => news.id !== action.payload);
+        state.news = state.news.filter(news => news.id !== action.payload);
       })
-      .addCase(deleteNews.rejected, (state, action) => {
+      .addCase(removeNews.rejected, (state, action) => {
         state.loading = false;
         state.error = action.error.message;
       });
