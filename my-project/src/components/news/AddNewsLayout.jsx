@@ -2,7 +2,7 @@ import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import HeaderLayout from '../Header/HeaderLayout';
 import SidebarLayout from '../Header/SidebarLayout';
-import { FileInput, Label } from "flowbite-react";
+import { FileInput, Label } from 'flowbite-react';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
@@ -174,23 +174,30 @@ const AddNewsLayout = () => {
                             <textarea required id="content" cols="30" rows="10" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
                         </div>
 
-                        {/* Start This is Button in create news */}
-                        <div className='flex justify-between'>
-                            <section>
-                                <button type="button" className='bg-dark-3 text-white'>Preview</button>
-                            </section>
-                            <section>
-                                <Link to='/news' className='border border-black'>Kembali ke Kelola Berita</Link>
-                                <button type="submit" className='bg-green-600 text-white'>Simpan</button>
-                            </section>
-                        </div>
-                        {/* End This is Button in create news */}
-                    </form>
-                    {/* End Content in create news */}
-                </main>
+            <div className="flex flex-col">
+              <label htmlFor="content">Isi Berita</label>
+              <textarea required id="content" cols="30" rows="10" value={content} onChange={(e) => setContent(e.target.value)}></textarea>
             </div>
-        </section>
-    );
-}
+
+            {/* Start This is Button in create news */}
+            <div className="flex justify-end pt-4">
+              
+              <section>
+                <Link to="/news" className="border border-black w-56 bg-white mr-2 pl-5 pr-5 ">
+                  Kembali ke Kelola Berita
+                </Link>
+                <button type="submit" className=" bg-main-color font-semibold w-24 rounded-sm">
+                  Simpan
+                </button>
+              </section>
+            </div>
+            {/* End This is Button in create news */}
+          </form>
+          {/* End Content in create news */}
+        </main>
+      </div>
+    </section>
+  );
+};
 
 export default AddNewsLayout;
