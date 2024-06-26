@@ -1,50 +1,53 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
-import axios from "axios";
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
+import axios from 'axios';
 
 export const fetchNewsComments = createAsyncThunk(
-  "newsComments/fetchNewsComments",
+  'newsComments/fetchNewsComments',
   async (newsId, { getState }) => {
-    const token = sessionStorage.getItem("token");
-    const response = await axios.get(
-      `https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
+    const token = sessionStorage.getItem('token');
+    const response = await axios.get(`https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
     return response.data.data;
+  }
+);
+
+// Thunk untuk menghapus semua komentar terkait berita
+export const deleteAllComments = createAsyncThunk(
+  'newsComments/deleteAllComments',
+  async (newsId, { getState }) => {
+    const token = sessionStorage.getItem('token');
+    await axios.delete(`https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return newsId;
   }
 );
 
 // Thunk untuk menghapus komentar
 export const deleteComment = createAsyncThunk(
-  "newsComments/deleteComment",
-  async ({ newsId, commentId }) => {
-    try {
-      await axios.delete(
-        `https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments/${commentId}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      return commentId;
-    } catch (error) {
-      console.error(`Error deleting comment with ID ${commentId}:`, error);
-      throw error;
-    }
+  'newsComments/deleteComment',
+  async ({ newsId, commentId }, { getState }) => {
+    const token = sessionStorage.getItem('token');
+    await axios.delete(`https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments/${commentId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    });
+    return commentId;
   }
 );
 
 // Thunk untuk menambahkan komentar baru
 export const addComment = createAsyncThunk(
-  "newsComments/addComment",
+  'newsComments/addComment',
   async ({ newsId, text }, { getState }) => {
-    const token = sessionStorage.getItem("token");
-    const response = await axios.post(
-      `https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments`,
+    const token = sessionStorage.getItem('token');
+    const response = await axios.post(`https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}/comments`, 
       { comment: text },
       {
         headers: {
@@ -57,7 +60,7 @@ export const addComment = createAsyncThunk(
 );
 
 const newsCommentSlice = createSlice({
-  name: "newsComments",
+  name: 'newsComments',
   initialState: {
     comments: [],
     loading: false,
@@ -77,14 +80,23 @@ const newsCommentSlice = createSlice({
         state.loading = false;
         state.error = action.error.message;
       })
+      .addCase(deleteAllComments.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(deleteAllComments.fulfilled, (state, action) => {
+        state.loading = false;
+        state.comments = state.comments.filter(comment => comment.newsId !== action.payload);
+      })
+      .addCase(deleteAllComments.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message;
+      })
       .addCase(deleteComment.pending, (state) => {
         state.loading = true;
       })
       .addCase(deleteComment.fulfilled, (state, action) => {
         state.loading = false;
-        state.comments = state.comments.filter(
-          (comment) => comment.id !== action.payload
-        );
+        state.comments = state.comments.filter(comment => comment.id !== action.payload);
       })
       .addCase(deleteComment.rejected, (state, action) => {
         state.loading = false;
