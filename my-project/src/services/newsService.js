@@ -55,3 +55,21 @@ export const getNewsDetail = async (newsId) => {
     throw error; // Rethrow the error to handle it further up the call stack
   }
 };
+
+export const deleteNews = async (newsId) => {
+  try {
+    const token = sessionStorage.getItem("token");
+    await axios.delete(
+      `https://capstone-dev.mdrizki.my.id/api/v1/news/${newsId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    return newsId;
+  } catch (error) {
+    console.error(`Error deleting news with ID ${newsId}:`, error);
+    throw error;
+  }
+};
