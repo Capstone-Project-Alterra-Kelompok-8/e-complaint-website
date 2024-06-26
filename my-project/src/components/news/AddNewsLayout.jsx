@@ -159,9 +159,9 @@ const AddNewsLayout = () => {
                                 <div className="flex flex-col">
                                     <label htmlFor="kategory">Kategori Berita</label>
                                     <select id="kategory" value={categoryId} onChange={(e) => setCategoryId(e.target.value)}>
-                                        <option value="">Pilih kategori Berita</option>
+                                        <option value="" disabled>Pilih kategori Berita</option>
                                         {category.map((category, index) => (
-                                            <option key={index} value={category.ID} required>{category.Name}</option>
+                                            <option key={index} value={category.ID}>{category.Name}</option>
                                         ))}
                                     </select>
                                 </div>
