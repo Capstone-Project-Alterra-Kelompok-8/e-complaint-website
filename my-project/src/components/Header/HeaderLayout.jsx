@@ -14,6 +14,8 @@ const HeaderLayout = () => {
                 return 'Dashboard';
             case '/complaint':
                 return 'Complaint';
+            case `/complaint-detail/${id}`:
+                return 'Detail Complaint';
             case '/chat-user':
                 return 'Chat Page';
             case '/category':
