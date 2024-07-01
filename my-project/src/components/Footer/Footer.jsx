@@ -15,7 +15,7 @@ function Footer() {
                     <h1 className="text-neutral-900 text-2xl font-bold font-poppins mb-4">Keluh Prov</h1>
                     <p className="text-neutral-900 text-base font-poppins leading-relaxed">Keluh Provinsi adalah aplikasi/website aduan masyarakat kepada pemerintah terkait masalah yang ada dimasyarakat, seperti layanan publik, fasilitas publik, dan lainnya</p>
                 </div>
-            </div>x
+            </div>
 
             <div className="md:w-1/3 mt-8 md:mt-16 ml-20">
                 <h1 className="text-neutral-900 text-2xl font-bold font-poppins mb-4">Kanal Aduan</h1>
