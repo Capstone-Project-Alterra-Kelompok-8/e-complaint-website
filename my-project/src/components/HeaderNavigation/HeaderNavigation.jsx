@@ -15,7 +15,7 @@ const Navbar = () => {
         <a href=""><img className="w-32 h-auto lg:w-64 lg:h-14" src={logo} alt="Logo" /></a>
       </div>
       <div className="hidden md:flex justify-center items-center gap-16">
-        <a className="text-zinc-900 text-xl font-normal font-montserrat leading-tight hover:text-main-darker" href='#'>Home</a>
+        <a className="text-zinc-900 text-xl font-normal font-montserrat leading-tight hover:text-main-darker" href='#home'>Home</a>
         <a className="text-zinc-900 text-xl font-normal font-montserrat leading-tight hover:text-main-darker" href='#benefit'>Benefit</a>
         <a className="text-zinc-900 text-xl font-normal font-montserrat leading-tight hover:text-main-darker" href='#features'>Features</a>
         <a className="text-zinc-900 text-xl font-normal font-montserrat leading-tight hover:text-main-darker" href='#testimoni'>Testimoni</a>
