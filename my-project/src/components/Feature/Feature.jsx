@@ -7,7 +7,7 @@ import redDots from '../../assets/titik2.png';
 
 export default function Features() {
   return (
-    <div className="h-auto lg:h-[670px] bg-main-color flex flex-col lg:flex-row justify-between p-4 lg:pe-14 relative" id="features">
+    <div className="h-auto lg:h-[800px] bg-main-color flex flex-col lg:flex-row justify-between p-4 lg:pe-14 relative" id="features">
       {/* Background SVG */}
       <div className="absolute inset-0 lg:pl-96 lg:hidden hidden">
         <svg width="979" height="740" viewBox="0 0 979 740" fill="none" xmlns="http://www.w3.org/2000/svg">
