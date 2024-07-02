@@ -1,12 +1,28 @@
 const RiwayatAduan = ({ data }) => {
-
   const sortedData = data
     .sort((a, b) => new Date(b.complaint.date) - new Date(a.complaint.date))
     .slice(0, 3);
 
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Pending":
+        return "bg-dark-3"
+      case "Verifikasi":
+        return "bg-info-3";
+      case "On Progress":
+        return "bg-main-color";
+      case "Selesai":
+        return "bg-success-3"
+      case "Ditolak":
+        return "bg-error-3"
+      default:
+        return "bg-light-3";
+    }
+  };
+
   return (
     <div className="bg-main-lighter p-4 rounded-lg shadow-md mt-8">
-      <h2 className="text-xl font-bold mb-4">Riwayat Aduan Terbaru</h2>
+      <h2 className="text-xl font-bold mb-4">Riwayat Aduan</h2>
       <div className="overflow-x-auto">
         <table className="min-w-full bg-white">
           <thead className="bg-main-color text-black">
@@ -41,7 +57,11 @@ const RiwayatAduan = ({ data }) => {
                   </span>
                 </td>
                 <td className="py-3 px-4">
-                  <span className="bg-[#FEF7FF] text-[#49454F] font-poppins font-medium py-3 px-4 rounded-lg">
+                  <span
+                    className={`font-poppins font-medium py-3 px-4 rounded-lg text-light-4  ${getStatusColor(
+                      item.complaint.status
+                    )}`}
+                  >
                     {item.complaint.status}
                   </span>
                 </td>
