@@ -248,10 +248,10 @@ const DetailComplaintLayout = () => {
             {showModal && (
               <div className="fixed inset-0 z-50 flex items-center justify-center bg-gray-800 bg-opacity-75">
                 <div className="bg-white p-8 rounded-lg w-[500px]">
-                  <h2 className="text-xl font-semibold mb-4">Input Progress</h2>
+                  <h2 className="text-xl font-bold mb-4">Status</h2>
                   <div className="mb-4">
-                    <label htmlFor="progress" className="block mb-1">
-                      Progress
+                    <label htmlFor="progress" className="block mb-1 font-bold">
+                      Status Verifikasi
                     </label>
                     <select
                       id="progress"
@@ -267,8 +267,8 @@ const DetailComplaintLayout = () => {
                     </select>
                   </div>
                   <div className="mb-4">
-                    <label htmlFor="description" className="block mb-1">
-                      Description
+                    <label htmlFor="description" className="block mb-1 font-bold">
+                      Deskripsi
                     </label>
                     <input
                       type="text"
