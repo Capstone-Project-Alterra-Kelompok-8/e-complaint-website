@@ -173,16 +173,16 @@ const ListComplaint = () => {
   }
 
   return (
-    <section className="flex w-full flex-col">
+    <section className="flex w-full flex-col bg-light-1">
       <HeaderLayout />
       <SidebarLayout />
-      <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
+      <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto bg-light-1">
         <main className="container mx-auto px-4 py-4">
           <section className="flex flex-col items-start mb-4 text-left">
             <h1 className="text-3xl font-bold">Kelola Complaint</h1>
           </section>
 
-          <Box p={2} sx={{ backgroundColor: "#E5E7EB" }}>
+          <Box p={2} sx={{ backgroundColor: "#E2E2E2" }}>
             <div className="flex items-center justify-end mb-4 space-x-2">
               <TextField
                 variant="outlined"
