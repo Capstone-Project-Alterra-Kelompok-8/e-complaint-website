@@ -236,13 +236,13 @@ const EditNewsLayout = () => {
               <section>
                 <Link
                   to="/news"
-                  className="border border-black w-56 bg-white mr-2 pl-5 pr-5 "
+                  className="border border-black w-56 bg-white mr-2 pl-5 pr-5 py-1 rounded"
                 >
                   Kembali ke Kelola Berita
                 </Link>
                 <button
                   type="submit"
-                  className=" bg-main-color font-semibold w-24 rounded-sm"
+                  className=" bg-main-color font-semibold w-24 py-1 rounded"
                 >
                   Simpan
                 </button>

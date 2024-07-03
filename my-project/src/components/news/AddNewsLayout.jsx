@@ -1,76 +1,85 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import HeaderLayout from '../Header/HeaderLayout';
 import SidebarLayout from '../Header/SidebarLayout';
-import { FileInput, Label } from 'flowbite-react';
+import { useDropzone } from 'react-dropzone';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 
 const AddNewsLayout = () => {
   const [category, setCategory] = useState([]);
-  const [title, setTitle] = useState('');
-  const [content, setContent] = useState('');
-  const [categoryId, setCategoryId] = useState('');
+  const [title, setTitle] = useState("");
+  const [content, setContent] = useState("");
+  const [categoryId, setCategoryId] = useState("");
   const [file, setFile] = useState(null);
   const [preview, setPreview] = useState(null);
-  const token = sessionStorage.getItem('token');
+  const token = sessionStorage.getItem("token");
 
   useEffect(() => {
     const fetchCategories = async () => {
       try {
-        const response = await axios.get('https://capstone-dev.mdrizki.my.id/api/v1/categories', {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        });
+        const response = await axios.get(
+          "https://capstone-dev.mdrizki.my.id/api/v1/categories",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
 
         const data = response.data;
         setCategory(data.data);
       } catch (error) {
-        console.error('Error fetching categories:', error);
+        console.error("Error fetching categories:", error);
       }
     };
 
     fetchCategories();
   }, [token]);
 
-  const handleFileChange = (event) => {
-    const file = event.target.files[0];
+  const onDrop = useCallback((acceptedFiles) => {
+    const file = acceptedFiles[0];
     setFile(file);
     setPreview(URL.createObjectURL(file));
-  };
+  }, []);
+
+  const { getRootProps, getInputProps } = useDropzone({ onDrop });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append('title', title);
-    formData.append('content', content);
-    formData.append('category_id', categoryId);
-    formData.append('files', file);
+    formData.append("title", title);
+    formData.append("content", content);
+    formData.append("category_id", categoryId);
+    formData.append("files", file);
 
     try {
-      await axios.post('https://capstone-dev.mdrizki.my.id/api/v1/news', formData, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      await axios.post(
+        "https://capstone-dev.mdrizki.my.id/api/v1/news",
+        formData,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
-      setTitle('');
-      setContent('');
-      setCategoryId('');
+      setTitle("");
+      setContent("");
+      setCategoryId("");
       setFile(null);
       setPreview(null);
       Swal.fire({
-        position: 'top-end',
-        icon: 'success',
-        title: 'Successfully added new news',
+        position: "top-end",
+        icon: "success",
+        title: "Successfully added new news",
         showConfirmButton: false,
         timer: 1500,
       });
     } catch (error) {
-      console.error('Error saving news:', error);
-      alert('Terjadi kesalahan saat menyimpan berita');
+      console.error("Error saving news:", error);
+      alert("Terjadi kesalahan saat menyimpan berita");
     }
   };
 
@@ -91,10 +100,11 @@ const AddNewsLayout = () => {
               <div className="flex items-start space-x-4">
                 {/* This upload file */}
                 <div className="flex w-1/2 items-center justify-center">
-                  <Label
-                    htmlFor="dropzone-file"
+                  <div
+                    {...getRootProps()}
                     className="flex h-64 w-full cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-[#D50000] bg-gray-50 hover:bg-gray-100 dark:border-gray-600 dark:bg-gray-700 dark:hover:border-gray-500 dark:hover:bg-gray-600"
                   >
+                    <input {...getInputProps()} />
                     <div className="flex flex-col items-center justify-center pb-6 pt-5">
                       {preview ? (
                         <img
@@ -154,13 +164,7 @@ const AddNewsLayout = () => {
                         </>
                       )}
                     </div>
-                    <FileInput
-                      id="dropzone-file"
-                      className="hidden"
-                      onChange={handleFileChange}
-                      required
-                    />
-                  </Label>
+                  </div>
                 </div>
 
                 <div className="flex flex-col w-1/2 space-y-4">
@@ -235,3 +239,4 @@ const AddNewsLayout = () => {
 };
 
 export default AddNewsLayout;
+

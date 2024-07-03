@@ -29,9 +29,9 @@ const HeaderLayout = () => {
             case '/news-create':
                 return 'Berita';
             case '/super-admin/admin':
-                return 'Super Admin - Admin';
+                return 'Super Admin';
             case '/super-admin/user':
-                return 'Super Admin - User';
+                return 'Super Admin';
             default:
                 return 'Welcome';
         }
