@@ -193,12 +193,12 @@ function ListAdminLayout() {
     };
 
     return (
-        <section className="flex w-full flex-col">
+        <section className="flex w-full flex-col bg-light-1">
             <HeaderLayout />
             <SidebarLayout />
             <SuperAdminPanel />
-            <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
-                <main className="bg-[#E2E2E2] lg:max-w-[99%] py-4 px-4 rounded-md lg:min-h-[70dvh] overflow-y-auto">
+            <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto bg-light-2">
+                <main className="lg:max-w-[99%] py-4 px-4 rounded-md lg:min-h-[70dvh] overflow-y-auto">
                     <section className="pl-4">
                         <button
                             type="button"
