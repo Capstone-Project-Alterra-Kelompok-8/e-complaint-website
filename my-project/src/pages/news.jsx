@@ -31,7 +31,7 @@ const NewsPage = () => {
             <SidebarLayout />
             <div className="flex-grow lg:ml-[287px] min-h-[80dvh] overflow-y-auto">
                 <div className="bg-light-2 px-8">
-                    <div className="pt-9 font-poppin text-3xl font-bold">
+                    <div className="pt-9 font-poppins text-3xl font-bold">
                         Kelola Berita
                     </div>
                     <div className="container mt-9 w-full bg-gray-300 justify-between px-5 pt-5 rounded-lg min-h-[70vh]">
