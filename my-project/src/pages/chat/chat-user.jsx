@@ -12,17 +12,16 @@ const ChatUser = () => {
 
       <div className="lg:ml-72 min-h-[80dvh] overflow-y-auto">
         <div className="bg-light-2 px-8">
-          <div className="pt-9 font-poppins text-black text-4xl font-medium">
-            Kelola Chat
-          </div>
+          <section className="flex flex-col items-start mb-4 pt-8 text-left">
+            <h1 className="text-3xl font-bold">Kelola Chat</h1>
+          </section>
           <div className="container mt-9 w-full justify-between rounded-lg min-h-[80vh]">
             <Chat />
           </div>
         </div>
-
       </div>
     </>
-  )
+  );
 }
 
 export default ChatUser

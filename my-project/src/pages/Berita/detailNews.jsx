@@ -25,7 +25,7 @@ export default function DetailNews() {
       <SidebarLayout />
       <div className="bg-light-2 px-3 pb-6">
         <div className="lg:ml-80 pt-9 flex gap-5 ">
-          <span className="font-poppins text-black text-4xl font-medium">Detail Berita</span>
+          <span className="font-poppins font-bold text-3xl">Detail Berita</span>
           <ButtonNews mode="edit" />
         </div>
         <div className="container mt-9 lg:ml-80 lg:flex lg:gap-2 bg-gray-300 w-fit justify-between p-5 rounded-lg">
