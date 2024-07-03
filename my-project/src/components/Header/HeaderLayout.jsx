@@ -15,7 +15,7 @@ const HeaderLayout = () => {
             case '/complaint':
                 return 'Complaint';
             case `/complaint-detail/${id}`:
-                return 'Detail Complaint';
+                return 'Complaint';
             case '/chat-user':
                 return 'Chat Page';
             case '/category':
@@ -23,15 +23,15 @@ const HeaderLayout = () => {
             case '/news':
                 return 'Berita';
             case `/news-detail/${id}`:
-                return 'Berita Detail';
+                return 'Berita';
             case `/news-detail/${id}/edit`:
-                return 'Berita Detail - Edit';
+                return 'Berita';
             case '/news-create':
-                return 'Tambah Berita';
+                return 'Berita';
             case '/super-admin/admin':
-                return 'Super Admin - Admin';
+                return 'Super Admin';
             case '/super-admin/user':
-                return 'Super Admin - User';
+                return 'Super Admin';
             default:
                 return 'Welcome';
         }

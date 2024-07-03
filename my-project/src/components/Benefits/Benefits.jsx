@@ -6,7 +6,7 @@ import iphoneImage from '../../assets/gambar-titik.png';
 
 const Benefits = () => {
   return (
-    <div className="h-auto lg:h-[670px] bg-white flex flex-col lg:flex-row justify-between p-6 lg:ps-16 lg:pe-20 relative" id="benefit">
+    <div className="lg:h-[750px] bg-white flex flex-col lg:flex-row justify-between p-6 lg:ps-16 lg:pe-20 relative" id="benefit">
       {/* Phone Mockups */}
       <div className="relative mb-10 lg:mb-0 mt-auto flex justify-center lg:justify-start">
         <img src={iphoneImage} alt="image" className="w-full lg:w-[600px] h-auto lg:h-[670px] max-w-full pb-6 lg:pb-16  mr-0 lg:mr-10" />

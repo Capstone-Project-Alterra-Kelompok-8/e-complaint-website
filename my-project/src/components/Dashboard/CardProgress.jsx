@@ -1,6 +1,6 @@
 const CardProgress = ({ number, text, icon, backgroundImage }) => {
   return (
-    <div className="relative w-full max-w-[250px] h-[141px] bg-warning-3 rounded-[10px] overflow-hidden m-2">
+    <div className="relative flex-1 h-[141px] bg-warning-3 rounded-[10px] overflow-hidden m-2">
       <div className="absolute top-[60px] left-[7px] font-bold text-[#1a1a1a] text-[32px]">
         {number}
       </div>
@@ -15,7 +15,7 @@ const CardProgress = ({ number, text, icon, backgroundImage }) => {
         />
       )}
       <img
-        className="absolute w-[42px] h-[38Cpx] top-[20px] left-[7px]"
+        className="absolute w-[42px] h-[38px] top-[20px] left-[7px]"
         alt="Icon"
         src={icon}
       />

@@ -201,7 +201,7 @@ function CategoryLayout() {
       <SidebarLayout />
       <div className=" pl-80 py-3 px-2 min-h-[80dvh]  overflow-y-auto bg-light-1">
         <main className="py-4 px-2">
-          <h1 className="text-2xl lg:text-4xl mb-5">Kategori</h1>
+          <h1 className="text-3xl mb-5 font-bold">Kategori</h1>
           <section className="flex justify-between">
             <button type="button" className="flex bg-main-color py-2 pl-4 pr-6 rounded-md mb-4 hover:bg-main-darker" onClick={() => setIsAdding(true)}>
               <PlusIcon className="size-6 text-black" />
@@ -259,7 +259,7 @@ function CategoryLayout() {
           {isAdding && (
             <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
               <form onSubmit={handleNewCategorySubmit} className="bg-white p-8 rounded shadow-md w-full max-w-md">
-                <h2 className="text-2xl mb-4 font-bold">Tambah Kategori Baru</h2>
+                <h2 className="text-2xl mb-4 font-bold">Tambah Kategori</h2>
                 <div className="mb-4">
                   <label className="block mb-2 font-bold" htmlFor="Name">
                     Nama

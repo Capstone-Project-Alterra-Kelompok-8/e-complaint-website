@@ -48,7 +48,7 @@ const ChatItem = ({ chat }) => {
 
 const ChatDetail = () => {
   return (
-    <div className="w-full max-w-4xl mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+    <div className="w-full mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
       {/* Chat Header */}
       <div className="bg-main-color text-white text-3xl font-bold p-2.5">Chat</div>
       <div className="text-lg p-3 flex items-center">

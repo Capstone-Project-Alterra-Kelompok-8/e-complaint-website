@@ -1,4 +1,6 @@
 import { useState } from "react";
+import { format } from "date-fns";
+import { id } from "date-fns/locale";
 
 const Content = ({ complaint }) => {
   const [currentImage, setCurrentImage] = useState(0);
@@ -128,7 +130,11 @@ const Content = ({ complaint }) => {
           <div className="w-full flex flex-col lg:flex-row gap-2">
             <section className="bg-[#E6E0E9] py-1 px-4 rounded-t-lg w-full">
               <h6>Tanggal Aduan</h6>
-              <p>{complaint.date}</p>
+              <p>
+                {format(new Date(complaint.date), "dd MMMM yyyy", {
+                  locale: id,
+                })}
+              </p>
             </section>
             <section className="bg-[#E6E0E9] py-1 px-4 rounded-t-lg w-full">
               <h6>Lokasi</h6>

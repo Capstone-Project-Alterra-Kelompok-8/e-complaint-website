@@ -17,6 +17,7 @@ import {
   FormControl,
   Select,
   InputLabel,
+  CircularProgress,
 } from "@mui/material";
 import { Search } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
@@ -32,6 +33,8 @@ const ListComplaint = () => {
   const [filteredComplaints, setFilteredComplaints] = useState([]);
   const [categories, setCategories] = useState([]);
   const [selectedCategory, setSelectedCategory] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -43,6 +46,7 @@ const ListComplaint = () => {
   }, [searchTerm, complaints, selectedCategory]);
 
   const fetchComplaints = async () => {
+    setLoading(true);
     try {
       const token = sessionStorage.getItem("token");
       const response = await axios.get(
@@ -54,11 +58,17 @@ const ListComplaint = () => {
           },
         }
       );
-      setComplaints(response.data.data);
-      setFilteredComplaints(response.data.data);
-      extractCategories(response.data.data);
+      const sortedComplaints = response.data.data.sort(
+        (a, b) => new Date(b.updated_at) - new Date(a.updated_at)
+      );
+      setComplaints(sortedComplaints);
+      setFilteredComplaints(sortedComplaints);
+      extractCategories(sortedComplaints);
     } catch (error) {
       console.error("Error fetching complaints:", error);
+      setError(error.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -86,15 +96,31 @@ const ListComplaint = () => {
           complaint.regency.name
             .toLowerCase()
             .includes(searchTerm.toLowerCase()) ||
-          complaint.id
-            .toLowerCase()
-            .includes(searchTerm.toLowerCase()) ||
+          complaint.id.toLowerCase().includes(searchTerm.toLowerCase()) ||
           complaint.type.toLowerCase().includes(searchTerm.toLowerCase())) &&
         (selectedCategory === "" ||
           complaint.category.name === selectedCategory)
       );
     });
     setFilteredComplaints(filtered);
+    setPage(0);
+  };
+
+  const getStatusColor = (status) => {
+    switch (status) {
+      case "Pending":
+        return "bg-dark-3";
+      case "Verifikasi":
+        return "bg-info-3";
+      case "On Progress":
+        return "bg-main-color";
+      case "Selesai":
+        return "bg-success-3";
+      case "Ditolak":
+        return "bg-error-3";
+      default:
+        return "bg-light-3";
+    }
   };
 
   const handleSearch = (event) => {
@@ -114,22 +140,50 @@ const ListComplaint = () => {
     setPage(0);
   };
 
-   const handleDetailClick = (complaintId) => {
-     navigate(`/complaint-detail/${complaintId}`); // Navigate to complaint detail page with complaintId
-   };
+  const handleDetailClick = (complaintId) => {
+    navigate(`/complaint-detail/${complaintId}`);
+  };
+
+  if (loading) {
+    return (
+      <section className="flex w-full flex-col">
+        <HeaderLayout />
+        <SidebarLayout />
+        <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
+          <main className="container mx-auto px-4 py-4">
+            <CircularProgress color="primary" />
+          </main>
+        </div>
+      </section>
+    );
+  }
+
+  if (error) {
+    return (
+      <section className="flex w-full flex-col">
+        <HeaderLayout />
+        <SidebarLayout />
+        <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
+          <main className="container mx-auto px-4 py-4">
+            <p>There was an error: {error}</p>
+          </main>
+        </div>
+      </section>
+    );
+  }
 
   return (
-    <section className="flex w-full flex-col">
+    <section className="flex w-full flex-col bg-light-1">
       <HeaderLayout />
       <SidebarLayout />
-      <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto">
-        <main className="container mx-auto px-4 py-4">
+      <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto bg-light-1">
+        <main className="container mx-auto py-2">
           <section className="flex flex-col items-start mb-4 text-left">
             <h1 className="text-3xl font-bold">Kelola Complaint</h1>
           </section>
 
-          <Box p={2} sx={{ backgroundColor: "#E5E7EB" }}>
-            <div className="flex items-center justify-between mb-4">
+          <Box p={2} sx={{ backgroundColor: "#E2E2E2" }}>
+            <div className="flex items-center justify-end mb-4 space-x-2">
               <TextField
                 variant="outlined"
                 placeholder="Kata kunci atau tracking ID"
@@ -143,11 +197,14 @@ const ListComplaint = () => {
                   ),
                   sx: {
                     backgroundColor: "white",
+                    borderRadius: "0.5rem",
                   },
                 }}
-                sx={{ flex: 1, marginRight: 0 }}
+                sx={{
+                  width: "400px",
+                }}
               />
-              <FormControl sx={{ minWidth: 120 }}>
+              <FormControl sx={{ minWidth: 150 }}>
                 <InputLabel id="category-select-label">Filter</InputLabel>
                 <Select
                   labelId="category-select-label"
@@ -156,8 +213,7 @@ const ListComplaint = () => {
                   onChange={handleCategoryChange}
                   label="Filter"
                   sx={{
-                    borderTopLeftRadius: 0,
-                    borderBottomLeftRadius: 0,
+                    borderRadius: "0.5rem",
                     backgroundColor: "white",
                   }}
                 >
@@ -208,17 +264,21 @@ const ListComplaint = () => {
                         </TableCell>
                         <TableCell>{complaint.regency.name}</TableCell>
                         <TableCell align="center">
-                          <span className="bg-light-4 px-3 py-2 rounded">
+                          <span className="bg-light-4 px-3 py-2">
                             {complaint.category.name}
                           </span>
                         </TableCell>
                         <TableCell align="center">
-                          <span className="bg-light-4 px-3 py-2 rounded">
+                          <span className="bg-light-4 px-3 py-2">
                             {complaint.type}
                           </span>
                         </TableCell>
                         <TableCell align="center">
-                          <span className="bg-light-4 px-3 py-2 rounded">
+                          <span
+                            className={`px-3 py-2 text-light-4 ${getStatusColor(
+                              complaint.status
+                            )}`}
+                          >
                             {complaint.status}
                           </span>
                         </TableCell>
