@@ -177,7 +177,7 @@ const ListComplaint = () => {
       <HeaderLayout />
       <SidebarLayout />
       <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto bg-light-1">
-        <main className="container mx-auto px-4 py-4">
+        <main className="container mx-auto py-2">
           <section className="flex flex-col items-start mb-4 text-left">
             <h1 className="text-3xl font-bold">Kelola Complaint</h1>
           </section>

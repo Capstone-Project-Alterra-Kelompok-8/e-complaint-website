@@ -23,7 +23,7 @@ const HeaderLayout = () => {
             case '/news':
                 return 'Berita';
             case `/news-detail/${id}`:
-                return 'Berita Detail';
+                return 'Berita';
             case `/news-detail/${id}/edit`:
                 return 'Berita Detail - Edit';
             case '/news-create':
