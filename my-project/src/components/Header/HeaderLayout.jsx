@@ -27,7 +27,7 @@ const HeaderLayout = () => {
             case `/news-detail/${id}/edit`:
                 return 'Berita';
             case '/news-create':
-                return 'Tambah Berita';
+                return 'Berita';
             case '/super-admin/admin':
                 return 'Super Admin - Admin';
             case '/super-admin/user':
