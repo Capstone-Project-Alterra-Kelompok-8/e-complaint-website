@@ -167,7 +167,7 @@ function ListUserLayout() {
             <SidebarLayout />
             <SuperAdminPanel />
             <div className="lg:ml-80 py-3 px-2 min-h-[80dvh] overflow-y-auto bg-light-2">
-                <main className="lg:max-w-[99%] py-4 px-4 rounded-md lg:min-h-[70dvh] lg:overflow-y-auto">
+                <main className="lg:max-w-[99%] rounded-md lg:min-h-[70dvh] lg:overflow-y-auto">
                     <Box p={2}>
                         <TableContainer component={Paper} className="font-poppins" sx={{ backgroundColor: "#E5E7EB" }}>
                             <Table>

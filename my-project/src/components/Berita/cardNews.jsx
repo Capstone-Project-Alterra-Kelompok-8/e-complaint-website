@@ -40,7 +40,7 @@ export default function CardNews({ id, image, title, description, total_likes })
         <div className="lg:w-[486px] h-auto px-5 py-8 bg-slate-50 rounded-2xl flex flex-col shadow">
             <img className="w-full h-48 rounded-lg shadow" src={image} alt={title} />
             <div className="w-full flex-col justify-start items-start gap-4 inline-flex">
-                <div className="text-center text-black text-2xl font-medium font-poppins leading-tight tracking-tight mt-3">
+                <div className="text-start text-black text-2xl font-medium font-poppins leading-tight tracking-tight mt-3">
                     {title}
                 </div>
                 <div className="text-justify text-black text-base font-medium font-montserrat leading-7">
