@@ -227,7 +227,7 @@ function CategoryLayout() {
                   placeholder="Search for..."
                   value={searchKeyword}
                   onChange={handleSearchInputChange}
-                  className="ps-9 w-full rounded-md border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm"
+                  className="ps-9 w-[400px] rounded-md border-gray-200 py-2.5 pe-10 shadow-sm sm:text-sm"
                 />
 
                 <span className="absolute left-0 inset-y-0 end-0 grid w-12 -mt-3 place-content-center">
